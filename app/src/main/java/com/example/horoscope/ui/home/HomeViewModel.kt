@@ -1,4 +1,4 @@
-package com.example.horoscope.ui.splash.home
+package com.example.horoscope.ui.home
 
 import androidx.lifecycle.ViewModel
 
