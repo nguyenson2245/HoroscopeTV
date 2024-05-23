@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.horoscope"
+        applicationId = "com.smartwavettn.horoscope"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
