@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Horoscope</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tibetanHoroscope">Tibetan Horoscope</string>
+    <string name="individual">individual</string>
+    <string name="getYourHoroscope">Get your horoscope</string>
 </resources>

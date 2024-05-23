@@ -53,4 +53,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation("androidx.fragment:fragment-ktx:1.7.1")
+
+    implementation("com.intuit.sdp:sdp-android:1.1.1")
 }

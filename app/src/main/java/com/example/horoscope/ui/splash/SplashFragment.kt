@@ -26,8 +26,8 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
     override fun init() {
         preferences = Preferences.getInstance(requireActivity())
         Handler(Looper.getMainLooper()).postDelayed({
-
-        }, 2000)
+                openFragment(IntroOneFragment::class.java,null,true)
+        }, 1000)
     }
 
     override fun initData() {
