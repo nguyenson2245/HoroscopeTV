@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.horoscope"
+    namespace = "com.smartwavettn.horoscope"
     compileSdk = 34
 
     defaultConfig {

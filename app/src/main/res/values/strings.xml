@@ -5,4 +5,6 @@
     <string name="tibetanHoroscope">Tibetan Horoscope</string>
     <string name="individual">individual</string>
     <string name="getYourHoroscope">Get your horoscope</string>
+    <string name="uploadImage">Upload image +</string>
+    <string name="dateOfBirth">Date of birth :</string>
 </resources>

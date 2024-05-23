@@ -3,7 +3,7 @@ package com.example.horoscope.customview
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import com.example.horoscope.databinding.CalendertDayBinding
+import com.smartwavettn.horoscope.databinding.CalendertDayBinding
 
 class CalanderDay(context: Context) : FrameLayout(context) {
     private lateinit var binding : CalendertDayBinding

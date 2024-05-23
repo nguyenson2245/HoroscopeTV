@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.horoscope.R
-import com.example.horoscope.databinding.FragmentHomeBinding
 import com.example.scannerqr.base.BaseFragmentWithBinding
+import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
