@@ -3,10 +3,10 @@ package com.example.horoscope.ui
 import android.os.Build
 import android.view.LayoutInflater
 import com.example.horoscope.base.local.Preferences
-import com.example.horoscope.databinding.ActivityMainBinding
 import com.example.horoscope.ui.home.HomeFragment
 import com.example.scanqr.ui.splash.SplashFragment
 import com.example.socialmedia.base.BaseActivity
+import com.smartwavettn.horoscope.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 

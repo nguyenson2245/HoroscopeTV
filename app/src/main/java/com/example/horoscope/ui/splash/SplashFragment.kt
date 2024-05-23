@@ -5,9 +5,9 @@ import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import com.example.horoscope.base.local.Preferences
-import com.example.horoscope.databinding.FragmentSplashBinding
 
 import com.example.scannerqr.base.BaseFragmentWithBinding
+import com.smartwavettn.horoscope.databinding.FragmentSplashBinding
 
 class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
 
