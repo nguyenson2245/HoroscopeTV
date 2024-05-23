@@ -6,6 +6,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import com.example.horoscope.base.local.Preferences
 import com.example.horoscope.databinding.FragmentSplashBinding
+import com.example.horoscope.ui.intro.IntroOneFragment
 
 import com.example.scannerqr.base.BaseFragmentWithBinding
 
@@ -26,8 +27,8 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
     override fun init() {
         preferences = Preferences.getInstance(requireActivity())
         Handler(Looper.getMainLooper()).postDelayed({
-
-        }, 2000)
+                openFragment(IntroOneFragment::class.java,null,true)
+        }, 1000)
     }
 
     override fun initData() {
