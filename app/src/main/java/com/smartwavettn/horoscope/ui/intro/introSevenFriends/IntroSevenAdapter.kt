@@ -1,4 +1,4 @@
-package com.smartwavettn.horoscope.ui.intro.introTwo
+package com.smartwavettn.horoscope.ui.intro.introSevenFriends
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
@@ -9,7 +9,7 @@ import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
 import com.smartwavettn.horoscope.databinding.ItemAvatarBinding
 import com.smartwavettn.horoscope.model.Avatar
 
-class AvatarAdapter (val click: (Class<*>) -> Unit) : BaseRecyclerAdapter<Avatar, AvatarAdapter.AvatarViewHolder>(){
+class IntroSevenAdapter (val click: (Class<*>) -> Unit) : BaseRecyclerAdapter<Avatar, IntroSevenAdapter.AvatarViewHolder>(){
 
     inner class AvatarViewHolder(val binding : ViewDataBinding) : BaseViewHolder<Avatar>(binding){
         override fun bind(itemData: Avatar?) {

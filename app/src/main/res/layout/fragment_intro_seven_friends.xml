@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".ui.intro.introTwo.IntroTwoFragment">
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -140,7 +140,18 @@
             </androidx.cardview.widget.CardView>
 
             <Button
-                android:id="@+id/btnContinue"
+                android:id="@+id/no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:background="@drawable/custom_button_tra"                android:text="@string/noThanks" />
+
+            <Button
+                android:id="@+id/yes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -148,7 +159,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_100sdp"
                 android:background="@drawable/custom_button_gradien"
-                android:text="@string/continue_" />
+                android:text="Add" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

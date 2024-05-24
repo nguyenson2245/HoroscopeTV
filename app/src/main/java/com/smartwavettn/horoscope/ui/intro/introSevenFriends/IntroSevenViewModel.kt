@@ -1,4 +1,4 @@
-package com.smartwavettn.horoscope.ui.intro.introTwo
+package com.smartwavettn.horoscope.ui.intro.introSevenFriends
 
 import android.app.DatePickerDialog
 import android.content.Context
@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-class IntroTwoViewModel : BaseViewModel() {
+class IntroSevenViewModel : BaseViewModel() {
 
     private val avatar: ArrayList<Avatar> = arrayListOf()
     val listAvatarLiveData: MutableLiveData<ArrayList<Avatar>> = MutableLiveData()
@@ -52,26 +52,5 @@ class IntroTwoViewModel : BaseViewModel() {
     }
 
 
-     fun showDatePickerEnd(context: Context , setText : (String) -> Unit) {
-        val dateSetListener = DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-            calendar.set(Calendar.YEAR, year)
-            calendar.set(Calendar.MONTH, monthOfYear)
-            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            endDay(setText)
-        }
 
-        DatePickerDialog(
-            context,
-            dateSetListener,
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        ).show()
-    }
-
-    private fun endDay(setText : (String) -> Unit) {
-        val myFormat = "dd/MM/yyyy"
-        val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
-        setText.invoke(sdf.format(calendar.time))
-    }
 }
