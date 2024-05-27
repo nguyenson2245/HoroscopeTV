@@ -1,18 +1,12 @@
 package com.smartwavettn.horoscope.ui.intro.introTwo
 
-import android.app.DatePickerDialog
-import android.util.Log
 import android.view.LayoutInflater
-import android.widget.DatePicker
 import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentIntroTwoBinding
-import com.smartwavettn.horoscope.ui.intro.introThree_Information.IntroThreeFragment
+import com.smartwavettn.horoscope.ui.intro.introThreeInformation.IntroThreeFragment
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 

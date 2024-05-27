@@ -28,4 +28,7 @@
     <string name="setiing">Setting up your personal</string>
     <string name="horoscope">horoscope forecast</string>
     <string name="wait">Please wait a seconds</string>
+    <string name="personalHoroscope">Your personal horoscope is</string>
+    <string name="calculatedUpTo2028">calculated up to 2028</string>
+    <string name="howToUseHoroscope">How to use horoscope?</string>
 </resources>

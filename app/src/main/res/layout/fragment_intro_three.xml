@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".ui.intro.introThree_Information.IntroThreeFragment">
+    tools:context=".ui.intro.introThreeInformation.IntroThreeFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
