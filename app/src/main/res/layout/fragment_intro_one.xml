@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/background"
     android:layout_height="match_parent"
-    tools:context=".ui.intro.IntroOneFragment">
+    tools:context=".ui.intro.introOne.IntroOneFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -21,7 +22,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tibetanHoroscope"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textbg"
                     android:textStyle="bold" />
 
                 <TextView
@@ -29,14 +30,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/individual"
-                    android:textColor="@color/black"
+                    android:textColor="@color/textbg"
                     android:textStyle="bold" />
     </LinearLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="@dimen/_275sdp"
-        android:layout_height="@dimen/_275sdp"
+        android:layout_width="@dimen/_245sdp"
+        android:layout_height="@dimen/_245sdp"
         android:src="@drawable/intro1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,11 +45,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:layout_margin="16dp"
         android:id="@+id/getYourHoroscope"
-        android:padding="@dimen/_10sdp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_button"
+        android:background="@drawable/custom_button_gradien"
         android:text="@string/getYourHoroscope"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

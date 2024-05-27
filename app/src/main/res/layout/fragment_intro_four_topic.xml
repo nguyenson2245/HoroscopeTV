@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".ui.intro.introFourTopic.IntroFourTopicFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tibetanHoroscope"
+                android:textColor="@color/textbg"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/individual"
+                android:textColor="@color/textbg"
+                android:textSize="35sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/relationship"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout1"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/custom_bg2"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/intro41" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="@string/relationship"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkbox_relationship"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:button="@drawable/custom_checkbox"
+                android:checked="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/family"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relationship"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/custom_bg2"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/intro42" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="@string/family"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkbox_family"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:button="@drawable/custom_checkbox"
+                android:checked="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/money"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/family"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/custom_bg2"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/intro43" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="@string/money"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkbox_money"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:button="@drawable/custom_checkbox"
+                android:checked="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/job"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/money"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/custom_bg2"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/intro44" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="@string/job"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkbox_job"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:button="@drawable/custom_checkbox"
+                android:checked="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/health"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/job"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/custom_bg2"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/intro45" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="@string/health"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkbox_health"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:button="@drawable/custom_checkbox"
+                android:checked="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/travel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/health"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@drawable/custom_bg2"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/intro46" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:text="@string/travel"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <CheckBox
+                android:id="@+id/checkbox_travel"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:button="@drawable/custom_checkbox"
+                android:checked="false"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <Button
+            android:layout_below="@+id/travel"
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:background="@drawable/custom_button_gradien"
+            android:text="@string/continue_" />
+
+    </RelativeLayout>
+
+
+</androidx.core.widget.NestedScrollView>

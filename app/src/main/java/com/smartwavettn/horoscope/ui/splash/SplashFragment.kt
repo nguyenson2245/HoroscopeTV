@@ -8,7 +8,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import com.smartwavettn.horoscope.base.local.Preferences
-import com.smartwavettn.horoscope.ui.intro.IntroOneFragment
+import com.smartwavettn.horoscope.ui.intro.introOne.IntroOneFragment
 
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentSplashBinding
