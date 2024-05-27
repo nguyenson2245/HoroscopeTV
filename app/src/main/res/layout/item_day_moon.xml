@@ -5,8 +5,90 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@color/black">
 
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_coin"
+                    app:layout_constraintEnd_toStartOf="@id/linearLayout"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toStartOf="@id/view_moon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/icon"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wednesday"
+                            android:textColor="#F2B7FD"
+                            android:textSize="@dimen/_14sp" />
+
+                        <TextView
+                            android:id="@+id/day"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="22"
+                            android:textColor="#F2B7FD"
+                            android:textSize="@dimen/_64sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/moth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="May"
+                            android:textColor="#F2B7FD"
+                            android:textSize="@dimen/_14sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/view_moon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/lunar_calendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="16/07"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_12sp" />
+
+                        <ImageView
+                            android:id="@+id/status_moon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_moon" />
+
+                        <TextView
+                            android:id="@+id/title_status_moon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Wanin moon"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_12sp" />
+                </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

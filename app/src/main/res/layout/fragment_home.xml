@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.home.HomeFragment">
 
@@ -10,19 +11,35 @@
         android:id="@+id/imageFilterView"
         android:layout_width="@dimen/_48dp"
         android:layout_height="@dimen/_48dp"
+        android:layout_marginStart="@dimen/_16dp"
         android:src="@drawable/ic_avatar"
+        android:layout_marginTop="@dimen/_12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:round="@dimen/_24dp" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="@string/app_name"
         android:layout_marginTop="@dimen/_3dp"
-        app:layout_goneMarginStart="@dimen/_8dp"
+        android:text="Hello"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_12sp"
         app:layout_constraintStart_toEndOf="@+id/imageFilterView"
-        app:layout_constraintTop_toTopOf="@+id/imageFilterView" />
+        app:layout_constraintTop_toTopOf="@+id/imageFilterView"
+        app:layout_goneMarginStart="@dimen/_8dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_8dp"
+        android:layout_marginTop="@dimen/_8dp"
+        android:text="@string/app_name"
+        android:textSize="@dimen/_16sp"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/imageFilterView"
+        app:layout_constraintStart_toEndOf="@+id/imageFilterView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
