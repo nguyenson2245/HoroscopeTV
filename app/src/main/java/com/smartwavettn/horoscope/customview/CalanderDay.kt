@@ -19,5 +19,4 @@ class CalanderDay(context: Context) : FrameLayout(context) {
         addView(binding.root)
     }
 
-
 }

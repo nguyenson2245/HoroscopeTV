@@ -1,9 +1,13 @@
 package com.smartwavettn.horoscope.ui.home
 
+import android.content.ContentValues
+import android.util.Log
 import androidx.fragment.app.viewModels
 import android.view.LayoutInflater
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
+import org.joda.time.DateTime
+import org.joda.time.chrono.BuddhistChronology
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
@@ -18,6 +22,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     }
 
     override fun init() {
+
 
     }
 

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+alias(libs.plugins.org.jetbrains.kotlin.kapt)
 }
 
 android {
@@ -40,6 +41,7 @@ android {
 }
 
 dependencies {
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -53,8 +55,35 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.sdp.android)
+
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+
+    // To use Kotlin annotation processing tool (kapt)
+    // To use Kotlin Symbol Processing (KSP)
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation(libs.androidx.room.ktx)
+
+    // optional - RxJava2 support for Room
+    implementation(libs.androidx.room.rxjava2)
+
+    // optional - RxJava3 support for Room
+    implementation(libs.androidx.room.rxjava3)
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation(libs.androidx.room.guava)
+
+    // optional - Test helpers
+    testImplementation(libs.androidx.room.testing)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.sdp.android)
     implementation(libs.circleimageview)
     implementation (libs.glide)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
+    // optional - Paging 3 Integration
+    implementation(libs.androidx.room.paging)
+
+    implementation ("net.danlew:android.joda:2.12.7")
 }

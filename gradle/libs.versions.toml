@@ -17,10 +17,21 @@ lifecycleViewmodelKtx = "2.8.0"
 fragmentKtx = "1.7.1"
 sdpAndroid = "1.1.1"
 
+roomTesting = "2.6.1"
+sdpAndroid = "1.1.1"
+org-jetbrains-kotlin-android = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 glide = { module = "com.github.bumptech.glide:glide",name = "glide", version.ref = "glide" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomTesting" }
+androidx-room-guava = { module = "androidx.room:room-guava", version.ref = "roomTesting" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomTesting" }
+androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomTesting" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", name ="room", version.ref = "roomTesting" }
+androidx-room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "roomTesting" }
+androidx-room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomTesting" }
+androidx-room-testing = { module = "androidx.room:room-testing",name ="room", version.ref = "roomTesting" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -35,8 +46,9 @@ androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", ve
 circleimageview = { module = "de.hdodenhof:circleimageview",name ="circleimageview", version.ref = "circleimageview" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
 
+sdp-android = { module = "com.intuit.sdp:sdp-android", name= "sdp-android", version.ref = "sdpAndroid" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
+org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "org-jetbrains-kotlin-android" }
