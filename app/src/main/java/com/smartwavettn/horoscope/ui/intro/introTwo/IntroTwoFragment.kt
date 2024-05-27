@@ -1,12 +1,14 @@
 package com.smartwavettn.horoscope.ui.intro.introTwo
 
+import android.app.AlertDialog
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.utils.click
-import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentIntroTwoBinding
+import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.intro.introThreeInformation.IntroThreeFragment
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
+import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
@@ -18,6 +20,8 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
     }
 
     override fun init() {
+        context?.let { viewModel.init(it) }  // khởi tạo repository nếu dùng context
+
         val pickerLayoutManager =
             PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false)
         pickerLayoutManager.apply {
@@ -42,6 +46,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
     }
 
     override fun initAction() {
+
         binding.imgCalenda.click {
             context?.let { it1 ->
                 viewModel.showDatePickerEnd(it1) {
@@ -49,9 +54,35 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                 }
             }
         }
+
         binding.btnContinue.click {
-            openFragment(IntroThreeFragment::class.java,null,true)
+            val name = binding.editName.text.trim().toString()
+            val date = binding.txtDateOfBirth.text.trim().toString()
+
+            if (name.isNotEmpty() && binding.editName.error == null && date.isNotEmpty()) {
+
+                var personalInformation = PersonalInformation(0, name, date)
+
+                if (viewModel.isUserExist(personalInformation)){
+                    AlertDialog.Builder(requireActivity())
+                        .setTitle("Duplicate name ! " + " '${personalInformation?.name}'")
+                        .setMessage("Change to another name : ")
+                        .setNegativeButton("OK", null)
+                        .show()
+                    return@click
+                }
+
+                context?.let { it1 -> viewModel.addPersonalInformation(it1, personalInformation) }
+
+                openFragment(IntroThreeFragment::class.java, null, true)
+            } else {
+                if (name.isEmpty() && date.isEmpty()) {
+                    binding.editName.error = "not value"
+                    binding.txtDateOfBirth.error = "not value"
+                }
+            }
         }
+
 
     }
 

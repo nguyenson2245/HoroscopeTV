@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.1"
+androidJoda = "2.12.7"
 circleimageview = "3.1.0"
 glide = "4.16.0"
 kotlin = "1.9.0"
@@ -18,10 +19,10 @@ fragmentKtx = "1.7.1"
 sdpAndroid = "1.1.1"
 
 roomTesting = "2.6.1"
-sdpAndroid = "1.1.1"
 org-jetbrains-kotlin-android = "1.9.0"
 
 [libraries]
+android-joda = { module = "net.danlew:android.joda", name = "android.joda",version.ref = "androidJoda" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 glide = { module = "com.github.bumptech.glide:glide",name = "glide", version.ref = "glide" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomTesting" }
@@ -45,9 +46,6 @@ androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifec
 androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragmentKtx" }
 circleimageview = { module = "de.hdodenhof:circleimageview",name ="circleimageview", version.ref = "circleimageview" }
 sdp-android = { module = "com.intuit.sdp:sdp-android", version.ref = "sdpAndroid" }
-
-sdp-android = { module = "com.intuit.sdp:sdp-android", name= "sdp-android", version.ref = "sdpAndroid" }
-
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

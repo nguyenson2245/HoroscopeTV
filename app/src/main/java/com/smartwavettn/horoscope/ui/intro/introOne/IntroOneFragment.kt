@@ -5,8 +5,6 @@ import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentIntroOneBinding
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
-import org.joda.time.DateTime
-import org.joda.time.chrono.BuddhistChronology
 
 
 class IntroOneFragment : BaseFragmentWithBinding<FragmentIntroOneBinding>() {
