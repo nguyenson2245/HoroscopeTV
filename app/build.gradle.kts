@@ -76,6 +76,11 @@ dependencies {
 
     // optional - Test helpers
     testImplementation(libs.androidx.room.testing)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.sdp.android)
+    implementation(libs.circleimageview)
+    implementation (libs.glide)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
     // optional - Paging 3 Integration
     implementation(libs.androidx.room.paging)
