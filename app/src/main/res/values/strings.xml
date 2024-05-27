@@ -31,4 +31,10 @@
     <string name="personalHoroscope">Your personal horoscope is</string>
     <string name="calculatedUpTo2028">calculated up to 2028</string>
     <string name="howToUseHoroscope">How to use horoscope?</string>
+    <string name="followTheRecommendations">Follow the recommendations</string>
+    <string name="toassets">To control your property and personal assets</string>
+    <string name="fl1">Save your horoscope and check it every day</string>
+    <string name="fl2">Beware of negative events</string>
+    <string name="fl3">Use the power of lucky days: become richer and happier</string>
+    <string name="fl4">Plan your activities based on thousands of years of wisdom</string>
 </resources>
