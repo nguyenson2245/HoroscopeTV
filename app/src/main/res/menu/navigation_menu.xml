@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/friends"
+            android:icon="@drawable/friends"
+            android:title="Friends" />
+    </group>
+
+    <item android:title="Calendar">
+
+        <menu>
+            <item
+                android:id="@+id/lunaDay"
+                android:icon="@drawable/lunaday"
+                android:title="Luna day" />
+            <item
+                android:id="@+id/cuttingHair"
+                android:icon="@drawable/cuttinghair"
+                android:title="Cutting hair" />
+            <item
+                android:id="@+id/travel"
+                android:icon="@drawable/travel"
+                android:title="Travel" />
+        </menu>
+    </item>
+
+</menu>

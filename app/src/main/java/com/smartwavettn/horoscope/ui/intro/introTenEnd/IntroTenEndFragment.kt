@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentIntroTenEndBinding
+import com.smartwavettn.horoscope.ui.home.HomeFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 
@@ -26,7 +27,7 @@ class IntroTenEndFragment : BaseFragmentWithBinding<FragmentIntroTenEndBinding>(
 
     override fun initAction() {
         binding.btnContinue.click {
-
+            openFragment(HomeFragment::class.java,null,true)
         }
     }
 

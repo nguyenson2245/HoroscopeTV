@@ -4,6 +4,11 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.fragment.app.viewModels
 import android.view.LayoutInflater
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import com.google.android.material.navigation.NavigationView
+import com.smartwavettn.horoscope.R
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import org.joda.time.DateTime
@@ -23,12 +28,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     override fun init() {
 
-
     }
 
     override fun initData() {
     }
 
     override fun initAction() {
+        setupNavigationMenu()
     }
+
+    private fun setupNavigationMenu() {
+
+    }
+
 }

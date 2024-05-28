@@ -1,6 +1,7 @@
 package com.smartwavettn.horoscope.ui.intro.introTwo
 
 import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.utils.click
@@ -36,6 +37,15 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
         binding.rcvViewAvatar.adapter = adapter
         binding.rcvViewAvatar.setHasFixedSize(true)
 
+        pickerLayoutManager.setOnScrollStopListener { view ->
+            val position = binding.rcvViewAvatar.getChildAdapterPosition(view)
+
+            if(position in 0 until adapter.listItem.size ){
+                toast("position"+position)
+            }else{
+                toast("Please Select The Image ")
+            }
+        }
     }
 
     override fun initData() {
@@ -63,7 +73,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
                 var personalInformation = PersonalInformation(0, name, date)
 
-                if (viewModel.isUserExist(personalInformation)){
+                if (viewModel.isUserExist(personalInformation)) {
                     AlertDialog.Builder(requireActivity())
                         .setTitle("Duplicate name ! " + " '${personalInformation?.name}'")
                         .setMessage("Change to another name : ")

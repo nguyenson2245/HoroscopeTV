@@ -10,4 +10,5 @@ data class PersonalInformation(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     @ColumnInfo(name = "name") var name: String = "",
     @ColumnInfo(name = "date") val date: String = "",
+
 )

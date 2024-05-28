@@ -37,4 +37,17 @@
     <string name="fl2">Beware of negative events</string>
     <string name="fl3">Use the power of lucky days: become richer and happier</string>
     <string name="fl4">Plan your activities based on thousands of years of wisdom</string>
+    <string name="date">01/9/2000</string>
+    <string name="lunaDay">Luna day</string>
+    <string name="cuttinghair">Cutting hair</string>
+    <string name="notification">Notification</string>
+    <string name="evaluate">Evaluate</string>
+    <string name="friends">Friends</string>
+    <string name="introduce">Introduce</string>
+    <string name="share">Share</string>
+    <string name="contact">Contact</string>
+    <string name="language">Language</string>
+    <string name="english">English</string>
+    <string name="privacyPolicy">Privacy Policy</string>
+    <string name="termsOfUse">Terms of use</string>
 </resources>

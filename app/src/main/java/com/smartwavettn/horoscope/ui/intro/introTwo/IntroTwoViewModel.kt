@@ -79,11 +79,9 @@ class IntroTwoViewModel : BaseViewModel() {
         setText.invoke(sdf.format(calendar.time))
     }
 
-
     fun addPersonalInformation(context: Context, information: PersonalInformation) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-
                 repository.addPersonalInformation(information)
             } catch (e: Throwable) {
                 e.printStackTrace()
