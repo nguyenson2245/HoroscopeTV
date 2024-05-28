@@ -50,4 +50,6 @@
     <string name="english">English</string>
     <string name="privacyPolicy">Privacy Policy</string>
     <string name="termsOfUse">Terms of use</string>
+    <string name="korea">Korea</string>
+    <string name="japan">Japan</string>
 </resources>

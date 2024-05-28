@@ -45,6 +45,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             binding.menu.itemNotification.visibility = v
         }
 
+        binding.menu.layoutLanguage.click {
+            val v = if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
+            TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
+            binding.menu.itemLanguage.visibility = v
+        }
+
 
     }
 
