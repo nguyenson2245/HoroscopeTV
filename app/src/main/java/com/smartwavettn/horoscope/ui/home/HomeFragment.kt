@@ -1,19 +1,16 @@
 package com.smartwavettn.horoscope.ui.home
 
-import android.content.ContentValues
-import android.util.Log
-import androidx.fragment.app.viewModels
+import android.animation.LayoutTransition
+import android.transition.AutoTransition
+import android.transition.TransitionManager
+import android.transition.TransitionSet
 import android.view.LayoutInflater
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBarDrawerToggle
+import android.view.View
 import androidx.core.view.GravityCompat
-import com.google.android.material.navigation.NavigationView
-import com.smartwavettn.horoscope.R
+import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.utils.click
-import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
-import org.joda.time.DateTime
-import org.joda.time.chrono.BuddhistChronology
+import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
@@ -35,17 +32,22 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     }
 
     override fun initAction() {
-        setupNavigationMenu()
+       binding.menu.view1.layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+
 
         binding.profileHeader.menuProfileHeader.click {
             binding.drawer.openDrawer(GravityCompat.START)
-//            mBinding.DrawerLayout.closeDrawer(GravityCompat.START)
-
         }
+
+        binding.menu.layoutNotification.setOnClickListener {
+            val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+            TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
+            binding.menu.itemNotification.visibility = v
+        }
+
+
     }
 
-    private fun setupNavigationMenu() {
 
-    }
 
 }

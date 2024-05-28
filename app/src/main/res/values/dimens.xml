@@ -10,4 +10,6 @@
     <dimen name="_12sp">12sp</dimen>
     <dimen name="_14sp">14sp</dimen>
     <dimen name="_64sp">64sp</dimen>
+    <dimen name="_4dp">4dp</dimen>
+    <dimen name="_32dp">32dp</dimen>
 </resources>
