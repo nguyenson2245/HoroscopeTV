@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import com.google.android.material.navigation.NavigationView
 import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import org.joda.time.DateTime
@@ -35,6 +36,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     override fun initAction() {
         setupNavigationMenu()
+
+        binding.profileHeader.menuProfileHeader.click {
+            binding.drawer.openDrawer(GravityCompat.START)
+//            mBinding.DrawerLayout.closeDrawer(GravityCompat.START)
+
+        }
     }
 
     private fun setupNavigationMenu() {

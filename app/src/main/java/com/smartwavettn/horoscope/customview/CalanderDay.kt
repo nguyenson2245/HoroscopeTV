@@ -41,10 +41,9 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
                     day = currentDate.format(DateTimeFormatter.ofPattern("dd")),
                     month = currentDate.format(DateTimeFormatter.ofPattern("MMMM")),
                     moon = R.drawable.ic_moon,
-                    icon = currentDate.dayOfMonth  // Chỉnh sửa tùy theo nhu cầu
+                    icon = currentDate.dayOfMonth
                 )
                 dayList.add(dayModel)
-                // Chuyển sang ngày tiếp theo
                 currentDate = currentDate.plusDays(1)
             }
             withContext(Dispatchers.Main){

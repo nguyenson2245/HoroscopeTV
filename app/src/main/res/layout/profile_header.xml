@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/_7sdp"
+        android:id="@+id/linnerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:src="@drawable/avatar14"
+            app:civ_border_width="0.2dp" />
+
+        <LinearLayout
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello"
+                android:textSize="@dimen/_16sdp"
+                android:textColor="#C7F8FF"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtName"
+                android:textSize="@dimen/_14sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/app_name"
+                android:textColor="#C7F8FF" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/menuProfileHeader"
+            android:layout_gravity="center"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:src="@drawable/more" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>
