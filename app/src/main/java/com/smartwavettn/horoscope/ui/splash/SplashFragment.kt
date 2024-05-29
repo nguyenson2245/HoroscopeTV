@@ -13,6 +13,7 @@ import com.smartwavettn.horoscope.ui.intro.introOne.IntroOneFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.horoscope.databinding.FragmentSplashBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
+import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import org.joda.time.DateTime
 import org.joda.time.chrono.BuddhistChronology
 
@@ -25,7 +26,6 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
 
     private val viewModel: SplashViewModel by viewModels()
 
-
     override fun getViewBinding(inflater: LayoutInflater): FragmentSplashBinding {
         return FragmentSplashBinding.inflate(inflater)
     }
@@ -34,7 +34,7 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
         preferences = Preferences.getInstance(requireActivity())
 
         Handler(Looper.getMainLooper()).postDelayed({
-                openFragment(HomeFragment::class.java,null,true)
+                openFragment(IntroTwoFragment::class.java,null,true)
         }, 1000)
     }
 
@@ -45,4 +45,8 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
     override fun initAction() {
 
     }
+
+
 }
+
+

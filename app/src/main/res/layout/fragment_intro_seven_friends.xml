@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
@@ -9,8 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -19,7 +18,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:gravity="center"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +30,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tibetanHoroscope"
                     android:textColor="@color/textbg"
-                    android:textSize="35sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -39,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/individual"
                     android:textColor="@color/textbg"
-                    android:textSize="35sp"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -53,18 +52,45 @@
                 android:paddingLeft="183dp"
                 android:paddingRight="183dp" />
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageAvatar"
-                android:layout_width="95dp"
-                android:layout_height="95dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/imageAvatarConstraintLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:src="@drawable/ic_avatar"
                 android:visibility="gone"
-                app:civ_border_width="0.2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageAvatar"
+                    android:layout_width="95dp"
+                    android:layout_height="95dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/avatar1"
+                    app:civ_border_width="0.2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/pencl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/pen2"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageAvatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/uploadImage"
@@ -87,7 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:backgroundTint="@color/white"
@@ -107,9 +133,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="@dimen/_80sdp"
+                android:layout_marginBottom="@dimen/_50sdp"
                 android:backgroundTint="@color/white"
                 app:cardCornerRadius="12dp">
 
@@ -146,7 +172,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
                 android:textColor="@color/white"
-                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_6sdp"
                 android:layout_marginTop="@dimen/_100sdp"
                 android:background="@drawable/custom_button_tra"                android:text="@string/noThanks" />
 
@@ -156,15 +182,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_100sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/custom_button_gradien"
                 android:text="Add" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 </androidx.core.widget.NestedScrollView>

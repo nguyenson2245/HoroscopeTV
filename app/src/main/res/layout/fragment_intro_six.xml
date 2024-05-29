@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="@string/doYou"
             android:textColor="@color/textbg"
-            android:textSize="34sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="@string/people"
             android:textColor="@color/textbg"
-            android:textSize="34sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView

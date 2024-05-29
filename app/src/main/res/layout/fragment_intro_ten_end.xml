@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="@string/followTheRecommendations"
             android:textColor="@color/textbg"
-            android:textSize="29sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView

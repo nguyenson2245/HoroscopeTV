@@ -66,6 +66,6 @@ dependencies {
     implementation(libs.circleimageview)
     implementation(libs.glide)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
     implementation(libs.android.joda)
+
 }

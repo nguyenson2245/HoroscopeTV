@@ -2,8 +2,13 @@ package com.smartwavettn.horoscope.ui.intro.introSevenFriends
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.base.utils.click
+import com.smartwavettn.horoscope.base.utils.gone
+import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.databinding.FragmentIntroSevenFriendsBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.intro.introEight.IntroEightFragment
@@ -52,6 +57,28 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
                     binding.txtDateOfBirth.text = it
                 }
             }
+        }
+
+        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            if (uri != null) {
+                binding.imageAvatarConstraintLayout.visible()
+                binding.rcvViewAvatar.gone()
+                Glide.with(this)
+                    .load(uri)
+                    .circleCrop()
+                    .into(binding.imageAvatar)
+            } else {
+                binding.imageAvatarConstraintLayout.gone()
+                binding.rcvViewAvatar.visible()
+            }
+        }
+        binding.uploadImage.click {
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
+
+        binding.imageAvatar.click {
+            binding.rcvViewAvatar.visible()
+            binding.imageAvatarConstraintLayout.gone()
         }
 
         binding.no.click {
