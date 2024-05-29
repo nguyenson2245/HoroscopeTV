@@ -36,14 +36,14 @@ class IntroEightFragment : BaseFragmentWithBinding<FragmentIntroEightBinding>() 
         val rotateAnimation = AnimationUtils.loadAnimation(requireActivity(), R.anim.rotate_animation)
         binding.imgRota.startAnimation(rotateAnimation)
 
-//        Handler(Looper.getMainLooper()).postDelayed({
-//            openFragment(IntroNineCalculatedFragment::class.java,null,true)
-//        }, 2500)
+        Handler(Looper.getMainLooper()).postDelayed({
+            openFragment(IntroNineCalculatedFragment::class.java,null,true)
+        }, 2500)
 
-        myHandler = Handler(Looper.getMainLooper())
-        myRunnable = Runnable {
-            openFragment(IntroNineCalculatedFragment::class.java, null, true)
-        }
+//        myHandler = Handler(Looper.getMainLooper())
+//        myRunnable = Runnable {
+//            openFragment(IntroNineCalculatedFragment::class.java, null, true)
+//        }
 
         myHandler?.postDelayed(myRunnable!!, 2500)
 

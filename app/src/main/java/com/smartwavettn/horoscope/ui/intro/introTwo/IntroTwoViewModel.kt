@@ -6,7 +6,6 @@ import android.widget.DatePicker
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.smartwavettn.horoscope.R
-import com.smartwavettn.horoscope.model.Avatar
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.base.BaseViewModel
 import com.smartwavettn.horoscope.local.AppDatabase
@@ -18,41 +17,44 @@ import java.util.Locale
 
 class IntroTwoViewModel : BaseViewModel() {
 
-    private val avatar: ArrayList<Avatar> = arrayListOf()
-    val listAvatarLiveData: MutableLiveData<ArrayList<Avatar>> = MutableLiveData()
+    private var listAvatarResIds: ArrayList<Int> = arrayListOf()
+    val listAvatarLiveData: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
     private val calendar = Calendar.getInstance()
 
     fun initDataAvatar() {
-        avatar.add(Avatar(R.drawable.avatar1))
-        avatar.add(Avatar(R.drawable.avatar2))
-        avatar.add(Avatar(R.drawable.avatar3))
-        avatar.add(Avatar(R.drawable.avatar4))
-        avatar.add(Avatar(R.drawable.avatar5))
-        avatar.add(Avatar(R.drawable.avatar6))
-        avatar.add(Avatar(R.drawable.avatar7))
-        avatar.add(Avatar(R.drawable.avatar8))
-        avatar.add(Avatar(R.drawable.avatar9))
-        avatar.add(Avatar(R.drawable.avatar10))
-        avatar.add(Avatar(R.drawable.avatar11))
-        avatar.add(Avatar(R.drawable.avatar12))
-        avatar.add(Avatar(R.drawable.avatar13))
-        avatar.add(Avatar(R.drawable.avatar14))
-        avatar.add(Avatar(R.drawable.avatar15))
-        avatar.add(Avatar(R.drawable.avatar16))
-        avatar.add(Avatar(R.drawable.avatar17))
-        avatar.add(Avatar(R.drawable.avatar18))
-        avatar.add(Avatar(R.drawable.avatar19))
-        avatar.add(Avatar(R.drawable.avatar20))
-        avatar.add(Avatar(R.drawable.avatar21))
-        avatar.add(Avatar(R.drawable.avatar22))
-        avatar.add(Avatar(R.drawable.avatar23))
-        avatar.add(Avatar(R.drawable.avatar24))
-        avatar.add(Avatar(R.drawable.avatar25))
-        avatar.add(Avatar(R.drawable.avatar26))
-        avatar.add(Avatar(R.drawable.avatar27))
 
-        listAvatarLiveData.postValue(avatar)
+         listAvatarResIds = arrayListOf(
+            R.drawable.avatar1,
+            R.drawable.avatar2,
+            R.drawable.avatar3,
+            R.drawable.avatar4,
+            R.drawable.avatar5,
+            R.drawable.avatar6,
+            R.drawable.avatar7,
+            R.drawable.avatar8,
+            R.drawable.avatar9,
+            R.drawable.avatar10,
+            R.drawable.avatar11,
+            R.drawable.avatar12,
+            R.drawable.avatar13,
+            R.drawable.avatar14,
+            R.drawable.avatar15,
+            R.drawable.avatar16,
+            R.drawable.avatar17,
+            R.drawable.avatar18,
+            R.drawable.avatar19,
+            R.drawable.avatar20,
+            R.drawable.avatar21,
+            R.drawable.avatar22,
+            R.drawable.avatar23,
+            R.drawable.avatar24,
+            R.drawable.avatar25,
+            R.drawable.avatar26,
+            R.drawable.avatar27
+        )
+
+        listAvatarLiveData.postValue(listAvatarResIds)
     }
 
     fun showDatePickerEnd(context: Context, setText: (String) -> Unit) {
@@ -92,5 +94,15 @@ class IntroTwoViewModel : BaseViewModel() {
     fun isUserExist(note: PersonalInformation): Boolean {
         val list: List<PersonalInformation> = AppDatabase.getInstance(context).getInformationDao().checkName(note.name)
         return list != null && !list.isEmpty()
+    }
+
+    fun updateNote(context: Context, information: PersonalInformation) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repository.updatePersonalInformation(information)
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }
+        }
     }
 }

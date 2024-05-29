@@ -140,6 +140,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
+                android:visibility="visible"
                 android:id="@+id/btnContinue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,11 +150,20 @@
                 android:layout_marginTop="@dimen/_100sdp"
                 android:background="@drawable/custom_button_gradien"
                 android:text="@string/continue_" />
+
+            <Button
+                android:visibility="visible"
+                android:id="@+id/btnOke"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:background="@drawable/custom_button_ping"
+                android:text="Ok" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 </androidx.core.widget.NestedScrollView>

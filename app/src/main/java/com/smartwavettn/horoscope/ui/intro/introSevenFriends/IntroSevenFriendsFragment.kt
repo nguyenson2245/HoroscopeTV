@@ -58,35 +58,35 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             openFragment(IntroEightFragment::class.java, null, true)
         }
 
-        binding.yes.click {
-
-            val name = binding.editName.text.trim().toString()
-            val date = binding.txtDateOfBirth.text.trim().toString()
-
-            if (name.isNotEmpty() && binding.editName.error == null && date.isNotEmpty()) {
-
-                var personalInformation = PersonalInformation(0, name, date)
-
-                if (viewModel.isUserExist(personalInformation)) {
-                    AlertDialog.Builder(requireActivity())
-                        .setTitle("Duplicate name ! " + " '\n${personalInformation?.name}'")
-                        .setMessage("Change to another name : ")
-                        .setNegativeButton("OK", null)
-                        .show()
-                    return@click
-                }
-
-                context?.let { it1 -> viewModel.addPersonalInformation(it1, personalInformation) }
-
-                openFragment(IntroEightFragment::class.java, null, true)
-            } else {
-                if (name.isEmpty() && date.isEmpty()) {
-                    binding.editName.error = "not value"
-                    binding.txtDateOfBirth.error = "not value"
-                }
-            }
-
-        }
+//        binding.yes.click {
+//
+//            val name = binding.editName.text.trim().toString()
+//            val date = binding.txtDateOfBirth.text.trim().toString()
+//
+//            if (name.isNotEmpty() && binding.editName.error == null && date.isNotEmpty()) {
+//
+//                var personalInformation = PersonalInformation(0, name, date)
+//
+//                if (viewModel.isUserExist(personalInformation)) {
+//                    AlertDialog.Builder(requireActivity())
+//                        .setTitle("Duplicate name ! " + " '\n${personalInformation?.name}'")
+//                        .setMessage("Change to another name : ")
+//                        .setNegativeButton("OK", null)
+//                        .show()
+//                    return@click
+//                }
+//
+//                context?.let { it1 -> viewModel.addPersonalInformation(it1, personalInformation) }
+//
+//                openFragment(IntroEightFragment::class.java, null, true)
+//            } else {
+//                if (name.isEmpty() && date.isEmpty()) {
+//                    binding.editName.error = "not value"
+//                    binding.txtDateOfBirth.error = "not value"
+//                }
+//            }
+//
+//        }
     }
 
 }

@@ -8,7 +8,7 @@ import com.smartwavettn.horoscope.model.PersonalInformation
 class Repository(context: Context) {
     private val appDatabase : AppDatabase = AppDatabase.getInstance(context)
 
-   suspend fun addPersonalInformation(history: PersonalInformation) =
-        appDatabase.getInformationDao().insertAll(history)
+   suspend fun addPersonalInformation(personalInformation: PersonalInformation) = appDatabase.getInformationDao().insertAll(personalInformation)
 
+    suspend fun updatePersonalInformation(personalInformation: PersonalInformation) = appDatabase.getInformationDao().updateNote(personalInformation)
 }

@@ -7,15 +7,14 @@ import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.recyclerview.BaseRecyclerAdapter
 import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
 import com.smartwavettn.horoscope.databinding.ItemAvatarBinding
-import com.smartwavettn.horoscope.model.Avatar
 
-class IntroSevenAdapter (val click: (Class<*>) -> Unit) : BaseRecyclerAdapter<Avatar, IntroSevenAdapter.AvatarViewHolder>(){
+class IntroSevenAdapter (val click: (Class<*>) -> Unit) : BaseRecyclerAdapter<Int, IntroSevenAdapter.AvatarViewHolder>(){
 
-    inner class AvatarViewHolder(val binding : ViewDataBinding) : BaseViewHolder<Avatar>(binding){
-        override fun bind(itemData: Avatar?) {
+    inner class AvatarViewHolder(val binding : ViewDataBinding) : BaseViewHolder<Int>(binding){
+        override fun bind(itemData: Int?) {
             super.bind(itemData)
             if (binding is ItemAvatarBinding){
-                Glide.with(itemView).load(itemData?.icon).into(binding.image)
+                Glide.with(itemView).load(itemData).into(binding.image)
             }
         }
     }

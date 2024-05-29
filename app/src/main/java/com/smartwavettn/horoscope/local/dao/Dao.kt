@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.smartwavettn.horoscope.model.PersonalInformation
 
 
@@ -21,6 +22,9 @@ interface Dao {
 
     @Delete
     suspend fun delete(vararg information: PersonalInformation)
+
+    @Update
+    fun updateNote(vararg information: PersonalInformation)
 
     @Query("SELECT * FROM PersonalInformation")
     fun getLiveDataPersonalInformation(): LiveData<List<PersonalInformation>>

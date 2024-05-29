@@ -1,6 +1,7 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
+import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.transition.TransitionSet
@@ -10,6 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
+import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
@@ -32,13 +34,11 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     }
 
     override fun initAction() {
-       binding.menu.view1.layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-
-
         binding.profileHeader.menuProfileHeader.click {
             binding.drawer.openDrawer(GravityCompat.START)
         }
 
+        binding.menu.view1.layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
         binding.menu.layoutNotification.setOnClickListener {
             val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
@@ -52,8 +52,11 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
 
+        binding.menu.drawerHeaderProifile.linnerLayoutProfile.click {
+            val bundle = Bundle()
+            bundle.putBoolean("checkFragment" ,false)
+            openFragment(IntroTwoFragment::class.java,bundle,true)
+        }
     }
-
-
 
 }
