@@ -1,7 +1,6 @@
 package com.smartwavettn.horoscope.ui.intro.introTwo
 
 import android.app.AlertDialog
-import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -18,11 +17,11 @@ import com.smartwavettn.horoscope.ui.intro.introThreeInformation.IntroThreeFragm
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
-
 class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
     private var checkFragment = true
-    private var selectedPosition: Int = 0
+    private var positionPickerLayout: Int = 0
+    private var uriImage: String = ""
 
     private val viewModel: IntroTwoViewModel by viewModels()
     private lateinit var adapter: AvatarAdapter
@@ -50,9 +49,12 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
         binding.rcvViewAvatar.setHasFixedSize(true)
 
         pickerLayoutManager.setOnScrollStopListener { view ->
-            val position = binding.rcvViewAvatar.getChildAdapterPosition(view)
-            selectedPosition = position
+            positionPickerLayout = binding.rcvViewAvatar.getChildAdapterPosition(view)
+
+            Log.d("nnn", "vt-t  : ${binding.rcvViewAvatar.getChildAdapterPosition(view)}")
+            Log.d("nnn", "vt-s  : $positionPickerLayout")
         }
+
     }
 
     override fun initData() {
@@ -81,11 +83,17 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                         .load(uri)
                         .circleCrop()
                         .into(binding.imageAvatar)
+                    uriImage = uri.toString()
+
+                    Log.d("ImageUri", "1 - " + uri.toString())
+                    Log.d("ImageUri", "2 - " + uriImage)
+
                 } else {
                     binding.imageAvatarConstraintLayout.gone()
                     binding.rcvViewAvatar.visible()
                 }
             }
+
 
         binding.uploadImage.click {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -101,8 +109,9 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
             val date = binding.txtDateOfBirth.text.trim().toString()
 
             if (name.isNotEmpty() && binding.editName.error == null && date.isNotEmpty()) {
-                var personalInformation = PersonalInformation(0, name, date, selectedPosition, "", false)
-                Log.d("TAG", "personalInformation: $personalInformation")
+                if (positionPickerLayout == -1) positionPickerLayout = 0
+                var personalInformation =
+                    PersonalInformation(0, name, date, positionPickerLayout, uriImage, false)
 
                 if (viewModel.isUserExist(personalInformation)) {
                     showDialogEnterInFormation(personalInformation)
@@ -127,6 +136,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
         checkFragmentBoolean()
 
     }
+
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
         AlertDialog.Builder(requireActivity())
             .setTitle("Duplicate name ! " + " '${personalInformation?.name}'")
