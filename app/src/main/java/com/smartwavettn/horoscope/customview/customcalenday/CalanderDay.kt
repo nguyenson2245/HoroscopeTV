@@ -1,12 +1,16 @@
-package com.smartwavettn.horoscope.customview
+package com.smartwavettn.horoscope.customview.customcalenday
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import com.smartwavettn.horoscope.customview.model.DayModel
+import com.smartwavettn.horoscope.customview.customcalenday.model.DayModel
 import com.smartwavettn.horoscope.databinding.CalendertDayBinding
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
@@ -14,13 +18,14 @@ import java.util.Calendar
 class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, attr) {
     private lateinit var binding : CalendertDayBinding
     private lateinit var adapter: CalenderDayAdapter
-
+    val scope = CoroutineScope(Job() + Dispatchers.Default)
     init {
         initView()
     }
 
     private fun initView() {
-        val dayList: ArrayList<DayModel> = arrayListOf()
+        scope.launch {
+            val dayList: ArrayList<DayModel> = arrayListOf()
         binding = CalendertDayBinding.inflate(LayoutInflater.from(context))
         adapter = CalenderDayAdapter()
         removeAllViews()
@@ -45,10 +50,12 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
                 dayList.add(dayModel)
             currentDate.add(Calendar.DAY_OF_MONTH, 1)
             }
-        adapter.submitList(dayList)
+            withContext(Dispatchers.Main) {
+                adapter.submitList(dayList)
             }
+        }
 
-
+    }
 }
 
 
