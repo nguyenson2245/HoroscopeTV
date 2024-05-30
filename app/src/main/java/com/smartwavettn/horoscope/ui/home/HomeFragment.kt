@@ -13,6 +13,7 @@ import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentFriendsBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
+import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
@@ -47,9 +48,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             binding.menu.itemNotification.visibility = v
         }
 
-        binding.menu.layoutLanguage.click {
-            val v =
-                if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
+        binding.menu.layoutLanguage.click { val v = if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
             binding.menu.itemLanguage.visibility = v
         }
@@ -61,7 +60,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.friends.click {
-            openFragment(FragmentFriendsBinding::class.java, null, true)
+            binding.drawer.closeDrawers()
+            openFragment(FriendsFragment::class.java, null, true)
         }
 
         binding.menu.btnlunaDay.click {
@@ -97,19 +97,19 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.evaluate.click {
-
+            binding.drawer.closeDrawers()
         }
 
         binding.menu.introduce.click {
-
+            binding.drawer.closeDrawers()
         }
 
         binding.menu.share.click {
-
+            binding.drawer.closeDrawers()
         }
 
         binding.menu.contact.click {
-
+            binding.drawer.closeDrawers()
         }
 
         binding.menu.layoutLanguage.click {
@@ -117,11 +117,11 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.privacyPolicy.click {
-
+            binding.drawer.closeDrawers()
         }
 
         binding.menu.termsOfUse.click {
-
+            binding.drawer.closeDrawers()
         }
 
 

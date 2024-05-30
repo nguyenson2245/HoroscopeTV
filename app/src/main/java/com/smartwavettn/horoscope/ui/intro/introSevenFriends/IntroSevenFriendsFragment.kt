@@ -2,6 +2,7 @@ package com.smartwavettn.horoscope.ui.intro.introSevenFriends
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
@@ -19,6 +20,8 @@ import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFriendsBinding>() {
 
+    private var checkFragment = true
+
     private val viewModel: IntroSevenViewModel by viewModels()
     private lateinit var adapter: IntroSevenAdapter
 
@@ -32,11 +35,14 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     override fun init() {
         context?.let { viewModel.init(it) }
 
-        val pickerLayoutManager = PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
-            changeAlpha = true
-            scaleDownBy = 0.99f
-            scaleDownDistance = 0.8f
-        }
+        checkFragment = arguments?.getBoolean("checkFragmentT", true) ?: true
+
+        val pickerLayoutManager =
+            PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
+                changeAlpha = true
+                scaleDownBy = 0.99f
+                scaleDownDistance = 0.8f
+            }
         binding.rcvViewAvatar.layoutManager = pickerLayoutManager
         adapter = IntroSevenAdapter {}
 
@@ -57,6 +63,8 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
 
     override fun initAction() {
 
+        checkFragmentBoolean()
+
         binding.imgCalenda.click {
             context?.let { it1 ->
                 viewModel.showDatePickerEnd(it1) {
@@ -65,17 +73,18 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            if (uri != null) {
-                binding.rcvViewAvatar.gone()
-                binding.imageAvatarConstraintLayout.visible()
-                Glide.with(requireActivity()).load(uri).into(binding.imageAvatar)
-                uriImage = uri.toString()
-            } else {
-                binding.imageAvatarConstraintLayout.gone()
-                binding.rcvViewAvatar.visible()
+        val pickMedia =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+                if (uri != null) {
+                    binding.rcvViewAvatar.gone()
+                    binding.imageAvatarConstraintLayout.visible()
+                    Glide.with(requireActivity()).load(uri).into(binding.imageAvatar)
+                    uriImage = uri.toString()
+                } else {
+                    binding.imageAvatarConstraintLayout.gone()
+                    binding.rcvViewAvatar.visible()
+                }
             }
-        }
 
         binding.uploadImage.click {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -101,7 +110,9 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
                         0,
                         name,
                         date,
-                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(positionPickerLayout) else 0,
+                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(
+                            positionPickerLayout
+                        ) else 0,
                         if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
                         false
                     )
@@ -117,16 +128,20 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
                     binding.txtDateOfBirth.error = "not value"
                 }
             }
-
         }
-
     }
+
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
         AlertDialog.Builder(requireActivity())
             .setTitle("Duplicate name ! " + " '${personalInformation?.name}'")
             .setMessage("Change to another name : ")
             .setNegativeButton("OK", null)
             .show()
+    }
+
+    private fun checkFragmentBoolean() {
+        if (!checkFragment)
+            binding.no.gone()
     }
 
 
