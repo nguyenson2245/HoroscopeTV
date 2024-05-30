@@ -36,7 +36,8 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
         context?.let { viewModel.init(it) }  // khởi tạo repository nếu dùng context
 
-        val pickerLayoutManager = PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
+        val pickerLayoutManager =
+            PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
                 changeAlpha = true
                 scaleDownBy = 0.99f
                 scaleDownDistance = 0.8f
@@ -70,8 +71,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
             }
         }
 
-        val pickMedia =
-            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
                     binding.rcvViewAvatar.gone()
                     binding.imageAvatarConstraintLayout.visible()
@@ -82,7 +82,6 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                     binding.rcvViewAvatar.visible()
                 }
             }
-
 
         binding.uploadImage.click {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -97,17 +96,15 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
             val name = binding.editName.text.trim().toString()
             val date = binding.txtDateOfBirth.text.trim().toString()
 
-            if (name.isNotEmpty() && binding.editName.error == null && date.isNotEmpty()) {
+            if (name.isNotEmpty() && date.isNotEmpty() && binding.editName.error == null) {
                 var personalInformation =
                     PersonalInformation(
                         0,
                         name,
                         date,
-                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(
-                            positionPickerLayout
-                        ) else 0,
+                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(positionPickerLayout) else 0,
                         if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
-                        false
+                        true
                     )
                 if (viewModel.isUserExist(personalInformation))
                     showDialogEnterInFormation(personalInformation)

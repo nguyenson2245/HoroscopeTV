@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.view.LayoutInflater
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.base.utils.click
@@ -12,6 +13,7 @@ import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.databinding.FragmentIntroSevenFriendsBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.intro.introEight.IntroEightFragment
+import com.smartwavettn.horoscope.ui.intro.introThreeInformation.IntroThreeFragment
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
@@ -20,6 +22,9 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     private val viewModel: IntroSevenViewModel by viewModels()
     private lateinit var adapter: IntroSevenAdapter
 
+    private var positionPickerLayout: Int = 0
+    private var uriImage: String = ""
+
     override fun getViewBinding(inflater: LayoutInflater): FragmentIntroSevenFriendsBinding {
         return FragmentIntroSevenFriendsBinding.inflate(inflater)
     }
@@ -27,19 +32,20 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     override fun init() {
         context?.let { viewModel.init(it) }
 
-        val pickerLayoutManager =
-            PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false)
-        pickerLayoutManager.apply {
+        val pickerLayoutManager = PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
             changeAlpha = true
             scaleDownBy = 0.99f
             scaleDownDistance = 0.8f
         }
         binding.rcvViewAvatar.layoutManager = pickerLayoutManager
-        adapter = IntroSevenAdapter {
-
-        }
+        adapter = IntroSevenAdapter {}
 
         binding.rcvViewAvatar.adapter = adapter
+        binding.rcvViewAvatar.setHasFixedSize(true)
+
+        pickerLayoutManager.setOnScrollStopListener { view ->
+            positionPickerLayout = binding.rcvViewAvatar.getChildAdapterPosition(view)
+        }
     }
 
     override fun initData() {
@@ -61,17 +67,16 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
 
         val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             if (uri != null) {
-                binding.imageAvatarConstraintLayout.visible()
                 binding.rcvViewAvatar.gone()
-                Glide.with(this)
-                    .load(uri)
-                    .circleCrop()
-                    .into(binding.imageAvatar)
+                binding.imageAvatarConstraintLayout.visible()
+                Glide.with(requireActivity()).load(uri).into(binding.imageAvatar)
+                uriImage = uri.toString()
             } else {
                 binding.imageAvatarConstraintLayout.gone()
                 binding.rcvViewAvatar.visible()
             }
         }
+
         binding.uploadImage.click {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
@@ -85,35 +90,44 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             openFragment(IntroEightFragment::class.java, null, true)
         }
 
-//        binding.yes.click {
-//
-//            val name = binding.editName.text.trim().toString()
-//            val date = binding.txtDateOfBirth.text.trim().toString()
-//
-//            if (name.isNotEmpty() && binding.editName.error == null && date.isNotEmpty()) {
-//
-//                var personalInformation = PersonalInformation(0, name, date)
-//
-//                if (viewModel.isUserExist(personalInformation)) {
-//                    AlertDialog.Builder(requireActivity())
-//                        .setTitle("Duplicate name ! " + " '\n${personalInformation?.name}'")
-//                        .setMessage("Change to another name : ")
-//                        .setNegativeButton("OK", null)
-//                        .show()
-//                    return@click
-//                }
-//
-//                context?.let { it1 -> viewModel.addPersonalInformation(it1, personalInformation) }
-//
-//                openFragment(IntroEightFragment::class.java, null, true)
-//            } else {
-//                if (name.isEmpty() && date.isEmpty()) {
-//                    binding.editName.error = "not value"
-//                    binding.txtDateOfBirth.error = "not value"
-//                }
-//            }
-//
-//        }
+        binding.yes.click {
+
+            val name = binding.editName.text.trim().toString()
+            val date = binding.txtDateOfBirth.text.trim().toString()
+
+            if (name.isNotEmpty() && date.isNotEmpty() && binding.editName.error == null) {
+                var personalInformation =
+                    PersonalInformation(
+                        0,
+                        name,
+                        date,
+                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(positionPickerLayout) else 0,
+                        if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
+                        false
+                    )
+                if (viewModel.isUserExist(personalInformation))
+                    showDialogEnterInFormation(personalInformation)
+                else {
+                    viewModel.addPersonalInformation(personalInformation)
+                    openFragment(IntroThreeFragment::class.java, null, true)
+                }
+            } else {
+                if (name.isEmpty() && date.isEmpty()) {
+                    binding.editName.error = "not value"
+                    binding.txtDateOfBirth.error = "not value"
+                }
+            }
+
+        }
+
     }
+    private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
+        AlertDialog.Builder(requireActivity())
+            .setTitle("Duplicate name ! " + " '${personalInformation?.name}'")
+            .setMessage("Change to another name : ")
+            .setNegativeButton("OK", null)
+            .show()
+    }
+
 
 }

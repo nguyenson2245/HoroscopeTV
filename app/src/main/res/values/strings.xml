@@ -61,4 +61,6 @@
     <string name="waning_moon">Waning moon</string>
     <string name="no_moon">No moon</string>
     <string name="full_moon">Full moon</string>
+    <string name="oops">Oops, you don\'t have any friends yet</string>
+    <string name="addfriends">Add friends</string>
 </resources>

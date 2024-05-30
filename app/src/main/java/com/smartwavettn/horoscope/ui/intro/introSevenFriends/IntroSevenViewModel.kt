@@ -17,7 +17,7 @@ import java.util.Locale
 
 class IntroSevenViewModel : BaseViewModel() {
 
-    private var listAvatarResIds: ArrayList<Int> = arrayListOf()
+     var listAvatarResIds: ArrayList<Int> = arrayListOf()
     val listAvatarLiveData: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
     private val calendar = Calendar.getInstance()
@@ -80,7 +80,7 @@ class IntroSevenViewModel : BaseViewModel() {
         setText.invoke(sdf.format(calendar.time))
     }
 
-    fun addPersonalInformation(context: Context, information: PersonalInformation) {
+    fun addPersonalInformation(information: PersonalInformation) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.addPersonalInformation(information)

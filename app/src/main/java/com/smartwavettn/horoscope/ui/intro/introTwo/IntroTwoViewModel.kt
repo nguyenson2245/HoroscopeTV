@@ -17,14 +17,14 @@ import java.util.Locale
 
 class IntroTwoViewModel : BaseViewModel() {
 
-     var listAvatarResIds: ArrayList<Int> = arrayListOf()
+    var listAvatarResIds: ArrayList<Int> = arrayListOf()
     val listAvatarLiveData: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
     private val calendar = Calendar.getInstance()
 
     fun initDataAvatar() {
 
-         listAvatarResIds = arrayListOf(
+        listAvatarResIds = arrayListOf(
             R.drawable.avatar1,
             R.drawable.avatar2,
             R.drawable.avatar3,
@@ -81,7 +81,7 @@ class IntroTwoViewModel : BaseViewModel() {
         setText.invoke(sdf.format(calendar.time))
     }
 
-    fun addPersonalInformation( information: PersonalInformation) {
+    fun addPersonalInformation(information: PersonalInformation) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.addPersonalInformation(information)
@@ -92,7 +92,8 @@ class IntroTwoViewModel : BaseViewModel() {
     }
 
     fun isUserExist(note: PersonalInformation): Boolean {
-        val list: List<PersonalInformation> = AppDatabase.getInstance(context).getInformationDao().checkName(note.name)
+        val list: List<PersonalInformation> =
+            AppDatabase.getInstance(context).getInformationDao().checkName(note.name)
         return list != null && !list.isEmpty()
     }
 
