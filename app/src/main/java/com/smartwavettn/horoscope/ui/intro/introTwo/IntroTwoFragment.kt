@@ -1,11 +1,11 @@
 package com.smartwavettn.horoscope.ui.intro.introTwo
 
 import android.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.base.utils.click
@@ -20,6 +20,7 @@ import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
     private var checkFragment = true
+
     private var positionPickerLayout: Int = 0
     private var uriImage: String = ""
 
@@ -35,8 +36,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
         context?.let { viewModel.init(it) }  // khởi tạo repository nếu dùng context
 
-        val pickerLayoutManager =
-            PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
+        val pickerLayoutManager = PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
                 changeAlpha = true
                 scaleDownBy = 0.99f
                 scaleDownDistance = 0.8f
@@ -50,11 +50,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
         pickerLayoutManager.setOnScrollStopListener { view ->
             positionPickerLayout = binding.rcvViewAvatar.getChildAdapterPosition(view)
-
-            Log.d("nnn", "vt-t  : ${binding.rcvViewAvatar.getChildAdapterPosition(view)}")
-            Log.d("nnn", "vt-s  : $positionPickerLayout")
         }
-
     }
 
     override fun initData() {
@@ -77,17 +73,10 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
         val pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
-                    binding.imageAvatarConstraintLayout.visible()
                     binding.rcvViewAvatar.gone()
-                    Glide.with(this)
-                        .load(uri)
-                        .circleCrop()
-                        .into(binding.imageAvatar)
+                    binding.imageAvatarConstraintLayout.visible()
+                    Glide.with(requireActivity()).load(uri).into(binding.imageAvatar)
                     uriImage = uri.toString()
-
-                    Log.d("ImageUri", "1 - " + uri.toString())
-                    Log.d("ImageUri", "2 - " + uriImage)
-
                 } else {
                     binding.imageAvatarConstraintLayout.gone()
                     binding.rcvViewAvatar.visible()
@@ -109,18 +98,23 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
             val date = binding.txtDateOfBirth.text.trim().toString()
 
             if (name.isNotEmpty() && binding.editName.error == null && date.isNotEmpty()) {
-                if (positionPickerLayout == -1) positionPickerLayout = 0
                 var personalInformation =
-                    PersonalInformation(0, name, date, positionPickerLayout, uriImage, false)
-
-                if (viewModel.isUserExist(personalInformation)) {
+                    PersonalInformation(
+                        0,
+                        name,
+                        date,
+                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(
+                            positionPickerLayout
+                        ) else 0,
+                        if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
+                        false
+                    )
+                if (viewModel.isUserExist(personalInformation))
                     showDialogEnterInFormation(personalInformation)
-                    return@click
+                else {
+                    viewModel.addPersonalInformation(personalInformation)
+                    openFragment(IntroThreeFragment::class.java, null, true)
                 }
-
-                context?.let { it1 -> viewModel.addPersonalInformation(it1, personalInformation) }
-
-                openFragment(IntroThreeFragment::class.java, null, true)
             } else {
                 if (name.isEmpty() && date.isEmpty()) {
                     binding.editName.error = "not value"

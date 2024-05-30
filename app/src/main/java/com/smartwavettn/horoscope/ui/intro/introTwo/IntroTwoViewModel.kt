@@ -2,16 +2,12 @@ package com.smartwavettn.horoscope.ui.intro.introTwo
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.provider.Settings
 import android.widget.DatePicker
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.base.BaseViewModel
-import com.smartwavettn.horoscope.dialog.DialogPermission
 import com.smartwavettn.horoscope.local.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,7 +17,7 @@ import java.util.Locale
 
 class IntroTwoViewModel : BaseViewModel() {
 
-    private var listAvatarResIds: ArrayList<Int> = arrayListOf()
+     var listAvatarResIds: ArrayList<Int> = arrayListOf()
     val listAvatarLiveData: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
     private val calendar = Calendar.getInstance()
@@ -85,7 +81,7 @@ class IntroTwoViewModel : BaseViewModel() {
         setText.invoke(sdf.format(calendar.time))
     }
 
-    fun addPersonalInformation(context: Context, information: PersonalInformation) {
+    fun addPersonalInformation( information: PersonalInformation) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.addPersonalInformation(information)
