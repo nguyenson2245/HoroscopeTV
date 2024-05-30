@@ -1,15 +1,13 @@
-package com.smartwavettn.horoscope.customview
+package com.smartwavettn.horoscope.customview.customcalenday
 
-import android.content.ContentValues.TAG
 import android.os.Build
-import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.recyclerview.BaseRecyclerAdapter
 import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
-import com.smartwavettn.horoscope.customview.model.DayModel
+import com.smartwavettn.horoscope.customview.customcalenday.model.DayModel
 import com.smartwavettn.horoscope.databinding.ItemDayMoonBinding
 import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
