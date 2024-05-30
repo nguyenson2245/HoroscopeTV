@@ -71,7 +71,6 @@
                             android:id="@+id/lunar_calendar"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="16/07"
                             android:textColor="@color/blue"
                             android:textSize="@dimen/_12sp" />
 

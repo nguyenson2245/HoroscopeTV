@@ -1,22 +1,16 @@
 package com.smartwavettn.horoscope.customview
 
 import android.content.Context
-import android.os.Build
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import androidx.annotation.RequiresApi
-import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.CalendertDayBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import kotlinx.coroutines.DelicateCoroutinesApi
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, attr) {
     private lateinit var binding : CalendertDayBinding
     private lateinit var adapter: CalenderDayAdapter
@@ -24,34 +18,37 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
     init {
         initView()
     }
-    val dayList = arrayListOf<DayModel>()
-    @RequiresApi(Build.VERSION_CODES.O)
+
     private fun initView() {
+        val dayList: ArrayList<DayModel> = arrayListOf()
         binding = CalendertDayBinding.inflate(LayoutInflater.from(context))
         adapter = CalenderDayAdapter()
         removeAllViews()
         addView(binding.root)
         binding.callMeasure.adapter = adapter
-        GlobalScope.launch(Dispatchers.Default){
-            var currentDate = LocalDate.of(2018, 1, 1)
-            val endDate = LocalDate.of(2028, 12, 31)
 
-            while (currentDate <= endDate) {
+        var currentDate = Calendar.getInstance()
+        currentDate.set(Calendar.YEAR, 2022)
+        currentDate.set(Calendar.MONTH, 0)
+        currentDate.set(Calendar.DAY_OF_MONTH, 1)
+
+        val endDate = Calendar.getInstance()
+        endDate.set(Calendar.YEAR, 2028)
+        endDate.set(Calendar.MONTH, 11)
+        endDate.set(Calendar.DAY_OF_MONTH, 31)
+        while (currentDate.time.time <= endDate.time.time) {
                 val dayModel = DayModel(
-                    day = currentDate.format(DateTimeFormatter.ofPattern("dd")),
-                    month = currentDate.format(DateTimeFormatter.ofPattern("MMMM")),
-                    moon = R.drawable.ic_moon,
-                    icon = currentDate.dayOfMonth
+                    day = SimpleDateFormat("dd").format(currentDate.time),
+                    month = SimpleDateFormat("MM").format(currentDate.time),
+                    year = SimpleDateFormat("yyyy").format(currentDate.time),
                 )
                 dayList.add(dayModel)
-                currentDate = currentDate.plusDays(1)
+            currentDate.add(Calendar.DAY_OF_MONTH, 1)
             }
-            withContext(Dispatchers.Main){
-                adapter.submitList(dayList)
+        adapter.submitList(dayList)
             }
-        }
-
-    }
 
 
 }
+
+
