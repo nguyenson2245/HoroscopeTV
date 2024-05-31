@@ -14,14 +14,30 @@
         android:layout_height="?actionBarSize"
         app:navigationIcon="@drawable/ic_back">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/friends"
-            android:textColor="#C7F8FF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/friends"
+                android:textColor="#C7F8FF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/addFriends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:padding="8dp"
+                android:src="@drawable/add" />
+        </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -29,7 +45,10 @@
         android:id="@+id/rcv_viewAvatar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone" />
+        android:orientation="vertical"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_friends" />
 
     <LinearLayout
         android:id="@+id/linearLayoutFriendsYet"
@@ -37,7 +56,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imgView"
@@ -54,17 +73,6 @@
             android:text="@string/oops"
             android:textColor="@color/white"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="16dp"
-            android:layout_marginBottom="88dp"
-            android:background="@drawable/custom_button_gradien"
-            android:padding="@dimen/_16dp"
-            android:text="@string/addfriends" />
 
     </LinearLayout>
 

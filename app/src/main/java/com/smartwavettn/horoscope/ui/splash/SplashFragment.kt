@@ -35,7 +35,7 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
         preferences = Preferences.getInstance(requireActivity())
 
         Handler(Looper.getMainLooper()).postDelayed({
-                openFragment(HomeFragment::class.java,null,true)
+                openFragment(HomeFragment::class.java,null,false)
         }, 1000)
     }
 

@@ -17,14 +17,14 @@ import java.util.Locale
 
 class IntroSevenViewModel : BaseViewModel() {
 
-     var listAvatarResIds: ArrayList<Int> = arrayListOf()
+    var listAvatarResIds: ArrayList<Int> = arrayListOf()
     val listAvatarLiveData: MutableLiveData<ArrayList<Int>> = MutableLiveData()
 
     private val calendar = Calendar.getInstance()
 
     fun initDataAvatar() {
 
-         listAvatarResIds = arrayListOf(
+        listAvatarResIds = arrayListOf(
             R.drawable.avatar1,
             R.drawable.avatar2,
             R.drawable.avatar3,
@@ -56,6 +56,7 @@ class IntroSevenViewModel : BaseViewModel() {
 
         listAvatarLiveData.postValue(listAvatarResIds)
     }
+
     fun showDatePickerEnd(context: Context, setText: (String) -> Unit) {
         val dateSetListener =
             DatePickerDialog.OnDateSetListener { _: DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
@@ -91,7 +92,18 @@ class IntroSevenViewModel : BaseViewModel() {
     }
 
     fun isUserExist(note: PersonalInformation): Boolean {
-        val list: List<PersonalInformation> = AppDatabase.getInstance(context).getInformationDao().checkName(note.name)
+        val list: List<PersonalInformation> =
+            AppDatabase.getInstance(context).getInformationDao().checkName(note.name)
         return list != null && !list.isEmpty()
+    }
+
+    fun updateFriends(information: PersonalInformation) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repository.updatePersonalInformation(information)
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }
+        }
     }
 }

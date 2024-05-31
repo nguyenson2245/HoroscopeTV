@@ -20,11 +20,14 @@ interface Dao {
     @Query("SELECT * FROM PersonalInformation where name= :title")
       fun checkName(title: String): List<PersonalInformation>
 
+    @Query("SELECT * FROM PersonalInformation")
+    fun getListNote(): LiveData<List<PersonalInformation>>
+
     @Delete
     suspend fun delete(vararg information: PersonalInformation)
 
     @Update
-    fun updateNote(vararg information: PersonalInformation)
+    fun updatePersonal(vararg information: PersonalInformation)
 
     @Query("SELECT * FROM PersonalInformation")
     fun getLiveDataPersonalInformation(): LiveData<List<PersonalInformation>>

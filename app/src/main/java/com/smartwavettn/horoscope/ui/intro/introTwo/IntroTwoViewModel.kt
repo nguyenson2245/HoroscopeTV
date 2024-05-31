@@ -97,15 +97,5 @@ class IntroTwoViewModel : BaseViewModel() {
         return list != null && !list.isEmpty()
     }
 
-    fun updateNote(context: Context, information: PersonalInformation) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                repository.updatePersonalInformation(information)
-            } catch (e: Throwable) {
-                e.printStackTrace()
-            }
-        }
-    }
-
 
 }

@@ -1,33 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/custom_bg_item"
+    android:orientation="horizontal"
+    android:padding="@dimen/_12dp"
     app:cardCornerRadius="@dimen/_8dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image"
+        android:layout_width="@dimen/_48dp"
+        android:layout_height="@dimen/_48dp"
+        android:src="@drawable/avatar11"
+        app:civ_border_width="0.2dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/_12dp">
+        android:layout_marginLeft="@dimen/_12dp"
+        android:layout_weight="1"
+        android:text="@string/nguyen"
+        android:textColor="@color/bg_item_blue_white"
+        android:textSize="@dimen/_16dp"
+        android:textStyle="bold" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image"
-            android:layout_width="@dimen/_48dp"
-            android:layout_height="@dimen/_48dp"
-            android:src="@drawable/avatar11"
-            app:civ_border_width="0.2dp" />
+    <ImageView
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:src="@drawable/delete" />
 
-        <TextView
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_8dp"
-            android:text="@string/nguyen"
-            android:textColor="@color/black"
-            android:textSize="@dimen/_16dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+</LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</layout>

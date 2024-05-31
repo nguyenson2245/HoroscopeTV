@@ -9,8 +9,8 @@ import java.io.Serializable
 data class PersonalInformation(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var name: String = "",
-    val date: String = "",
+    var date: String = "",
     val icon: Int = 0,
     val iconImage: String = "",
     val isProfile: Boolean
-)
+): Serializable

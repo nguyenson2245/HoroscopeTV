@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-   >
+    android:background="@drawable/background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -171,10 +170,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
-                android:textColor="@color/white"
-                android:layout_marginBottom="@dimen/_6sdp"
                 android:layout_marginTop="@dimen/_100sdp"
-                android:background="@drawable/custom_button_tra"                android:text="@string/noThanks" />
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:background="@drawable/custom_button_tra"
+                android:text="@string/noThanks"
+                android:textColor="@color/white" />
 
             <Button
                 android:id="@+id/yes"
@@ -182,10 +182,22 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="16dp"
-                android:layout_marginBottom="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
                 android:background="@drawable/custom_button_gradien"
                 android:text="Add" />
+
+            <Button
+                android:id="@+id/update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:background="@drawable/custom_button_ping"
+                android:text="Update"
+                android:visibility="gone" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

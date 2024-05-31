@@ -2,7 +2,6 @@ package com.smartwavettn.horoscope.ui.intro.introSevenFriends
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
-import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
@@ -14,19 +13,20 @@ import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.databinding.FragmentIntroSevenFriendsBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.intro.introEight.IntroEightFragment
-import com.smartwavettn.horoscope.ui.intro.introThreeInformation.IntroThreeFragment
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFriendsBinding>() {
 
-    private var checkFragment = true
-
-    private val viewModel: IntroSevenViewModel by viewModels()
-    private lateinit var adapter: IntroSevenAdapter
-
+    var name = ""
+    var date = ""
     private var positionPickerLayout: Int = 0
     private var uriImage: String = ""
+    private var personalInformation: PersonalInformation? = null
+
+    private val viewModel: IntroSevenViewModel by viewModels()
+
+    private lateinit var adapter: IntroSevenAdapter
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentIntroSevenFriendsBinding {
         return FragmentIntroSevenFriendsBinding.inflate(inflater)
@@ -35,7 +35,36 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     override fun init() {
         context?.let { viewModel.init(it) }
 
-        checkFragment = arguments?.getBoolean("checkFragmentT", true) ?: true
+        var type = arguments?.getString("checkFragmentFriends")
+        when (type) {
+            "addFriends" -> {
+                binding.no.gone()
+                binding.update.gone()
+                binding.yes.visible()
+            }
+
+            "FriendsFragment" -> {
+                binding.no.gone()
+                binding.yes.gone()
+                binding.update.visible()
+            }
+        }
+
+        personalInformation =
+            arguments?.getSerializable("personalInformation") as PersonalInformation?
+    }
+
+    override fun initData() {
+
+        personalInformation.let { personalInformation ->
+            if (personalInformation is PersonalInformation) {
+                name = personalInformation.name
+                date = personalInformation.date
+
+                binding.editName.setText(name)
+                binding.txtDateOfBirth.setText(date)
+            }
+        }
 
         val pickerLayoutManager =
             PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
@@ -43,6 +72,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
                 scaleDownBy = 0.99f
                 scaleDownDistance = 0.8f
             }
+
         binding.rcvViewAvatar.layoutManager = pickerLayoutManager
         adapter = IntroSevenAdapter {}
 
@@ -52,9 +82,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
         pickerLayoutManager.setOnScrollStopListener { view ->
             positionPickerLayout = binding.rcvViewAvatar.getChildAdapterPosition(view)
         }
-    }
 
-    override fun initData() {
         viewModel.initDataAvatar()
         viewModel.listAvatarLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
@@ -62,9 +90,6 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     }
 
     override fun initAction() {
-
-        checkFragmentBoolean()
-
         binding.imgCalenda.click {
             context?.let { it1 ->
                 viewModel.showDatePickerEnd(it1) {
@@ -100,34 +125,61 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
         }
 
         binding.yes.click {
+            addDataFriends()
+        }
 
-            val name = binding.editName.text.trim().toString()
-            val date = binding.txtDateOfBirth.text.trim().toString()
+        binding.update.click {
+            personalInformation?.let { it1 -> updateFriends(it1) }
+        }
+    }
 
-            if (name.isNotEmpty() && date.isNotEmpty() && binding.editName.error == null) {
-                var personalInformation =
-                    PersonalInformation(
-                        0,
-                        name,
-                        date,
-                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(
-                            positionPickerLayout
-                        ) else 0,
-                        if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
-                        false
-                    )
-                if (viewModel.isUserExist(personalInformation))
-                    showDialogEnterInFormation(personalInformation)
-                else {
-                    viewModel.addPersonalInformation(personalInformation)
-                    openFragment(IntroThreeFragment::class.java, null, true)
-                }
-            } else {
-                if (name.isEmpty() && date.isEmpty()) {
-                    binding.editName.error = "not value"
-                    binding.txtDateOfBirth.error = "not value"
-                }
+    private fun updateFriends(personalInformation: PersonalInformation) {
+        personalInformation?.apply {
+            name = binding.editName.text.toString().trim()
+            date = binding.txtDateOfBirth.text.toString().trim()
+
+            viewModel.updateFriends(this)
+            onBackPressed()
+        }
+    }
+
+    private fun addDataFriends() {
+        val name = binding.editName.text.trim().toString()
+        val date = binding.txtDateOfBirth.text.trim().toString()
+
+        if (name.isNotEmpty() && date.isNotEmpty() && binding.editName.error == null) {
+            var personalInformation =
+                PersonalInformation(
+                    0,
+                    name,
+                    date,
+                    if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(
+                        positionPickerLayout
+                    ) else 0,
+                    if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
+                    false
+                )
+            if (viewModel.isUserExist(personalInformation))
+                showDialogEnterInFormation(personalInformation)
+            else {
+                viewModel.addPersonalInformation(personalInformation)
+                setTextView()
+                toast("Add Friends - Success")
             }
+        } else {
+            if (name.isEmpty() && date.isEmpty()) {
+                binding.editName.error = "not value"
+                binding.txtDateOfBirth.error = "not value"
+            }
+        }
+    }
+
+    private fun setTextView() {
+        with(binding) {
+            editName.setText("")
+            txtDateOfBirth.text = ""
+            editName.hint = "Name :"
+            txtDateOfBirth.hint = "Date of birth"
         }
     }
 
@@ -138,11 +190,5 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             .setNegativeButton("OK", null)
             .show()
     }
-
-    private fun checkFragmentBoolean() {
-        if (!checkFragment)
-            binding.no.gone()
-    }
-
 
 }
