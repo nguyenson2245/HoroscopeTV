@@ -14,6 +14,9 @@ import com.smartwavettn.horoscope.databinding.FragmentFriendsBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
+import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
+import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
+import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
@@ -101,6 +104,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.introduce.click {
+            openFragment(IntroduceFragment::class.java, null, true)
             binding.drawer.closeDrawers()
         }
 
@@ -117,10 +121,13 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.privacyPolicy.click {
+            openFragment(PrivacyPolicyFragment::class.java, null, true)
             binding.drawer.closeDrawers()
         }
 
         binding.menu.termsOfUse.click {
+            openFragment(TermOfUseFragment::class.java, null, true)
+
             binding.drawer.closeDrawers()
         }
 

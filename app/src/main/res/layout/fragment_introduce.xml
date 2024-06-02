@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:orientation="vertical"
+    tools:context=".ui.navigation.friends.introduce.IntroduceFragment">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?actionBarSize"
+          app:navigationIcon="@drawable/ic_back">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="@string/introduce"
+              android:textColor="#C7F8FF"
+              android:textSize="18sp"
+              android:textStyle="bold" />
+
+      </androidx.appcompat.widget.Toolbar>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/dxss"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar"
+            android:layout_margin="9dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tibetan"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/introt1"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lunaDay"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Color"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro4"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Astrological"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro5"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Five"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro6"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Lucky"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro7"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Body"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro8"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Manifestation"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro9"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Lifeforce"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro10"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Protective"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro11"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/MainSource"
+                android:textColor="@color/cloloss"
+                android:textSize="@dimen/_16sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/intro12"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+  </RelativeLayout>
+
+</LinearLayout>
