@@ -7,12 +7,14 @@ import androidx.databinding.ViewDataBinding
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.recyclerview.BaseRecyclerAdapter
 import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
-import com.smartwavettn.horoscope.customview.customcalenday.model.DayModel
+import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.ItemDayMoonBinding
 import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
@@ -20,6 +22,7 @@ import java.util.Calendar
 
 
 class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.ViewHolder>() {
+    val scope = CoroutineScope(Job() + Dispatchers.Default)
     inner class ViewHolder(val binding: ViewDataBinding) : BaseViewHolder<DayModel>(binding){
         @RequiresApi(Build.VERSION_CODES.O)
         override fun bind(itemData: DayModel?) {
@@ -27,7 +30,7 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
             if (binding is ItemDayMoonBinding){
                 binding.day.text = itemData?.day.toString()
                 if (itemData != null) {
-                    GlobalScope.launch(Dispatchers.Default) {
+                    scope.launch(Dispatchers.Main) {
                         val calander = Calendar.getInstance().apply {
                             set(Calendar.YEAR, itemData.year.toInt())
                             set(Calendar.MONTH, itemData.month.toInt() -1)

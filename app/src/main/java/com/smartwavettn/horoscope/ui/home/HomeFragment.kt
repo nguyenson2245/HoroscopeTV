@@ -60,6 +60,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             val bundle = Bundle()
             bundle.putBoolean("checkFragment", false)
             openFragment(IntroTwoFragment::class.java, bundle, true)
+            binding.drawer.closeDrawers()
         }
 
         binding.menu.friends.click {

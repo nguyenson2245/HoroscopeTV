@@ -2,7 +2,7 @@
 <layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/callMeasure"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
@@ -36,9 +36,9 @@
         </LinearLayout>
 
         <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/callMeasure"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_190sdp"
-            android:layout_marginHorizontal="@dimen/_16dp" />
-
+            android:layout_marginHorizontal="@dimen/_16dp"/>
     </LinearLayout>
 </layout>
