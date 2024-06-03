@@ -8,12 +8,12 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:layout_marginTop="@dimen/_7sdp"
         android:id="@+id/linnerLayoutProfile"
-        android:padding="@dimen/_5sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginTop="@dimen/_7sdp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image"
@@ -24,10 +24,10 @@
             tools:ignore="MissingClass" />
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -36,24 +36,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:textSize="@dimen/_16sp"
                 android:textColor="@color/black"
+                android:textSize="@dimen/_16sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtDate"
-                android:textSize="@dimen/_12sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/date"
                 android:textColor="@color/black"
-                />
+                android:textSize="@dimen/_12sp" />
         </LinearLayout>
 
         <ImageView
-            android:layout_gravity="center"
             android:layout_width="@dimen/_24dp"
             android:layout_height="@dimen/_24dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
             android:src="@drawable/pen" />
@@ -61,14 +60,14 @@
     </LinearLayout>
 
     <TextView
-        android:layout_marginTop="@dimen/_6sdp"
-        android:textColor="@color/black"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_below="@+id/linnerLayoutProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_14sdp"
-        android:text="Year of Iron - Dragon, Virgo"/>
+        android:layout_below="@+id/linnerLayoutProfile"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:text="Year of Iron - Dragon, Virgo"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp" />
 
 </RelativeLayout>

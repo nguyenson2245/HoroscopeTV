@@ -12,9 +12,14 @@ class Repository(context: Context) {
     suspend fun addPersonalInformation(personalInformation: PersonalInformation) =
         appDatabase.getInformationDao().insertAll(personalInformation)
 
-     fun updatePersonalInformation(personalInformation: PersonalInformation) = appDatabase.getInformationDao().updatePersonal(personalInformation)
+    fun updatePersonalInformation(personalInformation: PersonalInformation) =
+        appDatabase.getInformationDao().updatePersonal(personalInformation)
 
-    fun getListLiveData(): LiveData<List<PersonalInformation>> = appDatabase.getInformationDao().getListNote()
+    fun getListLiveData(): LiveData<List<PersonalInformation>> =
+        appDatabase.getInformationDao().getListNote()
 
-     suspend fun deletePersonal(personalInformation: PersonalInformation) =appDatabase.getInformationDao().delete(personalInformation)
+    suspend fun deletePersonal(personalInformation: PersonalInformation) =
+        appDatabase.getInformationDao().delete(personalInformation)
+
+    fun getProfileInformation(personalInformation: PersonalInformation) =    appDatabase.getInformationDao().getProfileInformation()
 }

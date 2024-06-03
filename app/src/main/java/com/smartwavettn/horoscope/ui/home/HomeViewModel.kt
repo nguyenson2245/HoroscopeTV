@@ -1,7 +1,9 @@
 package com.smartwavettn.horoscope.ui.home
 
-import androidx.lifecycle.ViewModel
+import com.smartwavettn.horoscope.base.BaseViewModel
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel : BaseViewModel() {
+
+    fun getListPersonaLiveData() = repository.getListLiveData()
 
 }

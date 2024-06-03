@@ -189,7 +189,7 @@
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/custom_button_ping"
                 android:text="Ok"
-                android:visibility="visible" />
+                android:visibility="gone" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

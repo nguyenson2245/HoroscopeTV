@@ -11,14 +11,18 @@ import com.smartwavettn.horoscope.model.PersonalInformation
 
 @Dao
 interface Dao {
+
+    @Query("SELECT * FROM PersonalInformation WHERE isProfile = 1 LIMIT 1")
+    fun getProfileInformation(): PersonalInformation
+
     @Query("SELECT * FROM PersonalInformation")
     fun getAll(): List<PersonalInformation>
 
     @Insert
-  suspend  fun insertAll(vararg information: PersonalInformation)
+    suspend fun insertAll(vararg information: PersonalInformation)
 
     @Query("SELECT * FROM PersonalInformation where name= :title")
-      fun checkName(title: String): List<PersonalInformation>
+    fun checkName(title: String): List<PersonalInformation>
 
     @Query("SELECT * FROM PersonalInformation")
     fun getListNote(): LiveData<List<PersonalInformation>>

@@ -97,5 +97,15 @@ class IntroTwoViewModel : BaseViewModel() {
         return list != null && !list.isEmpty()
     }
 
+    fun updateFriends(information: PersonalInformation) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repository.updatePersonalInformation(information)
+            } catch (e: Throwable) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 
 }

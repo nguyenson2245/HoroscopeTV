@@ -1,5 +1,6 @@
 package com.smartwavettn.scanqr.ui.splash
 
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
@@ -15,7 +16,8 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
     companion object {
         fun newInstance() = SplashFragment()
     }
-    private lateinit var preferences : Preferences
+
+    private lateinit var preferences: Preferences
 
     private val viewModel: SplashViewModel by viewModels()
 
@@ -27,7 +29,9 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
         preferences = Preferences.getInstance(requireActivity())
 
         Handler(Looper.getMainLooper()).postDelayed({
-                openFragment(HomeFragment::class.java,null,false)
+            val bundle = Bundle()
+            bundle.putString("checkFragment", "slashFragment")
+            openFragment(HomeFragment::class.java, bundle, false)
         }, 1000)
     }
 

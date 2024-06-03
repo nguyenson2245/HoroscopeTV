@@ -2,6 +2,7 @@ package com.smartwavettn.horoscope.ui.navigation.friends
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
@@ -33,8 +34,7 @@ class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
             bundle.putSerializable("personalInformation",personalInformation)
 
             openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
-        },
-            { personalInformation -> runBlocking { viewModel.deletePersonal(personalInformation) } })
+        }, { personalInformation -> runBlocking { viewModel.deletePersonal(personalInformation) } })
         binding.rcvViewAvatar.apply {
             adapter = adapterFriends
         }
@@ -55,7 +55,12 @@ class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
 
     fun loadData() {
         viewModel.getListPersonaLiveData().observe(viewLifecycleOwner) {
-            adapterFriends.submitList(it)
+            val profilePersona = it.filter { !it.isProfile }
+            Log.d("loadData", "loadData: $profilePersona")
+            if (profilePersona != null) {
+                adapterFriends.submitList(profilePersona )
+            }
+
         }
     }
 

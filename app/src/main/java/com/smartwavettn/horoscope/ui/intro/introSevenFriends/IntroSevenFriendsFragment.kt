@@ -50,8 +50,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        personalInformation =
-            arguments?.getSerializable("personalInformation") as PersonalInformation?
+        personalInformation = arguments?.getSerializable("personalInformation") as PersonalInformation?
     }
 
     override fun initData() {
@@ -66,8 +65,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        val pickerLayoutManager =
-            PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
+        val pickerLayoutManager = PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
                 changeAlpha = true
                 scaleDownBy = 0.99f
                 scaleDownDistance = 0.8f

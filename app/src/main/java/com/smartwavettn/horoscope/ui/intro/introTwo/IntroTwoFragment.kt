@@ -1,6 +1,7 @@
 package com.smartwavettn.horoscope.ui.intro.introTwo
 
 import android.app.AlertDialog
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
@@ -20,10 +21,9 @@ import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
-    private var checkFragment = true
-
     private var positionPickerLayout: Int = 0
     private var uriImage: String = ""
+    private var personalInformation: PersonalInformation? = null
 
     private val viewModel: IntroTwoViewModel by viewModels()
     private lateinit var adapter: AvatarAdapter
@@ -33,9 +33,23 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
     }
 
     override fun init() {
-        checkFragment = arguments?.getBoolean("checkFragment", true) ?: true
+        context?.let { viewModel.init(it) }
 
-        context?.let { viewModel.init(it) }  // khởi tạo repository nếu dùng context
+        personalInformation = arguments?.getSerializable("profilePersona") as PersonalInformation?
+
+        var type = arguments?.getString("checkFragment")
+
+        when (type) {
+            "home" -> {
+                binding.btnContinue.gone()
+                binding.btnOke.visible()
+
+                binding.editName.setText(personalInformation?.name)
+                binding.txtDateOfBirth.setText(personalInformation?.date)
+            }
+
+            "slashFragment" -> {}
+        }
 
         val pickerLayoutManager =
             PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
@@ -56,6 +70,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
     }
 
     override fun initData() {
+
         viewModel.initDataAvatar()
         viewModel.listAvatarLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
@@ -99,11 +114,10 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
             if (name.isNotEmpty() && date.isNotEmpty() && binding.editName.error == null) {
                 var personalInformation =
-                    PersonalInformation(
-                        0,
-                        name,
-                        date,
-                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(positionPickerLayout) else 0,
+                    PersonalInformation(0, name, date,
+                        if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(
+                            positionPickerLayout
+                        ) else 0,
                         if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
                         true
                     )
@@ -122,15 +136,25 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
         }
 
         binding.btnOke.click {
-
+            personalInformation?.let { it1 -> updateFriends(it1) }
         }
 
         binding.aaaa.click {
-            openFragment(HomeFragment::class.java,null,true)
+            openFragment(HomeFragment::class.java, null, true)
         }
+    }
 
-        checkFragmentBoolean()
+    private fun updateFriends(personalInformation: PersonalInformation) {
+        personalInformation?.apply {
+            name = binding.editName.text.toString().trim()
+            date = binding.txtDateOfBirth.text.toString().trim()
 
+            icon = if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(positionPickerLayout) else 0
+            iconImage = if (binding.imageAvatarConstraintLayout.isVisible) uriImage else ""
+
+            viewModel.updateFriends(this)
+            onBackPressed()
+        }
     }
 
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
@@ -140,12 +164,4 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
             .setNegativeButton("OK", null)
             .show()
     }
-
-    private fun checkFragmentBoolean() {
-        binding.apply {
-            btnOke.visibility = if (checkFragment) View.GONE else View.VISIBLE
-            btnContinue.visibility = if (checkFragment) View.VISIBLE else View.GONE
-        }
-    }
-
 }
