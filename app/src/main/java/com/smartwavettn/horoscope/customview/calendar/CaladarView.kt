@@ -30,29 +30,36 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     init {
         init()
     }
+
     private fun init(){
+        val mothList: ArrayList<MothModel> = arrayListOf()
+
         binding = CalendarViewBinding.inflate(LayoutInflater.from(context), null , false)
         removeAllViews()
         addView(binding.root)
+
         binding.rvWeekday.adapter = weekCalendarAdapter
         binding.rvWeekday.layoutManager =
             GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
         weekCalendarAdapter.submitList(getDataWeek())
-        val mothList: ArrayList<MothModel> = arrayListOf()
+
+
         adapter = CalendarViewAdapter()
         binding.callMeasure.adapter = adapter
         binding.callMeasure.offscreenPageLimit = 3
-        scope.launch(Dispatchers.Default){
 
+        scope.launch(Dispatchers.Default){
             var currentDate = Calendar.getInstance()
+            val endDate = Calendar.getInstance()
+
             currentDate.set(Calendar.YEAR, 2022)
             currentDate.set(Calendar.MONTH, 0)
             currentDate.set(Calendar.DAY_OF_MONTH, 1)
 
-            val endDate = Calendar.getInstance()
             endDate.set(Calendar.YEAR, 2028)
             endDate.set(Calendar.MONTH, 11)
             endDate.set(Calendar.DAY_OF_MONTH, 31)
+
             while (currentDate.time.time <= endDate.time.time) {
                 val dayModel = MothModel(
                     month = SimpleDateFormat("MM").format(currentDate.time),
@@ -61,26 +68,33 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 mothList.add(dayModel)
                 currentDate.add(Calendar.MONTH, 1)
             }
+
             withContext(Dispatchers.Main) {
                 adapter.submitList(mothList)
             }
 
         }
+
         binding.back.setOnClickListener {
             if (binding.callMeasure.currentItem > 0)
                 binding.callMeasure.currentItem = binding.callMeasure.currentItem -1
         }
+
         binding.next.setOnClickListener {
             if (binding.callMeasure.currentItem < mothList.size - 1)
                 binding.callMeasure.currentItem = binding.callMeasure.currentItem + 1
         }
+
         binding.callMeasure.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 val calendar = Calendar.getInstance()
+
                 calendar.set(Calendar.YEAR,mothList.get(position).year.toInt())
                 calendar.set(Calendar.MONTH,mothList.get(position).month.toInt())
+
                 binding.mothYear.text =  SimpleDateFormat("MMM").format(calendar.time)+"/"+ mothList.get(position).year
                 binding.callMeasure.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
+
                 super.onPageSelected(position)
             }
         })
