@@ -40,6 +40,10 @@
                 android:src="@drawable/ic_next" />
         </LinearLayout>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_weekday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/callMeasure"
             android:layout_width="match_parent"

@@ -16,44 +16,68 @@ import java.util.Calendar
 
 
 class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, attr) {
-    private lateinit var binding : CalendertDayBinding
+    private lateinit var binding: CalendertDayBinding
     private lateinit var adapter: CalenderDayAdapter
-    val scope = CoroutineScope(Job() + Dispatchers.Main)
+    private val scope = CoroutineScope(Job() + Dispatchers.Main)
+
     init {
         initView()
     }
 
     private fun initView() {
+        val dayList: ArrayList<DayModel> = arrayListOf()
         binding = CalendertDayBinding.inflate(LayoutInflater.from(context))
         removeAllViews()
         addView(binding.root)
+
         adapter = CalenderDayAdapter()
         binding.callMeasure.adapter = adapter
-        scope.launch(Dispatchers.Main){
-            val dayList: ArrayList<DayModel> = arrayListOf()
-        var currentDate = Calendar.getInstance()
-        currentDate.set(Calendar.YEAR, 2022)
-        currentDate.set(Calendar.MONTH, 0)
-        currentDate.set(Calendar.DAY_OF_MONTH, 1)
+        binding.callMeasure.offscreenPageLimit = 3
 
-        val endDate = Calendar.getInstance()
-        endDate.set(Calendar.YEAR, 2028)
-        endDate.set(Calendar.MONTH, 11)
-        endDate.set(Calendar.DAY_OF_MONTH, 31)
-        while (currentDate.time.time <= endDate.time.time) {
+        scope.launch(Dispatchers.Main) {
+
+            var currentDate = Calendar.getInstance()
+            val endDate = Calendar.getInstance()
+
+            currentDate.set(Calendar.YEAR, 2022)
+            currentDate.set(Calendar.MONTH, 0)
+            currentDate.set(Calendar.DAY_OF_MONTH, 1)
+
+            endDate.set(Calendar.YEAR, 2028)
+            endDate.set(Calendar.MONTH, 11)
+            endDate.set(Calendar.DAY_OF_MONTH, 31)
+
+            while (currentDate.time.time <= endDate.time.time) {
                 val dayModel = DayModel(
                     day = SimpleDateFormat("dd").format(currentDate.time),
                     month = SimpleDateFormat("MM").format(currentDate.time),
                     year = SimpleDateFormat("yyyy").format(currentDate.time),
                 )
+
                 dayList.add(dayModel)
-            currentDate.add(Calendar.DAY_OF_MONTH, 1)
+                currentDate.add(Calendar.DAY_OF_MONTH, 1)
             }
+
             withContext(Dispatchers.Main) {
                 adapter.submitList(dayList)
             }
-        }
+            Calendar.getInstance().let {
+                selectDay(it.get(Calendar.DAY_OF_MONTH), it.get(Calendar.MONTH)+ 1, it.get(Calendar.YEAR))
+            }
 
+
+        }
+    }
+
+    fun selectDay(day: Int, month: Int, year: Int) {
+
+        val listFitter = adapter.listItem.filter {
+            it.day.toInt() == day
+                    && month == it.month.toInt() && it.year.toInt() == year
+
+        }
+        if (listFitter.isNotEmpty())
+            binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()))
     }
 }
 

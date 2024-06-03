@@ -1,7 +1,9 @@
-package com.smartwavettn.horoscope.customview.calendar.itemviewcalenda
+package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,19 +17,21 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
     private lateinit var adapter: ItemViewCalendarAdapter
     private var year: Int = Calendar.getInstance().get(Calendar.YEAR)
     private var month: Int = Calendar.getInstance().get(Calendar.MONTH)
-
-
+    private var position: Int = 0
 
     private fun init(){
         var listDay : ArrayList<DayModel> = arrayListOf()
-        binding = ItemViewCalendarBinding.inflate(LayoutInflater.from(context), null, false)
+        binding = ItemViewCalendarBinding.inflate(LayoutInflater.from(context))
         removeAllViews()
         addView(binding.root)
+
         adapter = ItemViewCalendarAdapter()
         binding.rcView.layoutManager = GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL , false)
         binding.rcView.adapter = adapter
-        addlistWeekView(month, year, listDay)
+        getAllDaysInMonth(year, month, listDay)
         adapter.submitList(listDay)
+
+        Log.d(TAG, "init: " + position)
     }
      fun setMonthAndYear(month: Int?, year: Int?){
          if (month != null) {
@@ -37,18 +41,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
              this.year = year
          }
         init()
-    }
-
-    fun addlistWeekView(month: Int, year: Int, listDay: ArrayList<DayModel>) {
-        listDay.add(DayModel(weekOfDay = "S"))
-        listDay.add(DayModel(weekOfDay = "M"))
-        listDay.add(DayModel(weekOfDay = "T"))
-        listDay.add(DayModel(weekOfDay = "W"))
-        listDay.add(DayModel(weekOfDay = "T"))
-        listDay.add(DayModel(weekOfDay = "F"))
-        listDay.add(DayModel(weekOfDay = "S"))
-        getAllDaysInMonth(year, month, listDay)
-
     }
 
         fun getAllDaysInMonth(year: Int, month: Int,listDay: ArrayList<DayModel>) : ArrayList<DayModel>{
@@ -64,9 +56,9 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
             listDay.add(DayModel())
         }
 
-
         for (day in 1..daysInMonth) {
           listDay.add(DayModel(day = day.toString(), month = month.toString(), year= year.toString()))
+
         }
         return listDay
     }

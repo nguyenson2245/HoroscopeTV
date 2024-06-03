@@ -1,4 +1,4 @@
-package com.smartwavettn.horoscope.customview.calendar.itemviewcalenda
+package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
@@ -21,8 +21,13 @@ class ItemViewCalendarAdapter : BaseRecyclerAdapter<DayModel, ItemViewCalendarAd
                     binding.underline.gone()
                 }else{
                     binding.title.text = itemData?.day
-                    binding.viewLayout.visible()
-                    binding.underline.visible()
+                    if (itemData?.day.isNullOrEmpty()){
+                        binding.viewLayout.gone()
+                        binding.underline.gone()
+                    }else{
+                        binding.viewLayout.visible()
+                        binding.underline.visible()
+                    }
                 }
             }
         }
