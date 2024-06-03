@@ -20,9 +20,10 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
 
     private fun init(){
         var listDay : ArrayList<DayModel> = arrayListOf()
-        binding = ItemViewCalendarBinding.inflate(LayoutInflater.from(context), null, false)
+        binding = ItemViewCalendarBinding.inflate(LayoutInflater.from(context))
         removeAllViews()
         addView(binding.root)
+
         adapter = ItemViewCalendarAdapter()
         binding.rcView.layoutManager = GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL , false)
         binding.rcView.adapter = adapter

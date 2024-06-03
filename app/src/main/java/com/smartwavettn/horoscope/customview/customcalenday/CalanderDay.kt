@@ -30,8 +30,10 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         adapter = CalenderDayAdapter()
         binding.callMeasure.adapter = adapter
         binding.callMeasure.offscreenPageLimit = 3
+
         scope.launch(Dispatchers.Main){
             val dayList: ArrayList<DayModel> = arrayListOf()
+
         var currentDate = Calendar.getInstance()
         currentDate.set(Calendar.YEAR, 2022)
         currentDate.set(Calendar.MONTH, 0)

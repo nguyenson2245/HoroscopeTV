@@ -24,7 +24,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     private lateinit var binding : CalendarViewBinding
     private lateinit var adapter: CalendarViewAdapter
     val scope = CoroutineScope(Job() + Dispatchers.Default)
-    private val weekCalendarAdapter: ItemViewWeekCalendarAdapter = ItemViewWeekCalendarAdapter()
+    private val weekCalendarAdapter: WeekCalendarAdapter = WeekCalendarAdapter()
 
 
     init {

@@ -10,16 +10,11 @@ import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.ItemDayBinding
 
-class ItemViewWeekCalendarAdapter : BaseRecyclerAdapter<DayModel, ItemViewWeekCalendarAdapter.ViewHolder>() {
+class WeekCalendarAdapter : BaseRecyclerAdapter<DayModel, WeekCalendarAdapter.ViewHolder>() {
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
             if (binding is ItemDayBinding){
-                if(itemData?.weekOfDay?.isNotEmpty() == true){
-                    binding.title.text = itemData.weekOfDay
-                    binding.viewLayout.gone()
-                    binding.underline.gone()
-                }else{
                     binding.title.text = itemData?.day
                     if (itemData?.day.isNullOrEmpty()){
                         binding.viewLayout.gone()
@@ -28,9 +23,9 @@ class ItemViewWeekCalendarAdapter : BaseRecyclerAdapter<DayModel, ItemViewWeekCa
                         binding.viewLayout.visible()
                         binding.underline.visible()
                     }
-                    
+
                 }
-            }
+            
         }
     }
 

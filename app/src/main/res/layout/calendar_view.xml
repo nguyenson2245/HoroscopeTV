@@ -48,7 +48,6 @@
             android:id="@+id/callMeasure"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/blue"
             android:layout_marginHorizontal="@dimen/_16dp"/>
     </LinearLayout>
 </layout>
