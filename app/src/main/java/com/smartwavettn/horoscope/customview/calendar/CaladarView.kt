@@ -43,7 +43,6 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
         weekCalendarAdapter.submitList(getDataWeek())
 
-
         adapter = CalendarViewAdapter()
         binding.callMeasure.adapter = adapter
         binding.callMeasure.offscreenPageLimit = 3
@@ -68,7 +67,6 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 mothList.add(dayModel)
                 currentDate.add(Calendar.MONTH, 1)
             }
-
             withContext(Dispatchers.Main) {
                 adapter.submitList(mothList)
             }

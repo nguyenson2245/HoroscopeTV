@@ -23,7 +23,6 @@ class WeekCalendarAdapter : BaseRecyclerAdapter<DayModel, WeekCalendarAdapter.Vi
                         binding.viewLayout.visible()
                         binding.underline.visible()
                     }
-
             }
         }
     }

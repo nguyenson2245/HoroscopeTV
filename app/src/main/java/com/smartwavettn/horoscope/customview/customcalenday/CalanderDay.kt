@@ -61,7 +61,23 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
             withContext(Dispatchers.Main) {
                 adapter.submitList(dayList)
             }
+            Calendar.getInstance().let {
+                selectDay(it.get(Calendar.DAY_OF_MONTH), it.get(Calendar.MONTH)+ 1, it.get(Calendar.YEAR))
+            }
+
+
         }
+    }
+
+    fun selectDay(day: Int, month: Int, year: Int) {
+
+        val listFitter = adapter.listItem.filter {
+            it.day.toInt() == day
+                    && month == it.month.toInt() && it.year.toInt() == year
+
+        }
+        if (listFitter.isNotEmpty())
+            binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()))
     }
 }
 

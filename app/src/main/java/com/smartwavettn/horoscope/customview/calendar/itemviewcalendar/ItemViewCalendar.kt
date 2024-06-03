@@ -1,7 +1,9 @@
-package com.smartwavettn.horoscope.customview.calendar.itemviewcalenda
+package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,8 +17,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
     private lateinit var adapter: ItemViewCalendarAdapter
     private var year: Int = Calendar.getInstance().get(Calendar.YEAR)
     private var month: Int = Calendar.getInstance().get(Calendar.MONTH)
-
-
+    private var position: Int = 0
 
     private fun init(){
         var listDay : ArrayList<DayModel> = arrayListOf()
@@ -29,6 +30,8 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         binding.rcView.adapter = adapter
         getAllDaysInMonth(year, month, listDay)
         adapter.submitList(listDay)
+
+        Log.d(TAG, "init: " + position)
     }
      fun setMonthAndYear(month: Int?, year: Int?){
          if (month != null) {
@@ -55,6 +58,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
 
         for (day in 1..daysInMonth) {
           listDay.add(DayModel(day = day.toString(), month = month.toString(), year= year.toString()))
+
         }
         return listDay
     }
