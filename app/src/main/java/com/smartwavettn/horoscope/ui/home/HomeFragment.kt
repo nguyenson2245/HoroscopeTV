@@ -1,6 +1,8 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -59,8 +61,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
                     }
                 }
 
-
-
                 if (profilePersona.icon != null && profilePersona.icon != 1) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(profilePersona.icon)
                     binding.profileHeader.image.setImageResource(profilePersona.icon)
@@ -85,16 +85,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
                     openFragment(IntroTwoFragment::class.java, bundle, true)
                     binding.drawer.closeDrawers()
                 }
-            } else {
-                with(binding) {
-                    profileHeader.txtName.text = ""
-                    menu.drawerHeaderProifile.apply {
-                        txtName.text = ""
-                        txtDate.text = ""
-                        image.setImageDrawable(null)
-                    }
-                }
-
             }
         }
     }
@@ -177,6 +167,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.contact.click {
+          viewModel.openEmailApp()
             binding.drawer.closeDrawers()
         }
 

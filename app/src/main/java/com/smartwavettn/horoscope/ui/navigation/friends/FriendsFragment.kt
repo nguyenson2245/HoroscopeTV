@@ -1,17 +1,13 @@
 package com.smartwavettn.horoscope.ui.navigation.friends
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentFriendsBinding
 import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenFriendsFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
