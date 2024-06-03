@@ -10,7 +10,7 @@ data class PersonalInformation(
     @PrimaryKey(autoGenerate = true) var id: Int = 0,
     var name: String = "",
     var date: String = "",
-    val icon: Int = 0,
-    val iconImage: String = "",
-    val isProfile: Boolean
+    var icon: Int = 0,
+    var iconImage: String = "",
+    var isProfile: Boolean
 ): Serializable

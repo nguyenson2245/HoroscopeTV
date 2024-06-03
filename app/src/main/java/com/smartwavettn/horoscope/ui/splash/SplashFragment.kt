@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.databinding.FragmentSplashBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
+import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {

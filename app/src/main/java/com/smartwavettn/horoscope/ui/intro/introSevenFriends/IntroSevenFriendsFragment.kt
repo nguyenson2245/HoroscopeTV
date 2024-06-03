@@ -98,12 +98,11 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        val pickMedia =
-            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
                     binding.rcvViewAvatar.gone()
                     binding.imageAvatarConstraintLayout.visible()
-                    Glide.with(requireActivity()).load(uri).into(binding.imageAvatar)
+
                     uriImage = uri.toString()
                 } else {
                     binding.imageAvatarConstraintLayout.gone()
@@ -137,6 +136,9 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
         personalInformation?.apply {
             name = binding.editName.text.toString().trim()
             date = binding.txtDateOfBirth.text.toString().trim()
+
+            icon= if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(positionPickerLayout) else 0
+            iconImage =if (binding.imageAvatarConstraintLayout.isVisible) uriImage else ""
 
             viewModel.updateFriends(this)
             onBackPressed()
