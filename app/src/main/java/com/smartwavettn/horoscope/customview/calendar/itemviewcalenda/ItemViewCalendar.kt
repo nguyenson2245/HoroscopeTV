@@ -27,7 +27,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         adapter = ItemViewCalendarAdapter()
         binding.rcView.layoutManager = GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL , false)
         binding.rcView.adapter = adapter
-        addlistWeekView(month, year, listDay)
+        getAllDaysInMonth(year, month, listDay)
         adapter.submitList(listDay)
     }
      fun setMonthAndYear(month: Int?, year: Int?){
@@ -38,12 +38,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
              this.year = year
          }
         init()
-    }
-
-    fun addlistWeekView(month: Int, year: Int, listDay: ArrayList<DayModel>) {
-
-        getAllDaysInMonth(year, month, listDay)
-
     }
 
         fun getAllDaysInMonth(year: Int, month: Int,listDay: ArrayList<DayModel>) : ArrayList<DayModel>{
@@ -58,7 +52,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         for (i in 1 until firstDayOfWeek) {
             listDay.add(DayModel())
         }
-
 
         for (day in 1..daysInMonth) {
           listDay.add(DayModel(day = day.toString(), month = month.toString(), year= year.toString()))
