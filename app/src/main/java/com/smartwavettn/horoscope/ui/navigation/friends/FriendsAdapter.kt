@@ -26,17 +26,11 @@ class FriendsAdapter(val click: (PersonalInformation) -> Unit , val detele : (Pe
                         .load(
                             when {
                                 itemData?.icon != 1 -> itemData.icon
-                                itemData?.iconImage.isNullOrEmpty() -> R.drawable.avatar1
-                                else -> try {
-                                    Uri.parse(itemData?.iconImage)
+                                else -> Uri.parse(itemData?.iconImage)
 
-                                } catch (e: Exception) {
-                                    R.drawable.avatar1
-                                }
+
                             }
                         )
-                        .placeholder(R.drawable.ic_sad)
-                        .error(R.drawable.aaaa)
                         .into(binding.image)
                 }
 

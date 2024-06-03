@@ -38,7 +38,7 @@
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/callMeasure"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_190sdp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/_16dp"/>
     </LinearLayout>
 </layout>

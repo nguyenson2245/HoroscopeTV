@@ -18,20 +18,19 @@ import java.util.Calendar
 class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, attr) {
     private lateinit var binding : CalendertDayBinding
     private lateinit var adapter: CalenderDayAdapter
-    val scope = CoroutineScope(Job() + Dispatchers.Default)
+    val scope = CoroutineScope(Job() + Dispatchers.Main)
     init {
         initView()
     }
 
     private fun initView() {
-        scope.launch {
-            val dayList: ArrayList<DayModel> = arrayListOf()
         binding = CalendertDayBinding.inflate(LayoutInflater.from(context))
-        adapter = CalenderDayAdapter()
         removeAllViews()
         addView(binding.root)
+        adapter = CalenderDayAdapter()
         binding.callMeasure.adapter = adapter
-
+        scope.launch(Dispatchers.Main){
+            val dayList: ArrayList<DayModel> = arrayListOf()
         var currentDate = Calendar.getInstance()
         currentDate.set(Calendar.YEAR, 2022)
         currentDate.set(Calendar.MONTH, 0)

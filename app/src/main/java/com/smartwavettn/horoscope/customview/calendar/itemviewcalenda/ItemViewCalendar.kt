@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.ItemViewCalendarBinding
+import java.time.LocalDate
+import java.util.Calendar
 
 class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
     private lateinit var binding: ItemViewCalendarBinding
@@ -26,9 +28,12 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         binding.rcView.layoutManager = GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL , false)
         binding.rcView.adapter = adapter
         addlistWeekView(listDay)
+
+
         adapter.submitList(listDay)
 
     }
+
     fun addlistWeekView(listDay: ArrayList<DayModel>){
         listDay.add(DayModel(weekOfDay = "S"))
         listDay.add(DayModel(weekOfDay = "M"))
@@ -37,8 +42,32 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         listDay.add(DayModel(weekOfDay = "T"))
         listDay.add(DayModel(weekOfDay = "F"))
         listDay.add(DayModel(weekOfDay = "S"))
-        listDay.add(DayModel(weekOfDay = "S"))
-        listDay.add(DayModel(weekOfDay = "S"))
-        listDay.add(DayModel(weekOfDay = "S"))
+        getAllDaysInMonth(2024, 5, listDay)
+
     }
+
+        fun getAllDaysInMonth(year: Int, month: Int,listDay: ArrayList<DayModel>) : ArrayList<DayModel>{
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.YEAR, year)
+        calendar.set(Calendar.MONTH, month)
+        calendar.set(Calendar.DAY_OF_MONTH, 1)
+
+        val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+
+
+
+        val firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+        for (i in 1 until firstDayOfWeek) {
+            listDay.add(DayModel())
+        }
+
+
+        for (day in 1..daysInMonth) {
+          listDay.add(DayModel(day = day.toString(), month = month.toString(), year= year.toString()))
+        }
+        return listDay
+    }
+
+
+
 }
