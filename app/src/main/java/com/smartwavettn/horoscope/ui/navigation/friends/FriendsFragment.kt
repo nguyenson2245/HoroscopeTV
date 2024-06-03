@@ -28,7 +28,6 @@ class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
 
     override fun initData() {
         adapterFriends = FriendsAdapter({ personalInformation ->
-
             val bundle = Bundle()
             bundle.putString("checkFragmentFriends", "FriendsFragment")
             bundle.putSerializable("personalInformation",personalInformation)

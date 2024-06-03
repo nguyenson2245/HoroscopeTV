@@ -13,6 +13,7 @@ import com.smartwavettn.horoscope.base.utils.gone
 import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.databinding.FragmentIntroTwoBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
+import com.smartwavettn.horoscope.ui.home.HomeFragment
 import com.smartwavettn.horoscope.ui.intro.introThreeInformation.IntroThreeFragment
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
@@ -122,6 +123,10 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
         binding.btnOke.click {
 
+        }
+
+        binding.aaaa.click {
+            openFragment(HomeFragment::class.java,null,true)
         }
 
         checkFragmentBoolean()
