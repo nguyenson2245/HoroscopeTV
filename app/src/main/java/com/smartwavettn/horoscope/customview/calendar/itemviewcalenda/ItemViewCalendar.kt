@@ -8,16 +8,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.ItemViewCalendarBinding
-import java.time.LocalDate
 import java.util.Calendar
 
 class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
     private lateinit var binding: ItemViewCalendarBinding
     private lateinit var adapter: ItemViewCalendarAdapter
+    private var year: Int = Calendar.getInstance().get(Calendar.YEAR)
+    private var month: Int = Calendar.getInstance().get(Calendar.MONTH)
 
-    init {
-        init()
-    }
+
 
     private fun init(){
         var listDay : ArrayList<DayModel> = arrayListOf()
@@ -27,14 +26,20 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         adapter = ItemViewCalendarAdapter()
         binding.rcView.layoutManager = GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL , false)
         binding.rcView.adapter = adapter
-        addlistWeekView(listDay)
-
-
+        addlistWeekView(month, year, listDay)
         adapter.submitList(listDay)
-
+    }
+     fun setMonthAndYear(month: Int?, year: Int?){
+         if (month != null) {
+             this.month = month
+         }
+         if (year != null) {
+             this.year = year
+         }
+        init()
     }
 
-    fun addlistWeekView(listDay: ArrayList<DayModel>){
+    fun addlistWeekView(month: Int, year: Int, listDay: ArrayList<DayModel>) {
         listDay.add(DayModel(weekOfDay = "S"))
         listDay.add(DayModel(weekOfDay = "M"))
         listDay.add(DayModel(weekOfDay = "T"))
@@ -42,7 +47,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         listDay.add(DayModel(weekOfDay = "T"))
         listDay.add(DayModel(weekOfDay = "F"))
         listDay.add(DayModel(weekOfDay = "S"))
-        getAllDaysInMonth(2024, 5, listDay)
+        getAllDaysInMonth(year, month, listDay)
 
     }
 
@@ -53,8 +58,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         calendar.set(Calendar.DAY_OF_MONTH, 1)
 
         val daysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-
 
         val firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
         for (i in 1 until firstDayOfWeek) {

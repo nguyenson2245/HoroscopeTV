@@ -10,11 +10,12 @@ import com.smartwavettn.horoscope.customview.model.MothModel
 import com.smartwavettn.horoscope.databinding.CalendarViewBinding
 import com.smartwavettn.horoscope.databinding.ItemCalendarViewBinding
 
-class CalendarViewAdapter : BaseRecyclerAdapter<MothModel,CalendarViewAdapter.ViewHolder>() {
+class CalendarViewAdapter: BaseRecyclerAdapter<MothModel,CalendarViewAdapter.ViewHolder>() {
     inner class ViewHolder (val binding: ViewDataBinding) : BaseViewHolder<MothModel>(binding){
         override fun bind(itemData: MothModel?) {
             super.bind(itemData)
             if (binding is ItemCalendarViewBinding){
+                binding.itemCalendar.setMonthAndYear(itemData?.month?.toIntOrNull(), itemData?.month?.toIntOrNull())
             }
             binding.executePendingBindings()
         }
