@@ -15,17 +15,16 @@ class WeekCalendarAdapter : BaseRecyclerAdapter<DayModel, WeekCalendarAdapter.Vi
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
             if (binding is ItemDayBinding){
-                    binding.title.text = itemData?.day
-                    if (itemData?.day.isNullOrEmpty()){
-                        binding.viewLayout.gone()
-                        binding.underline.gone()
-                    }else{
+                if(itemData?.weekOfDay?.isNotEmpty() == true){
+                    binding.title.text = itemData.weekOfDay
+                    binding.viewLayout.gone()
+                    binding.underline.gone()
+                }else{
                         binding.viewLayout.visible()
                         binding.underline.visible()
                     }
 
-                }
-            
+            }
         }
     }
 

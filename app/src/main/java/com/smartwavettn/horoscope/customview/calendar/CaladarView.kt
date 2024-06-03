@@ -23,7 +23,7 @@ import java.util.Calendar
 class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
     private lateinit var binding : CalendarViewBinding
     private lateinit var adapter: CalendarViewAdapter
-    val scope = CoroutineScope(Job() + Dispatchers.Default)
+    private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val weekCalendarAdapter: WeekCalendarAdapter = WeekCalendarAdapter()
 
 
