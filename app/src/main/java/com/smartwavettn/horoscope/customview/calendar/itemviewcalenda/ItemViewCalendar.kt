@@ -40,13 +40,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
     }
 
     fun addlistWeekView(month: Int, year: Int, listDay: ArrayList<DayModel>) {
-        listDay.add(DayModel(weekOfDay = "S"))
-        listDay.add(DayModel(weekOfDay = "M"))
-        listDay.add(DayModel(weekOfDay = "T"))
-        listDay.add(DayModel(weekOfDay = "W"))
-        listDay.add(DayModel(weekOfDay = "T"))
-        listDay.add(DayModel(weekOfDay = "F"))
-        listDay.add(DayModel(weekOfDay = "S"))
+
         getAllDaysInMonth(year, month, listDay)
 
     }

@@ -1,4 +1,4 @@
-package com.smartwavettn.horoscope.customview.calendar.itemviewcalenda
+package com.smartwavettn.horoscope.customview.calendar
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
@@ -10,7 +10,7 @@ import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.ItemDayBinding
 
-class ItemViewCalendarAdapter : BaseRecyclerAdapter<DayModel, ItemViewCalendarAdapter.ViewHolder>() {
+class ItemViewWeekCalendarAdapter : BaseRecyclerAdapter<DayModel, ItemViewWeekCalendarAdapter.ViewHolder>() {
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
@@ -28,8 +28,7 @@ class ItemViewCalendarAdapter : BaseRecyclerAdapter<DayModel, ItemViewCalendarAd
                         binding.viewLayout.visible()
                         binding.underline.visible()
                     }
-
-
+                    
                 }
             }
         }
