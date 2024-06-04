@@ -73,6 +73,7 @@ class IntroSevenViewModel : BaseViewModel() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         ).show()
+
     }
 
     private fun endDay(setText: (String) -> Unit) {

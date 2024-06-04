@@ -1,7 +1,9 @@
 package com.smartwavettn.horoscope.customview.customcalenday
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import com.smartwavettn.horoscope.customview.model.DayModel
@@ -24,6 +26,7 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         initView()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun initView() {
         val dayList: ArrayList<DayModel> = arrayListOf()
         binding = CalendertDayBinding.inflate(LayoutInflater.from(context))
@@ -34,7 +37,7 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         binding.callMeasure.adapter = adapter
         binding.callMeasure.offscreenPageLimit = 3
 
-        scope.launch(Dispatchers.Main) {
+        scope.launch {
 
             var currentDate = Calendar.getInstance()
             val endDate = Calendar.getInstance()
@@ -61,11 +64,10 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
             withContext(Dispatchers.Main) {
                 adapter.submitList(dayList)
             }
+
             Calendar.getInstance().let {
                 selectDay(it.get(Calendar.DAY_OF_MONTH), it.get(Calendar.MONTH)+ 1, it.get(Calendar.YEAR))
             }
-
-
         }
     }
 

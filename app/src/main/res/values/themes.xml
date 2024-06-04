@@ -7,4 +7,9 @@
     </style>
 
     <style name="Theme.Horoscope" parent="Base.Theme.Horoscope" />
+
+    <style name="CustomSnapTimePickerDialogTheme" parent="Theme.MaterialComponents.Dialog">
+        <item name="colorAccent">@color/cloloss</item>
+        <item name="android:windowBackground">@color/black</item>
+    </style>
 </resources>

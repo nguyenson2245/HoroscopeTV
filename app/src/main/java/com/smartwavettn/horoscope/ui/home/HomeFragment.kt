@@ -11,11 +11,13 @@ import android.transition.TransitionSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import com.akexorcist.snaptimepicker.SnapTimePickerDialog
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
@@ -109,12 +111,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         binding.menu.view1.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
         binding.menu.layoutNotification.click {
-            binding.menu.btnNotification.setImageResource(
-                if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2
-            )
-
-            val v =
-                if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+            binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
+            val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
             binding.menu.itemNotification.visibility = v
 
@@ -122,19 +120,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.timeNoti.setOnClickListener {
-            val currentTime = Calendar.getInstance()
-            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
-            val minute = currentTime.get(Calendar.MINUTE)
-
-            val timePickerDialog = TimePickerDialog(requireActivity(),
-                { _, selectedHour, selectedMinute ->
-                    binding.menu.timeNoti.text = "$selectedHour:$selectedMinute"
-                },
-                hour,
-                minute,
-                true
-            )
-            timePickerDialog.show()
+            viewModel.timeApp {
+                binding.menu.timeNoti.text= it
+            }
         }
 
         binding.menu.layoutLanguage.click {
@@ -206,7 +194,20 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             binding.drawer.closeDrawers()
         }
 
+    }
 
+    private fun onTimePicked(selectedHour: Int, selectedMinute: Int) {
+
+        val hour = selectedHour.toString()
+            .padStart(2, '0')
+        val minute = selectedMinute.toString()
+            .padStart(2, '0')
+        binding.menu.timeNoti.text = String.format(
+            getString(
+                R.string.selected_time_format,
+                hour, minute
+            )
+        )
     }
 
 }

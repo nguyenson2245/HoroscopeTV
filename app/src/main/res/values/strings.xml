@@ -106,4 +106,10 @@
     <string name="term5">To cancel a subscription on the Google Play:</string>
     <string name="term6"><![CDATA[On your Android phone or tablet, open the Google Play Store\nCheck if you\'re signed in to the correct Google Account\nTap Menu -> Subscriptions\nSelect the subscription you want to cancel\nTap Cancel subscription\nFollow the instructions.\n\nWe may update the App over time. While the App is currently available on Android & iOS, system requirements may change, and users must download updates to continue using the App. The Developer does not guarantee continual updates or compatibility with all device versions. Additionally, the Developer may terminate the App at any time without prior notice.]]></string>
     <string name="vietnamese">Vietnamese</string>
+
+    <string name="title">Please select the time : </string>
+    <string name="selected_time_prefix">Your selected time is</string>
+    <string name="selected_time_format">%1$s:%2$s</string>
+    <string name="time_prefix">H-M  >>   </string>
+    <string name="time_suffix"></string>
 </resources>

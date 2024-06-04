@@ -79,4 +79,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.android.joda)
 
+    implementation("com.akexorcist:snap-time-picker:1.0.0")
+
 }
