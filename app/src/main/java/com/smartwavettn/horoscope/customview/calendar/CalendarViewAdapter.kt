@@ -19,6 +19,7 @@ class CalendarViewAdapter: BaseRecyclerAdapter<MothModel,CalendarViewAdapter.Vie
         }
     }
 
+
     override fun getItemLayoutResource(viewType: Int): Int {
         return R.layout.item_calendar_view
     }

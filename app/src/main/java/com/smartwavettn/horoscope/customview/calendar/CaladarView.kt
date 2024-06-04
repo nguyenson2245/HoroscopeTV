@@ -73,7 +73,6 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 Log.d(TAG, "init: $mothList")
                 adapter.submitList(mothList)
             }
-
         }
 
         binding.back.setOnClickListener {
@@ -99,6 +98,9 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 super.onPageSelected(position)
             }
         })
+        Calendar.getInstance().let {
+            selectMoth(it.get(Calendar.MONTH) + 1, it.get(Calendar.YEAR))
+        }
 
     }
 
@@ -112,5 +114,12 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         listDay.add(DayModel(weekOfDay = "F"))
         listDay.add(DayModel(weekOfDay = "S"))
         return listDay
+    }
+    private fun selectMoth(month: Int, year: Int) {
+        val listFitter = adapter.listItem.filter {
+            month == it.month.toInt() && it.year.toInt() == year
+        }
+        if (listFitter.isNotEmpty())
+            binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()), false)
     }
 }

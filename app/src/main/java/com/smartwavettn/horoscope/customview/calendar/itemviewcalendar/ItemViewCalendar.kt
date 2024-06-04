@@ -31,8 +31,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         binding.rcView.adapter = adapter
         getAllDaysInMonth(year, month, listDay)
         adapter.submitList(listDay)
-
-        Log.d(TAG, "init: " + position)
     }
 
     fun setMonthAndYear(month: Int?, year: Int?) {
