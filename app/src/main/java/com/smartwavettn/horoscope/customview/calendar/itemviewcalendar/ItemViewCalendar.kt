@@ -1,9 +1,7 @@
 package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
@@ -25,7 +23,16 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         removeAllViews()
         addView(binding.root)
 
-        adapter = ItemViewCalendarAdapter()
+        adapter = ItemViewCalendarAdapter{
+            listDay.forEach {
+                it.isSelected = false
+            }
+            listDay.get(it).isSelected = true
+            adapter.submitList(listDay, false)
+            adapter.notifyItemChanged(it)
+            adapter.notifyItemChanged(position)
+            position = it
+        }
         binding.rcView.layoutManager =
             GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
         binding.rcView.adapter = adapter
@@ -65,8 +72,14 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
                 DayModel(
                     day = day.toString(),
                     month = month.toString(),
-                    year = year.toString()
-                )
+                    year = year.toString(),
+                    isSelected = day == Calendar.getInstance()
+                        .get(Calendar.DAY_OF_MONTH) && month - 1 == Calendar.getInstance()
+                        .get(Calendar.MONTH) && year == Calendar.getInstance().get(Calendar.YEAR)
+                ).apply {if (isSelected){
+                    position = listDay.size
+                }
+                }
             )
 
         }

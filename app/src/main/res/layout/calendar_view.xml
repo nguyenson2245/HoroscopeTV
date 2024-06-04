@@ -27,7 +27,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="May/2024"
                 android:textColor="#C7F8FF" />
 
             <ImageView

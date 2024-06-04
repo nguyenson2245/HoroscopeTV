@@ -72,6 +72,9 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
             withContext(Dispatchers.Main) {
                 Log.d(TAG, "init: $mothList")
                 adapter.submitList(mothList)
+                Calendar.getInstance().let {
+                    selectMoth(it.get(Calendar.MONTH) + 1, it.get(Calendar.YEAR))
+                }
             }
         }
 
@@ -98,9 +101,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 super.onPageSelected(position)
             }
         })
-        Calendar.getInstance().let {
-            selectMoth(it.get(Calendar.MONTH) + 1, it.get(Calendar.YEAR))
-        }
+
 
     }
 

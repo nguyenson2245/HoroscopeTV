@@ -13,7 +13,7 @@ class CalendarViewAdapter: BaseRecyclerAdapter<MothModel,CalendarViewAdapter.Vie
         override fun bind(itemData: MothModel?) {
             super.bind(itemData)
             if (binding is ItemCalendarViewBinding){
-                binding.itemCalendar.setMonthAndYear(itemData?.month?.toIntOrNull(), itemData?.month?.toIntOrNull())
+                binding.itemCalendar.setMonthAndYear(itemData?.month?.toIntOrNull(), itemData?.year?.toIntOrNull())
             }
             binding.executePendingBindings()
         }

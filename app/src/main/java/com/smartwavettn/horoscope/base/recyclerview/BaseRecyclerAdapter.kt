@@ -22,9 +22,9 @@ abstract class BaseRecyclerAdapter<T : Any, VH : BaseViewHolder<T>>(
         holder.bind(listItem[position])
     }
 
-   open fun submitList(list: List<T>?) {
+    open fun submitList(list: List<T>?, isChangedAll: Boolean = true) {
         listItem = list ?: arrayListOf()
-       notifyDataSetChanged()
+        if (isChangedAll) notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
@@ -33,9 +33,6 @@ abstract class BaseRecyclerAdapter<T : Any, VH : BaseViewHolder<T>>(
 
     fun getViewHolderDataBinding(parent: ViewGroup, viewType: Int): ViewDataBinding =
         DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context),
-            getItemLayoutResource(viewType),
-            parent,
-            false
+            LayoutInflater.from(parent.context), getItemLayoutResource(viewType), parent, false
         )
 }
