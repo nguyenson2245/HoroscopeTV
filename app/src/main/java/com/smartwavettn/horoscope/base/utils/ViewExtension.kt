@@ -14,7 +14,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
+import com.smartwavettn.horoscope.BuildConfig
 import java.io.File
 
 class SafeClickListener(
@@ -101,5 +103,12 @@ fun Int.dpToPx(resources: Resources): Int {
 fun Context.doSendBroadcast(filePath: String) {
     val intent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(File(filePath)))
     sendBroadcast(intent)
+}
+fun Activity.shareApp(){
+    ShareCompat.IntentBuilder.from(this )
+        .setType("text/plain")
+        .setChooserTitle("Chooser title")
+        .setText("https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
+        .startChooser()
 }
 

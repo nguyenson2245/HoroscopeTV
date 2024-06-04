@@ -1,6 +1,7 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,11 +11,15 @@ import android.transition.TransitionSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
+import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
+import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.databinding.FragmentFriendsBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
@@ -26,13 +31,13 @@ import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragm
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import java.util.Calendar
 import kotlin.math.log
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
-    var nameAppOwner = ""
-    var dateApplicationOwner = ""
-
+    private var nameAppOwner = ""
+    private var dateApplicationOwner = ""
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -74,13 +79,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
                 } else {
                     binding.menu.drawerHeaderProifile.image.setImageResource(R.drawable.intro1)
                     binding.profileHeader.image.setImageResource(R.drawable.intro1)
-
                 }
 
                 binding.menu.drawerHeaderProifile.linnerLayoutProfile.click {
                     val bundle = Bundle()
                     bundle.putString("checkFragment", "home")
-                    bundle.putSerializable("profilePersona",profilePersona)
+                    bundle.putSerializable("profilePersona", profilePersona)
 
                     openFragment(IntroTwoFragment::class.java, bundle, true)
                     binding.drawer.closeDrawers()
@@ -104,17 +108,45 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
         binding.menu.view1.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
-        binding.menu.layoutNotification.setOnClickListener {
-            val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+        binding.menu.layoutNotification.click {
+            binding.menu.btnNotification.setImageResource(
+                if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2
+            )
+
+            val v =
+                if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
             binding.menu.itemNotification.visibility = v
+
+            binding.menu.timeNoti.visibility = if (v == View.VISIBLE) View.VISIBLE else View.GONE
         }
 
-        binding.menu.layoutLanguage.click { val v = if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
+        binding.menu.timeNoti.setOnClickListener {
+            val currentTime = Calendar.getInstance()
+            val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+            val minute = currentTime.get(Calendar.MINUTE)
+
+            val timePickerDialog = TimePickerDialog(requireActivity(),
+                { _, selectedHour, selectedMinute ->
+                    binding.menu.timeNoti.text = "$selectedHour:$selectedMinute"
+                },
+                hour,
+                minute,
+                true
+            )
+            timePickerDialog.show()
+        }
+
+        binding.menu.layoutLanguage.click {
+
+            binding.menu.btnLanguage.setImageResource(
+                if (binding.menu.itemLanguage.isVisible) R.drawable.soo else R.drawable.soo2
+            )
+            val v =
+                if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
             binding.menu.itemLanguage.visibility = v
         }
-
 
         binding.menu.friends.click {
             binding.drawer.closeDrawers()
@@ -149,28 +181,20 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
         }
 
-        binding.menu.evaluate.click {
-
-        }
-
-        binding.menu.evaluate.click {
-            binding.drawer.closeDrawers()
-        }
-
         binding.menu.introduce.click {
             openFragment(IntroduceFragment::class.java, null, true)
             binding.drawer.closeDrawers()
         }
 
         binding.menu.share.click {
+           activity?.shareApp()
             binding.drawer.closeDrawers()
         }
 
         binding.menu.contact.click {
-          viewModel.openEmailApp()
+            viewModel.openEmailApp()
             binding.drawer.closeDrawers()
         }
-
 
         binding.menu.privacyPolicy.click {
             openFragment(PrivacyPolicyFragment::class.java, null, true)
@@ -179,7 +203,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
         binding.menu.termsOfUse.click {
             openFragment(TermOfUseFragment::class.java, null, true)
-
             binding.drawer.closeDrawers()
         }
 

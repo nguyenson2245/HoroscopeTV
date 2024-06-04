@@ -197,6 +197,7 @@
                         android:src="@drawable/notification" />
 
                     <TextView
+                        android:id="@+id/txtSetTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_5sdp"
@@ -206,19 +207,24 @@
                         android:textSize="@dimen/_12sp" />
 
                     <TextView
+                        android:id="@+id/timeNoti"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_weight="2"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_button3_tron_tim"
                         android:gravity="center"
+                        android:padding="@dimen/_3dp"
                         android:text="@string/time"
                         android:textColor="@color/deeppink2"
-                        android:textSize="@dimen/_12sp" />
+                        android:textSize="@dimen/_12sp"
+                        android:visibility="gone" />
 
                     <ImageView
                         android:id="@+id/btnNotification"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_10sdp"
                         android:src="@drawable/soo" />
 
                 </LinearLayout>
@@ -323,29 +329,6 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/evaluate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/_16dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/evaluate" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:text="@string/evaluate"
-                    android:textColor="@color/color_red"
-                    android:textSize="@dimen/_12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -460,14 +443,6 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/korea"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="@dimen/_16dp"
-                    android:text="@string/korea"
-                    android:textColor="@color/color_red"
-                    android:textSize="@dimen/_12sp" />
 
                 <TextView
                     android:id="@+id/english"
@@ -479,11 +454,11 @@
                     android:textSize="@dimen/_12sp" />
 
                 <TextView
-                    android:id="@+id/apan"
+                    android:id="@+id/vietnamese"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_16dp"
-                    android:text="@string/japan"
+                    android:text="@string/vietnamese"
                     android:textColor="@color/color_red"
                     android:textSize="@dimen/_12sp" />
 

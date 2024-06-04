@@ -19,12 +19,20 @@ android {
     }
 
     buildTypes {
+        debug {
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -37,6 +45,9 @@ android {
     buildFeatures {
         viewBinding = true
         dataBinding = true
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

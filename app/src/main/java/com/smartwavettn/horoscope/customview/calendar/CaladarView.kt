@@ -26,7 +26,6 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val weekCalendarAdapter: WeekCalendarAdapter = WeekCalendarAdapter()
 
-
     init {
         init()
     }
@@ -39,8 +38,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         addView(binding.root)
 
         binding.rvWeekday.adapter = weekCalendarAdapter
-        binding.rvWeekday.layoutManager =
-            GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
+        binding.rvWeekday.layoutManager = GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
         weekCalendarAdapter.submitList(getDataWeek())
 
         adapter = CalendarViewAdapter()
