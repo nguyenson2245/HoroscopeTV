@@ -13,11 +13,12 @@ class CalendarViewAdapter: BaseRecyclerAdapter<MothModel,CalendarViewAdapter.Vie
         override fun bind(itemData: MothModel?) {
             super.bind(itemData)
             if (binding is ItemCalendarViewBinding){
-                binding.itemCalendar.setMonthAndYear(itemData?.month?.toIntOrNull(), itemData?.month?.toIntOrNull())
+                binding.itemCalendar.setMonthAndYear(itemData?.month?.toIntOrNull(), itemData?.year?.toIntOrNull())
             }
             binding.executePendingBindings()
         }
     }
+
 
     override fun getItemLayoutResource(viewType: Int): Int {
         return R.layout.item_calendar_view

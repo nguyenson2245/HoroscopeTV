@@ -72,11 +72,9 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
     }
 
     fun selectDay(day: Int, month: Int, year: Int) {
-
         val listFitter = adapter.listItem.filter {
             it.day.toInt() == day
                     && month == it.month.toInt() && it.year.toInt() == year
-
         }
         if (listFitter.isNotEmpty())
             binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()))

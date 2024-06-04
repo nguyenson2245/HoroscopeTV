@@ -1,7 +1,6 @@
 package com.smartwavettn.horoscope.customview.customcalenday
 
 import android.os.Build
-import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
@@ -20,6 +19,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
+
 
 class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.ViewHolder>() {
     val scope = CoroutineScope(Job() + Dispatchers.Default)
@@ -59,14 +59,13 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                                 binding.titleStatusMoon.text =
                                     itemView.context.getString(R.string.waning_moon)
                             }
-                            binding.lunarCalendar.text = lunarDay.get(Constants.INDEX_0).toString() + "/" + lunarDay.get(Constants.INDEX_1)
-
-                            Log.d("TAG", "lunarCalendar: ${ lunarDay.get(Constants.INDEX_0).toString() + "/" + lunarDay.get(Constants.INDEX_1)}")
-
+                            binding.lunarCalendar.text =
+                                lunarDay.get(Constants.INDEX_0).toString() + "/" + lunarDay.get(
+                                    Constants.INDEX_1
+                                )
                             binding.icon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_coin))
                             binding.rank.text = textWeek
                             binding.moth.text = textmoth
-
                         }
                     }
                 }

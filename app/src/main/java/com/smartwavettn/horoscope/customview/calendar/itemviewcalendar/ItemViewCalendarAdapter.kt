@@ -1,5 +1,7 @@
 package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.smartwavettn.horoscope.R
@@ -8,29 +10,103 @@ import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
 import com.smartwavettn.horoscope.base.utils.gone
 import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.customview.model.DayModel
+import com.smartwavettn.horoscope.customview.model.MothModel
 import com.smartwavettn.horoscope.databinding.ItemDayBinding
+import com.smartwavettn.horoscope.ui.utils.Constants
+import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.Calendar
 
-class ItemViewCalendarAdapter : BaseRecyclerAdapter<DayModel, ItemViewCalendarAdapter.ViewHolder>() {
+class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter<DayModel, ItemViewCalendarAdapter.ViewHolder>() {
+    val scope = CoroutineScope(Job() + Dispatchers.Default)
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
             if (binding is ItemDayBinding){
-                if(itemData?.weekOfDay?.isNotEmpty() == true){
-                    binding.title.text = itemData.weekOfDay
-                    binding.viewLayout.gone()
-                    binding.underline.gone()
-                }else{
-                    binding.title.text = itemData?.day
+                binding.title.text = itemData?.day
                     if (itemData?.day.isNullOrEmpty()){
                         binding.viewLayout.gone()
                         binding.underline.gone()
                     }else{
+                        binding.root.background = if (itemData?.isSelected== true) itemView.context.getDrawable(R.drawable.bg_select_day) else null
                         binding.viewLayout.visible()
                         binding.underline.visible()
+                        scope.launch(Dispatchers.Main) {
+                            val calander = Calendar.getInstance().apply {
+                                if (itemData != null) {
+                                    set(Calendar.YEAR, itemData.year.toInt())
+                                    set(Calendar.MONTH, itemData.month.toInt() - 1)
+                                    set(Calendar.DAY_OF_MONTH, itemData.day.toInt())
+                                }
+                            }
+
+
+                            val lunarDay = LunarCoreHelper.convertSolar2Lunar(
+                                calander.get(Calendar.DAY_OF_MONTH),
+                                calander.get(Calendar.MONTH) + 1,
+                                calander.get(Calendar.YEAR),
+                                Constants.TIME_ZONE
+                            )
+
+
+                            val rangeDay = LunarCoreHelper.rateDay(
+                                LunarCoreHelper.getChiDayLunar(
+                                    calander.get(Calendar.DAY_OF_MONTH),
+                                    calander.get(Calendar.MONTH) + 1,
+                                    calander.get(Calendar.YEAR)
+                                ), calander.get(Calendar.MONTH) + 1
+                            )
+                            withContext(Dispatchers.Main) {
+                                if (Constants.listDayHaircutting.any { it == lunarDay.get(0) }) {
+                                    binding.cuttingHair.visible()
+                                } else binding.cuttingHair.gone()
+                                if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {
+
+                                } else if (lunarDay[Constants.INDEX_0] == Constants.INDEX_30) {
+
+                                } else {
+
+                                }
+                                Log.d(TAG, "bind: " + rangeDay)
+                                when (rangeDay) {
+                                    "Good" -> {
+                                        binding.underline.setImageDrawable(
+                                            itemView.context.getDrawable(
+                                                R.drawable.ic_underlined_green
+                                            )
+                                        )
+                                    }
+
+                                    "Bad" -> {
+                                        binding.underline.setImageDrawable(
+                                            itemView.context.getDrawable(
+                                                R.drawable.ic_underline_red
+                                            )
+                                        )
+                                    }
+
+                                    else -> {
+                                        binding.underline.setImageDrawable(null)
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
+            onItemClickListener {
+                if (itemData != null) {
+                    onClickItem.invoke(adapterPosition)
+                }
             }
-        }
+            }
+
+
+
+
     }
 
     override fun getItemLayoutResource(viewType: Int): Int {

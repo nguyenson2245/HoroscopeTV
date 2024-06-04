@@ -5,4 +5,5 @@ data class DayModel(
     val month: String = "",
     val year: String = "",
     val weekOfDay:String = "",
+    var isSelected: Boolean = false
 )

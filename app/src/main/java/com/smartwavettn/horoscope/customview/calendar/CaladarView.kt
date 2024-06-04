@@ -1,7 +1,9 @@
 package com.smartwavettn.horoscope.customview.calendar
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -66,9 +68,12 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 currentDate.add(Calendar.MONTH, 1)
             }
             withContext(Dispatchers.Main) {
+                Log.d(TAG, "init: $mothList")
                 adapter.submitList(mothList)
+                Calendar.getInstance().let {
+                    selectMoth(it.get(Calendar.MONTH) + 1, it.get(Calendar.YEAR))
+                }
             }
-
         }
 
         binding.back.setOnClickListener {
@@ -86,7 +91,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 val calendar = Calendar.getInstance()
 
                 calendar.set(Calendar.YEAR,mothList.get(position).year.toInt())
-                calendar.set(Calendar.MONTH,mothList.get(position).month.toInt())
+                calendar.set(Calendar.MONTH,mothList.get(position).month.toInt()-1)
 
                 binding.mothYear.text =  SimpleDateFormat("MMM").format(calendar.time)+"/"+ mothList.get(position).year
                 binding.callMeasure.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -94,6 +99,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 super.onPageSelected(position)
             }
         })
+
 
     }
 
@@ -107,5 +113,12 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         listDay.add(DayModel(weekOfDay = "F"))
         listDay.add(DayModel(weekOfDay = "S"))
         return listDay
+    }
+    private fun selectMoth(month: Int, year: Int) {
+        val listFitter = adapter.listItem.filter {
+            month == it.month.toInt() && it.year.toInt() == year
+        }
+        if (listFitter.isNotEmpty())
+            binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()), false)
     }
 }
