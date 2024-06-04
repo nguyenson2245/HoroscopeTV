@@ -63,11 +63,9 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                                 lunarDay.get(Constants.INDEX_0).toString() + "/" + lunarDay.get(
                                     Constants.INDEX_1
                                 )
-
                             binding.icon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_coin))
                             binding.rank.text = textWeek
                             binding.moth.text = textmoth
-
                         }
                     }
                 }
