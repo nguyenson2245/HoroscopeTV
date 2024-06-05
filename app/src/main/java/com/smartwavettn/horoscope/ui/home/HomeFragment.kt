@@ -1,6 +1,7 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -88,6 +89,10 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         context?.let { viewModel.init(it) }
         binding.day.onDateListener {
             binding.calendarView.setDaySelect(it)
+        }
+        binding.calendarView.onClickSelected =  {
+            Log.d(TAG, "init: hii")
+            binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
         }
     }
 

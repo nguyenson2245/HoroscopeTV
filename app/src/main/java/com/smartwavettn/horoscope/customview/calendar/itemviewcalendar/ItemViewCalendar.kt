@@ -19,6 +19,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
     private var month: Int = Calendar.getInstance().get(Calendar.MONTH)
     private var position: Int = 0
     var onChangedCalendarSelect: ((DayModel) -> Unit)? = null
+    private var onClickSelected:((DayModel) -> Unit)? = null
 
     private fun init() {
         var listDay: ArrayList<DayModel> = arrayListOf()
@@ -32,9 +33,11 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
             }
             listDay.get(it).isSelected = true
             adapter.submitList(listDay, false)
+            onClickSelected?.invoke(listDay.get(it))
             adapter.notifyItemChanged(it)
             adapter.notifyItemChanged(position)
             position = it
+
         }
         binding.rcView.layoutManager =
             GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
@@ -42,6 +45,9 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         getAllDaysInMonth(year, month, listDay)
         setSelectedDay()
         adapter.submitList(listDay)
+    }
+     fun setOnClickItem(onClickItem: (DayModel)-> Unit){
+        this.onClickSelected = onClickItem
     }
 
     fun setMonthAndYear(month: Int?, year: Int?) {
