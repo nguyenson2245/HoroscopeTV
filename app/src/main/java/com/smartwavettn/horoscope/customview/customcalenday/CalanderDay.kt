@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.viewpager2.widget.ViewPager2
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.CalendertDayBinding
 import kotlinx.coroutines.CoroutineScope
@@ -77,6 +78,15 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         }
         if (listFitter.isNotEmpty())
             binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()))
+    }
+    fun onDateListener(dateChanged : (DayModel)-> Unit) {
+        binding.callMeasure.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                dateChanged.invoke(adapter.listItem.get(position))
+            }
+        })
     }
 }
 

@@ -1,40 +1,25 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
-import android.app.TimePickerDialog
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.transition.TransitionSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.TimePicker
-import android.widget.Toast
-import androidx.core.app.ShareCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import com.akexorcist.snaptimepicker.SnapTimePickerDialog
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
-import com.smartwavettn.horoscope.databinding.FragmentFriendsBinding
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
-import com.smartwavettn.horoscope.model.PersonalInformation
-import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenFriendsFragment
-import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenViewModel
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
-import java.util.Calendar
-import kotlin.math.log
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
@@ -97,6 +82,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     override fun init() {
         context?.let { viewModel.init(it) }
+        binding.day.onDateListener {
+            binding.calendarView.setDaySelect(it)
+        }
     }
 
     override fun initData() {

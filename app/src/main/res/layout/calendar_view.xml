@@ -19,7 +19,7 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/_8dp"
                 android:layout_marginStart="@dimen/_16dp"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_back_caluader" />
 
             <TextView
                 android:id="@+id/moth_year"

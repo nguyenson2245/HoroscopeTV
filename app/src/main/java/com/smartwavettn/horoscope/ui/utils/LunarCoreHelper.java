@@ -125,7 +125,7 @@ public class LunarCoreHelper {
      * @param solarYear
      * @return Can-Chi (or Stem-Branch) number of the input date.
      * We make March 1st 1996 a "pivot" date, and start counting Can-Chi from that date.
-     * You can see we set iCan = 3, iChi = 9 means the "pivot" day is Đinh Dậu (or 丁酉, or Yin Fire Rooster).
+     * You can see we setDaySelect iCan = 3, iChi = 9 means the "pivot" day is Đinh Dậu (or 丁酉, or Yin Fire Rooster).
      * So yeah, it's not a special date. Just a "pivot", a starting point to count. You can choose another day, which has another iCan and iChi.
      */
     private static int[] processDayLunar(int solarDay, int solarMonth, int solarYear) {

@@ -8,9 +8,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.core.view.get
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.customview.calendar.itemviewcalendar.ItemViewCalendar
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.customview.model.MothModel
 import com.smartwavettn.horoscope.databinding.CalendarViewBinding
@@ -121,4 +125,23 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         if (listFitter.isNotEmpty())
             binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()), false)
     }
+    fun setDaySelect(dayModel: DayModel) {
+        val recyclerView = binding.callMeasure[0] as RecyclerView
+        val list = adapter.listItem.filter {
+            it.year == dayModel.year && it.month == dayModel.month
+        }
+        if (list.isNotEmpty()) {
+            binding.callMeasure.currentItem = adapter.listItem.lastIndexOf(list.first())
+        }
+        val currentViewHolder =
+            recyclerView.findViewHolderForAdapterPosition(binding.callMeasure.currentItem)
+        val currentView = currentViewHolder?.itemView
+        if (currentView != null) {
+            currentView.findViewById<ItemViewCalendar>(R.id.item_calendar).onChangedCalendarSelect?.invoke(
+                dayModel
+            )
+        }
+    }
 }
+
+

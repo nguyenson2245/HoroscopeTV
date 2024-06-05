@@ -5,10 +5,12 @@ import androidx.databinding.ViewDataBinding
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.recyclerview.BaseRecyclerAdapter
 import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
+import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.customview.model.MothModel
 import com.smartwavettn.horoscope.databinding.ItemCalendarViewBinding
 
 class CalendarViewAdapter: BaseRecyclerAdapter<MothModel,CalendarViewAdapter.ViewHolder>() {
+    var onChangedCalendarSelect: ((DayModel) -> Unit)? = null
     inner class ViewHolder (val binding: ViewDataBinding) : BaseViewHolder<MothModel>(binding){
         override fun bind(itemData: MothModel?) {
             super.bind(itemData)

@@ -1,7 +1,9 @@
 package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +18,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
     private var year: Int = Calendar.getInstance().get(Calendar.YEAR)
     private var month: Int = Calendar.getInstance().get(Calendar.MONTH)
     private var position: Int = 0
+    var onChangedCalendarSelect: ((DayModel) -> Unit)? = null
 
     private fun init() {
         var listDay: ArrayList<DayModel> = arrayListOf()
@@ -37,6 +40,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
             GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
         binding.rcView.adapter = adapter
         getAllDaysInMonth(year, month, listDay)
+        setSelectedDay()
         adapter.submitList(listDay)
     }
 
@@ -72,19 +76,36 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
                 DayModel(
                     day = day.toString(),
                     month = month.toString(),
-                    year = year.toString(),
-                    isSelected = day == Calendar.getInstance()
-                        .get(Calendar.DAY_OF_MONTH) && month - 1 == Calendar.getInstance()
-                        .get(Calendar.MONTH) && year == Calendar.getInstance().get(Calendar.YEAR)
-                ).apply {if (isSelected){
-                    position = listDay.size
-                }
-                }
+                    year = year.toString()
+                )
             )
 
         }
         return listDay
     }
 
+    fun setSelectedDay() {
+        onChangedCalendarSelect = { dayModel ->
+            val lits = adapter.listItem.filter {
+                it.day.toIntOrNull()== dayModel.day.toInt() && it.month.toIntOrNull() == dayModel.month.toInt() && it.year.toIntOrNull() == dayModel.year.toInt()
+
+            }
+            Log.d(TAG, "setSelectedDay: " + adapter.listItem.get(10))
+            Log.d(TAG, "setSelectedDay: " + dayModel)
+            if (lits.size > 0) {
+                val position = adapter.listItem.indexOf(lits.first())
+                if (position != -1) {
+                    adapter.listItem.forEach {
+                        it.isSelected = false
+                    }
+                    adapter.listItem.get(position).isSelected = true
+                    adapter.notifyItemChanged(this.position)
+                    adapter.notifyItemChanged(position)
+                    this.position = position
+                }
+            }
+        }
+
+    }
 
 }
