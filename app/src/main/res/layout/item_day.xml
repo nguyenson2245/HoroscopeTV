@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
-        android:layout_width="@dimen/_49sdp"
-        android:layout_height="@dimen/_49sdp"
-        >
+        android:layout_width="49dp"
+        android:layout_height="49dp">
 
 
         <LinearLayout
