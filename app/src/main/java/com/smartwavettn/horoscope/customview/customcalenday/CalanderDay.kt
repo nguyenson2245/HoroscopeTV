@@ -3,7 +3,6 @@ package com.smartwavettn.horoscope.customview.customcalenday
 import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.viewpager2.widget.ViewPager2
@@ -17,10 +16,11 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-
 class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, attr) {
+
     private lateinit var binding: CalendertDayBinding
     private lateinit var adapter: CalenderDayAdapter
+
     private val scope = CoroutineScope(Job() + Dispatchers.Main)
 
     init {
@@ -31,6 +31,7 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
     private fun initView() {
         val dayList: ArrayList<DayModel> = arrayListOf()
         binding = CalendertDayBinding.inflate(LayoutInflater.from(context))
+
         removeAllViews()
         addView(binding.root)
 

@@ -1,5 +1,6 @@
 package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import java.util.Calendar
 class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter<DayModel, ItemViewCalendarAdapter.ViewHolder>() {
     val scope = CoroutineScope(Job() + Dispatchers.Default)
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
+        @SuppressLint("SuspiciousIndentation")
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
             if (binding is ItemDayBinding){
@@ -44,7 +46,6 @@ class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter
                                 }
                             }
 
-
                             val lunarDay = LunarCoreHelper.convertSolar2Lunar(
                                 calander.get(Calendar.DAY_OF_MONTH),
                                 calander.get(Calendar.MONTH) + 1,
@@ -60,6 +61,7 @@ class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter
                                     calander.get(Calendar.YEAR)
                                 ), calander.get(Calendar.MONTH) + 1
                             )
+
                             withContext(Dispatchers.Main) {
                                 if (Constants.listDayHaircutting.any { it == lunarDay.get(0) }) {
                                     binding.cuttingHair.visible()
