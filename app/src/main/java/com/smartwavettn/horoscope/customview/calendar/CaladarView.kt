@@ -31,6 +31,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     private lateinit var adapter: CalendarViewAdapter
     private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val weekCalendarAdapter: WeekCalendarAdapter = WeekCalendarAdapter()
+    var onClickSelected:((DayModel) -> Unit)? = null
 
     init {
         init()
@@ -72,12 +73,16 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 currentDate.add(Calendar.MONTH, 1)
             }
             withContext(Dispatchers.Main) {
-                Log.d(TAG, "init: $mothList")
                 adapter.submitList(mothList)
                 Calendar.getInstance().let {
                     selectMoth(it.get(Calendar.MONTH) + 1, it.get(Calendar.YEAR))
                 }
+                viewTreeObserver.addOnGlobalLayoutListener {
+                    onClickSelected?.let { getViewCurrentViewHolder()?.setOnClickItem (it) }
+                }
+
             }
+
         }
 
         binding.back.setOnClickListener {
@@ -124,23 +129,28 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         }
         if (listFitter.isNotEmpty())
             binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()), false)
+
+
     }
     fun setDaySelect(dayModel: DayModel) {
-        val recyclerView = binding.callMeasure[0] as RecyclerView
         val list = adapter.listItem.filter {
             it.year == dayModel.year && it.month == dayModel.month
         }
         if (list.isNotEmpty()) {
             binding.callMeasure.currentItem = adapter.listItem.lastIndexOf(list.first())
         }
+       getViewCurrentViewHolder()?.onChangedCalendarSelect?.invoke(dayModel)
+    }
+
+    fun getViewCurrentViewHolder(): ItemViewCalendar? {
+        val recyclerView = binding.callMeasure[0] as RecyclerView
         val currentViewHolder =
             recyclerView.findViewHolderForAdapterPosition(binding.callMeasure.currentItem)
         val currentView = currentViewHolder?.itemView
         if (currentView != null) {
-            currentView.findViewById<ItemViewCalendar>(R.id.item_calendar).onChangedCalendarSelect?.invoke(
-                dayModel
-            )
+            return currentView.findViewById(R.id.item_calendar)
         }
+        return null
     }
 }
 
