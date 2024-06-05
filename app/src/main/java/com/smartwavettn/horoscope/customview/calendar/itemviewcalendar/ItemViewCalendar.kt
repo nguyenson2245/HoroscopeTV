@@ -76,8 +76,16 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
                 DayModel(
                     day = day.toString(),
                     month = month.toString(),
-                    year = year.toString()
-                )
+                    year = year.toString(),
+                    isSelected = day == Calendar.getInstance()
+                        .get(Calendar.DAY_OF_MONTH) && month - 1 == Calendar.getInstance()
+                        .get(Calendar.MONTH) && year == Calendar.getInstance().get(Calendar.YEAR)
+                ).apply {
+                    if (isSelected) {
+                        position = listDay.size
+                    }
+                }
+
             )
 
         }
