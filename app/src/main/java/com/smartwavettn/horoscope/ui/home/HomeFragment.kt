@@ -4,8 +4,10 @@ import android.animation.LayoutTransition
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -19,7 +21,9 @@ import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
+import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import java.util.Calendar
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
@@ -60,7 +64,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
                     Glide.with(this)
                         .load(profilePersona.iconImage)
                         .into(binding.menu.drawerHeaderProifile.image)
-                    Glide.with(this)
+                    Glide.with(this) // mr chua ???. vửa trở lại r
                         .load(profilePersona.iconImage)
                         .into(binding.profileHeader.image)
                 } else {
@@ -100,7 +104,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
         binding.menu.layoutNotification.click {
             binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
-            val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+            val v =
+                if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
             binding.menu.itemNotification.visibility = v
 
@@ -109,7 +114,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
         binding.menu.timeNoti.setOnClickListener {
             viewModel.timeApp {
-                binding.menu.timeNoti.text= it
+                binding.menu.timeNoti.text = it
             }
         }
 
@@ -163,7 +168,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.share.click {
-           activity?.shareApp()
+            activity?.shareApp()
             binding.drawer.closeDrawers()
         }
 
@@ -182,20 +187,62 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             binding.drawer.closeDrawers()
         }
 
+        binding.menu.btnlunaDay.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                toast(" ON")
+            } else {
+                toast(" OFF")
+            }
+        }
+
+        binding.menu.btnCuttinghair.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                toast(" ON")
+            } else {
+                toast(" OFF")
+            }
+        }
+
+        binding.menu.btnTravel.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                toast(" ON")
+            } else {
+                toast(" OFF")
+            }
+        }
+
+        binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                toast(" ON")
+
+                val currentDate = Calendar.getInstance().time
+                Log.d("currentDate", "<Dương lịch >: $currentDate")
+
+
+
+            } else {
+                toast(" OFF")
+            }
+        }
+
+        binding.menu.noAniceDayNotification.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                toast(" ON")
+            } else {
+                toast(" OFF")
+            }
+        }
+
+        binding.menu.abedDayNotification.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                toast(" ON")
+            } else {
+                toast(" OFF")
+            }
+        }
+
+
     }
 
-    private fun onTimePicked(selectedHour: Int, selectedMinute: Int) {
-
-        val hour = selectedHour.toString()
-            .padStart(2, '0')
-        val minute = selectedMinute.toString()
-            .padStart(2, '0')
-        binding.menu.timeNoti.text = String.format(
-            getString(
-                R.string.selected_time_format,
-                hour, minute
-            )
-        )
-    }
 
 }

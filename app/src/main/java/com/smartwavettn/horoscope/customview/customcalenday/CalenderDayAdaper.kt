@@ -20,20 +20,20 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-
 class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.ViewHolder>() {
     val scope = CoroutineScope(Job() + Dispatchers.Default)
-    inner class ViewHolder(val binding: ViewDataBinding) : BaseViewHolder<DayModel>(binding){
+
+    inner class ViewHolder(val binding: ViewDataBinding) : BaseViewHolder<DayModel>(binding) {
         @RequiresApi(Build.VERSION_CODES.O)
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
-            if (binding is ItemDayMoonBinding){
+            if (binding is ItemDayMoonBinding) {
                 binding.day.text = itemData?.day.toString()
                 if (itemData != null) {
                     scope.launch(Dispatchers.Main) {
                         val calander = Calendar.getInstance().apply {
                             set(Calendar.YEAR, itemData.year.toInt())
-                            set(Calendar.MONTH, itemData.month.toInt() -1)
+                            set(Calendar.MONTH, itemData.month.toInt() - 1)
                             set(Calendar.DAY_OF_MONTH, itemData.day.toInt())
                         }
                         val textmoth = SimpleDateFormat("MMM").format(calander.time)
@@ -41,7 +41,7 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
 
                         val lunarDay = LunarCoreHelper.convertSolar2Lunar(
                             calander.get(Calendar.DAY_OF_MONTH),
-                            calander.get(Calendar.MONTH)+ 1,
+                            calander.get(Calendar.MONTH) + 1,
                             calander.get(Calendar.YEAR),
                             Constants.TIME_ZONE
                         )
