@@ -2,6 +2,7 @@ package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
 import android.content.ContentValues.TAG
+import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -22,8 +24,13 @@ import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
+import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.util.Calendar
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
@@ -87,10 +94,13 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     override fun init() {
         context?.let { viewModel.init(it) }
+
+        // set date vàng bên dưới nhảy theo vị trí
         binding.day.onDateListener {
             binding.calendarView.setDaySelect(it)
         }
-        binding.calendarView.onClickSelected =  {
+
+        binding.calendarView.onClickSelected = {
             Log.d(TAG, "init: hii")
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
         }
@@ -100,6 +110,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun initAction() {
         binding.profileHeader.menuProfileHeader.click {
             binding.drawer.openDrawer(GravityCompat.START)
@@ -124,7 +135,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.layoutLanguage.click {
-
             binding.menu.btnLanguage.setImageResource(
                 if (binding.menu.itemLanguage.isVisible) R.drawable.soo else R.drawable.soo2
             )
@@ -219,11 +229,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 toast(" ON")
-
-                val currentDate = Calendar.getInstance().time
-                Log.d("currentDate", "<Dương lịch >: $currentDate")
-
-
 
             } else {
                 toast(" OFF")

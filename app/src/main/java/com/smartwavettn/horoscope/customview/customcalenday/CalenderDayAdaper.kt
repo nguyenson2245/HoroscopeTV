@@ -1,6 +1,7 @@
 package com.smartwavettn.horoscope.customview.customcalenday
 
 import android.os.Build
+import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
@@ -31,13 +32,18 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                 binding.day.text = itemData?.day.toString()
                 if (itemData != null) {
                     scope.launch(Dispatchers.Main) {
+
                         val calander = Calendar.getInstance().apply {
                             set(Calendar.YEAR, itemData.year.toInt())
-                            set(Calendar.MONTH, itemData.month.toInt() - 1)
+                            set(Calendar.MONTH, itemData.month.toInt() - 1) // month 0-11
                             set(Calendar.DAY_OF_MONTH, itemData.day.toInt())
                         }
+
                         val textmoth = SimpleDateFormat("MMM").format(calander.time)
                         val textWeek = SimpleDateFormat("EEEE").format(calander.time)
+
+                        Log.d("calander", "bind: $textmoth")
+                        Log.d("calander", "bind: $textWeek")
 
                         val lunarDay = LunarCoreHelper.convertSolar2Lunar(
                             calander.get(Calendar.DAY_OF_MONTH),
@@ -45,6 +51,7 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                             calander.get(Calendar.YEAR),
                             Constants.TIME_ZONE
                         )
+
                         withContext(Dispatchers.Main) {
                             if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {
                                 binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_full_moon))
@@ -63,6 +70,9 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                                 lunarDay.get(Constants.INDEX_0).toString() + "/" + lunarDay.get(
                                     Constants.INDEX_1
                                 )
+
+//                            binding.icon.setImageDrawable(binding.root.context.getDrawable(R.drawable.ic_coin))
+
                             binding.icon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_coin))
                             binding.rank.text = textWeek
                             binding.moth.text = textmoth

@@ -73,6 +73,7 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         }
     }
 
+    // search P.tu
     fun selectDay(day: Int, month: Int, year: Int, smoothScroll : Boolean = false) {
         val listFitter = adapter.listItem.filter {
             it.day.toInt() == day && month == it.month.toInt() && it.year.toInt() == year
@@ -80,6 +81,7 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         if (listFitter.isNotEmpty())
             binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()), smoothScroll)
     }
+
     fun onDateListener(dateChanged : (DayModel)-> Unit) {
         binding.callMeasure.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
