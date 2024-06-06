@@ -12,6 +12,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -19,6 +20,9 @@ import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
+import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
+import com.smartwavettn.horoscope.ui.home.moth.MothFragment
+import com.smartwavettn.horoscope.ui.home.year.YearFragment
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
@@ -34,6 +38,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     companion object {
         fun newInstance() = HomeFragment()
     }
+
+    private val listFragment: ArrayList<Fragment> = arrayListOf(
+        DailyFragment.newInstance(),
+        MothFragment.newInstance(),
+        YearFragment.newInstance()
+    )
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: HomeAdapter
@@ -104,6 +114,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
         binding.viewPager.adapter = adapter
+        adapter.setData(listFragment)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
