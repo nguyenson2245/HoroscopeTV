@@ -86,8 +86,8 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         binding.callMeasure.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
                 dateChanged.invoke(adapter.listItem.get(position))
+                super.onPageSelected(position)
             }
         })
     }
