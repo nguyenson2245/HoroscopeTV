@@ -39,7 +39,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     }
 
     private val listFragment: ArrayList<Fragment> = arrayListOf(
-        DailyFragment.newInstance(),
+        DailyFragment(),
         MothFragment.newInstance(),
         YearFragment.newInstance()
     )
