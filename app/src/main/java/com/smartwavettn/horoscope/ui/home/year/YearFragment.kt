@@ -18,6 +18,7 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
     }
 
     private val viewModel: YearViewModel by viewModels()
+
     override fun getViewBinding(inflater: LayoutInflater): FragmentYearBinding {
        return  FragmentYearBinding.inflate(inflater)
     }

@@ -13,7 +13,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
@@ -33,13 +35,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     private var nameAppOwner = ""
     private var dateApplicationOwner = ""
 
-
     companion object {
         fun newInstance() = HomeFragment()
     }
 
     private val listFragment: ArrayList<Fragment> = arrayListOf(
-        DailyFragment(),
+        DailyFragment.newInstance(),
         MothFragment.newInstance(),
         YearFragment.newInstance()
     )
@@ -76,7 +77,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
                     Glide.with(this)
                         .load(profilePersona.iconImage)
                         .into(binding.menu.drawerHeaderProifile.image)
-                    Glide.with(this) // mr chua ???. vửa trở lại r
+                    Glide.with(this)
                         .load(profilePersona.iconImage)
                         .into(binding.profileHeader.image)
                 } else {
@@ -95,7 +96,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             }
         }
 
-        // set date vàng bên dưới nhảy theo vị trí
         binding.day.onDateListener {
             binding.calendarView.setDaySelect(it)
         }
@@ -105,14 +105,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
         }
 
-        adapter = HomeAdapter(
-            childFragmentManager,
-            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-        )
-        binding.viewPager.adapter = adapter
-        adapter.setData(listFragment)
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        tabLayout()
     }
+
 
     override fun initData() {
     }
@@ -260,5 +255,16 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     }
 
+
+    private fun tabLayout() {
+        adapter = HomeAdapter(
+            childFragmentManager,
+            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+        binding.viewPager.adapter = adapter
+        adapter.setData(listFragment)
+
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
+    }
 
 }
