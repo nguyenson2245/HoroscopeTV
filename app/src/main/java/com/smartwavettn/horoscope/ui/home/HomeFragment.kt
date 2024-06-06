@@ -9,10 +9,10 @@ import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
@@ -24,14 +24,7 @@ import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
-import com.smartwavettn.horoscope.ui.utils.Constants
-import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.util.Calendar
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
@@ -43,6 +36,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     }
 
     private val viewModel: HomeViewModel by viewModels()
+    private lateinit var adapter: HomeAdapter
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)
@@ -104,6 +98,13 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             Log.d(TAG, "init: hii")
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
         }
+
+        adapter = HomeAdapter(
+            childFragmentManager,
+            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+        binding.viewPager.adapter = adapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
     override fun initData() {

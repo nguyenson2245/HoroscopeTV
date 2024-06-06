@@ -25,7 +25,6 @@ import java.util.Calendar
 class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter<DayModel, ItemViewCalendarAdapter.ViewHolder>() {
     val scope = CoroutineScope(Job() + Dispatchers.Default)
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
-        @SuppressLint("SuspiciousIndentation")
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
             if (binding is ItemDayBinding){
@@ -68,10 +67,9 @@ class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter
                                 } else binding.cuttingHair.gone()
                                 if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {
                                     binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_full_moon_pink))
-                                } else if (lunarDay[Constants.INDEX_0] == Constants.INDEX_30) {
 
                                 } else {
-
+                                    binding.statusMoon.setImageDrawable(null)
                                 }
                                 when (rangeDay) {
                                     "Good" -> {
@@ -103,10 +101,8 @@ class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter
                     onClickItem.invoke(adapterPosition)
                 }
             }
-            }
 
-
-
+        }
 
     }
 

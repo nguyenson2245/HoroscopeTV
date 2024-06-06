@@ -54,7 +54,16 @@
                             android:layout_width="match_parent"
                             android:id="@+id/calendar_view"
                             android:layout_height="wrap_content" />
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <androidx.viewpager.widget.ViewPager
+                            android:id="@+id/view_pager"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
                     </LinearLayout>
+
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
