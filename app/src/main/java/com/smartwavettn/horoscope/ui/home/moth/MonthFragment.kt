@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.smartwavettn.horoscope.R
 
-class MothFragment : Fragment() {
+class MonthFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MothFragment()
+        fun newInstance() = MonthFragment()
     }
 
     private val viewModel: MothViewModel by viewModels()

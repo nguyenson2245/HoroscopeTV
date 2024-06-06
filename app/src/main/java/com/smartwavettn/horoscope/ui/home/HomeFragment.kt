@@ -2,14 +2,12 @@ package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
 import android.content.ContentValues.TAG
-import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -19,6 +17,9 @@ import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
+import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
+import com.smartwavettn.horoscope.ui.home.moth.MonthFragment
+import com.smartwavettn.horoscope.ui.home.year.YearFragment
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
@@ -31,6 +32,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     private var nameAppOwner = ""
     private var dateApplicationOwner = ""
 
+    lateinit var homeAdapter: HomeAdapter
+
     companion object {
         fun newInstance() = HomeFragment()
     }
@@ -42,8 +45,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         return FragmentHomeBinding.inflate(inflater)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun init() {
+        context?.let { viewModel.init(it) }
 
         viewModel.getListPersonaLiveData().observe(viewLifecycleOwner) { personaList ->
             val profilePersona = personaList.find { it.isProfile }
@@ -84,10 +88,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
                 }
             }
         }
-    }
-
-    override fun init() {
-        context?.let { viewModel.init(it) }
 
         // set date vàng bên dưới nhảy theo vị trí
         binding.day.onDateListener {
@@ -108,10 +108,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     }
 
     override fun initData() {
-
+        tabLayout()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun initAction() {
         binding.profileHeader.menuProfileHeader.click {
             binding.drawer.openDrawer(GravityCompat.START)
@@ -255,5 +254,21 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     }
 
+    private fun tabLayout() {
+        val fragments = arrayListOf(
+            DailyFragment(),
+            MonthFragment(),
+            YearFragment()
+        )
 
+        val homeAdapter = HomeAdapter(
+            childFragmentManager,
+            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+        homeAdapter.setData(fragments)
+        binding.viewPager.adapter = homeAdapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+
+    }
 }

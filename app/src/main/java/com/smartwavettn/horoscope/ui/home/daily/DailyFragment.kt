@@ -1,31 +1,25 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
-import androidx.fragment.app.viewModels
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.databinding.FragmentDailyBinding
+import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
-class DailyFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = DailyFragment()
+class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>(){
+    override fun getViewBinding(inflater: LayoutInflater): FragmentDailyBinding {
+      return FragmentDailyBinding.inflate(inflater)
     }
 
-    private val viewModel: DailyViewModel by viewModels()
+    override fun init() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_daily, container, false)
+    override fun initData() {
+
     }
+
+    override fun initAction() {
+
+    }
+
+
 }

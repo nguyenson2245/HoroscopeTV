@@ -1,8 +1,6 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+
     <style name="Base.Theme.Horoscope" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="fontFamily">@font/a</item>
     </style>
 
@@ -11,5 +9,10 @@
     <style name="CustomSnapTimePickerDialogTheme" parent="Theme.MaterialComponents.Dialog">
         <item name="colorAccent">@color/cloloss</item>
         <item name="android:windowBackground">@color/black</item>
+    </style>
+
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextColor">#C7F8FF</item>
+        <item name="tabSelectedTextColor">#AF09C8</item>
     </style>
 </resources>

@@ -51,13 +51,14 @@
                             android:id="@+id/calendar_view"
                             android:layout_height="wrap_content" />
                         <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/tab_layout"
+                            android:id="@+id/tabLayout"
+                            style="@style/CustomTabLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:tabMode="scrollable"
-                            app:tabGravity="center"/>
+                            app:tabMode="fixed"
+                            app:tabGravity="fill"/>
                         <androidx.viewpager.widget.ViewPager
-                            android:id="@+id/view_pager"
+                            android:id="@+id/viewPager"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
