@@ -1,15 +1,17 @@
 package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.ItemViewCalendarBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
@@ -18,6 +20,9 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
     private var year: Int = Calendar.getInstance().get(Calendar.YEAR)
     private var month: Int = Calendar.getInstance().get(Calendar.MONTH)
     private var position: Int = 0
+    val scope = CoroutineScope(Job() + Dispatchers.Default)
+
+
     var onChangedCalendarSelect: ((DayModel) -> Unit)? = null
     private var onClickSelected:((DayModel) -> Unit)? = null
 
@@ -37,7 +42,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
             adapter.notifyItemChanged(it)
             adapter.notifyItemChanged(position)
             position = it
-
         }
         binding.rcView.layoutManager =
             GridLayoutManager(context, 7, LinearLayoutManager.VERTICAL, false)
@@ -100,12 +104,11 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
 
     fun setSelectedDay() {
         onChangedCalendarSelect = { dayModel ->
+
+
             val lits = adapter.listItem.filter {
                 it.day.toIntOrNull()== dayModel.day.toInt() && it.month.toIntOrNull() == dayModel.month.toInt() && it.year.toIntOrNull() == dayModel.year.toInt()
-
             }
-            Log.d(TAG, "setSelectedDay: " + adapter.listItem.get(10))
-            Log.d(TAG, "setSelectedDay: " + dayModel)
             if (lits.size > 0) {
                 val position = adapter.listItem.indexOf(lits.first())
                 if (position != -1) {
@@ -113,9 +116,10 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
                         it.isSelected = false
                     }
                     adapter.listItem.get(position).isSelected = true
-                    adapter.notifyItemChanged(this.position)
+
+                    adapter.notifyItemChanged(this@ItemViewCalendar.position)
                     adapter.notifyItemChanged(position)
-                    this.position = position
+                    this@ItemViewCalendar.position = position
                 }
             }
         }

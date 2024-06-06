@@ -1,6 +1,8 @@
 package com.smartwavettn.horoscope.customview.customcalenday
 
+import android.content.ContentValues.TAG
 import android.os.Build
+import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
@@ -19,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import kotlin.math.log
 
 class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.ViewHolder>() {
     val scope = CoroutineScope(Job() + Dispatchers.Default)
@@ -45,6 +48,15 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                             calander.get(Calendar.YEAR),
                             Constants.TIME_ZONE
                         )
+
+                        val rangeDay = LunarCoreHelper.rateDay(
+                            LunarCoreHelper.getChiDayLunar(
+                                calander.get(Calendar.DAY_OF_MONTH),
+                                calander.get(Calendar.MONTH) + 1,
+                                calander.get(Calendar.YEAR)
+                            ), calander.get(Calendar.MONTH) + 1
+                        )
+
                         withContext(Dispatchers.Main) {
                             if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {
                                 binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_full_moon))
@@ -63,7 +75,30 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                                 lunarDay.get(Constants.INDEX_0).toString() + "/" + lunarDay.get(
                                     Constants.INDEX_1
                                 )
-                            binding.icon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_coin))
+
+                            Log.d(TAG, "bind: "+ rangeDay)
+                            when (rangeDay) {
+                                "Good" -> {
+                                    binding.icon.setImageDrawable(
+                                        itemView.context.getDrawable(
+                                            R.drawable.ic_happy
+                                        )
+                                    )
+                                }
+
+                                "Bad" -> {
+                                    binding.icon.setImageDrawable(
+                                        itemView.context.getDrawable(
+                                            R.drawable.ic_sad
+                                        )
+                                    )
+                                }
+
+                                else -> {
+                                    binding.icon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_coin))
+                                }
+                            }
+
                             binding.rank.text = textWeek
                             binding.moth.text = textmoth
                         }

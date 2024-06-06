@@ -67,13 +67,12 @@ class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter
                                     binding.cuttingHair.visible()
                                 } else binding.cuttingHair.gone()
                                 if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {
-
+                                    binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_full_moon_pink))
                                 } else if (lunarDay[Constants.INDEX_0] == Constants.INDEX_30) {
 
                                 } else {
 
                                 }
-                                Log.d(TAG, "bind: " + rangeDay)
                                 when (rangeDay) {
                                     "Good" -> {
                                         binding.underline.setImageDrawable(
