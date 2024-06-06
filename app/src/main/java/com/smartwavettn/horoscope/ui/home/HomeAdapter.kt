@@ -20,4 +20,13 @@ class HomeAdapter(fragmentManager: FragmentManager, behavior: Int) :
         notifyDataSetChanged()
     }
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when (position){
+            0 -> "Daily"
+            1-> "Month"
+            2-> "Year"
+            else-> "Daily"
+        }
+    }
+
 }

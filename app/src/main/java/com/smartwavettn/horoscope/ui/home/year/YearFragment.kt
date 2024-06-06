@@ -32,6 +32,4 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
     override fun initAction() {
 
     }
-
-
 }
