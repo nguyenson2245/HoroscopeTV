@@ -1,7 +1,9 @@
 package com.smartwavettn.horoscope.customview.customcalenday
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.os.Build
+import android.util.Log
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.databinding.ViewDataBinding
@@ -26,6 +28,7 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
     val scope = CoroutineScope(Job() + Dispatchers.Default)
 
     inner class ViewHolder(val binding: ViewDataBinding) : BaseViewHolder<DayModel>(binding) {
+        @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
         @RequiresApi(Build.VERSION_CODES.O)
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
@@ -57,6 +60,26 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                         )
 
                         withContext(Dispatchers.Main) {
+
+                            //when (lunarDay[0]) {
+//                                30 -> {
+//                                    binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_no_moon))
+//                                    binding.titleStatusMoon.text = itemView.context.getString(R.string.no_moon)
+//                                }
+//                                15 -> {
+//                                    binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_full_moon))
+//                                    binding.titleStatusMoon.text = itemView.context.getString(R.string.full_moon)
+//                                }
+//                                else -> {
+//                                    binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_moon))
+//                                    binding.titleStatusMoon.text = itemView.context.getString(R.string.waning_moon)
+//                                }
+//                            }
+//                            binding.lunarCalendar.text = "${lunarDay[0]}/${lunarDay[1]}"
+//                            binding.icon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_coin))
+//                            binding.rank.text = textWeek
+//                            binding.moth.text = textmoth
+
                             if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {
                                 binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_full_moon))
                                 binding.titleStatusMoon.text =
@@ -70,12 +93,9 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                                 binding.titleStatusMoon.text =
                                     itemView.context.getString(R.string.waning_moon)
                             }
-                            binding.lunarCalendar.text =
-                                lunarDay.get(Constants.INDEX_0).toString() + "/" + lunarDay.get(
-                                    Constants.INDEX_1
-                                )
+                            binding.lunarCalendar.text = lunarDay[Constants.INDEX_0].toString() + "/" + lunarDay[Constants.INDEX_1]
 
-                            Log.d(TAG, "bind: "+ rangeDay)
+                            Log.d(TAG, "bind: " + rangeDay)
                             when (rangeDay) {
                                 "Good" -> {
                                     binding.icon.setImageDrawable(
