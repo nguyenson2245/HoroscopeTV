@@ -1,31 +1,33 @@
 package com.smartwavettn.horoscope.ui.home.moth
 
-import androidx.fragment.app.viewModels
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.smartwavettn.horoscope.R
+import androidx.fragment.app.viewModels
+import com.smartwavettn.horoscope.databinding.FragmentMothBinding
+import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
-class MonthFragment : Fragment() {
+class MothFragment : BaseFragmentWithBinding<FragmentMothBinding>() {
 
     companion object {
-        fun newInstance() = MonthFragment()
+        fun newInstance() = MothFragment()
     }
 
     private val viewModel: MothViewModel by viewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        // TODO: Use the ViewModel
+    override fun getViewBinding(inflater: LayoutInflater): FragmentMothBinding {
+        return FragmentMothBinding.inflate(inflater)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_moth, container, false)
+
+    override fun init() {
+    }
+
+    override fun initData() {
+
+    }
+
+    override fun initAction() {
+
     }
 }

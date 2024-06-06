@@ -7,25 +7,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.databinding.FragmentYearBinding
+import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import com.smartwavettn.socialmedia.base.BaseFragment
 
-class YearFragment : Fragment() {
+class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
     companion object {
         fun newInstance() = YearFragment()
     }
 
     private val viewModel: YearViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // TODO: Use the ViewModel
+    override fun getViewBinding(inflater: LayoutInflater): FragmentYearBinding {
+       return  FragmentYearBinding.inflate(inflater)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.fragment_year, container, false)
+    override fun init() {
+
+    }
+
+    override fun initData() {
+    }
+
+    override fun initAction() {
+
     }
 }
