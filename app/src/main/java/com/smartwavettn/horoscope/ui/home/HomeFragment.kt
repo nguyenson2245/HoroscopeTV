@@ -263,7 +263,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         )
         binding.viewPager.adapter = adapter
         adapter.setData(listFragment)
-
         binding.tabLayout.setupWithViewPager(binding.viewPager)
     }
 
