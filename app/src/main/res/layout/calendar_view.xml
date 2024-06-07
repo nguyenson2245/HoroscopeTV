@@ -42,7 +42,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_weekday"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"/>
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/callMeasure"
             android:layout_width="match_parent"

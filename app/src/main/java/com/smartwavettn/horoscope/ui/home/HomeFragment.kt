@@ -8,6 +8,7 @@ import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.LinearLayout
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -53,7 +54,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     }
 
 
-    override fun init() {
+    override fun init(){
         context?.let { viewModel.init(it) }
 
         viewModel.getListPersonaLiveData().observe(viewLifecycleOwner) { personaList ->
@@ -61,7 +62,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             if (profilePersona != null) {
                 nameAppOwner = profilePersona.name
                 dateApplicationOwner = profilePersona.date
-
                 with(binding) {
                     profileHeader.txtName.text = nameAppOwner
                     menu.drawerHeaderProifile.apply {
@@ -101,10 +101,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.calendarView.onClickSelected = {
-            Log.d(TAG, "init: hii")
-            binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
+            binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), false)
         }
-
         tabLayout()
     }
 
@@ -258,9 +256,11 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     private fun tabLayout() {
         adapter = HomeAdapter(
-            childFragmentManager,
-            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+            parentFragmentManager,
+            FragmentStatePagerAdapter.POSITION_UNCHANGED
         )
+
+        binding.nestedScrollView.isNestedScrollingEnabled = true
         binding.viewPager.adapter = adapter
         adapter.setData(listFragment)
 

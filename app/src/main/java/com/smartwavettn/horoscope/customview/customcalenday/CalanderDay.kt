@@ -5,6 +5,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
+import androidx.core.view.get
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.CalendertDayBinding
@@ -86,7 +88,7 @@ class CalanderDay(context: Context, attr: AttributeSet) : FrameLayout(context, a
         binding.callMeasure.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
-                dateChanged.invoke(adapter.listItem.get(position))
+                dateChanged.invoke(adapter.listItem[position])
                 super.onPageSelected(position)
             }
         })

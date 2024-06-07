@@ -11,7 +11,6 @@ import com.smartwavettn.horoscope.databinding.ItemViewCalendarBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
@@ -33,12 +32,15 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         addView(binding.root)
 
         adapter = ItemViewCalendarAdapter{
+            if (listDay.get(it).day.isEmpty())
+                return@ItemViewCalendarAdapter
+
             listDay.forEach {
                 it.isSelected = false
             }
             listDay.get(it).isSelected = true
             adapter.submitList(listDay, false)
-            onClickSelected?.invoke(listDay.get(it))
+            onClickSelected?.invoke(listDay[it])
             adapter.notifyItemChanged(it)
             adapter.notifyItemChanged(position)
             position = it
@@ -104,8 +106,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
 
     fun setSelectedDay() {
         onChangedCalendarSelect = { dayModel ->
-
-
             val lits = adapter.listItem.filter {
                 it.day.toIntOrNull()== dayModel.day.toInt() && it.month.toIntOrNull() == dayModel.month.toInt() && it.year.toIntOrNull() == dayModel.year.toInt()
             }
