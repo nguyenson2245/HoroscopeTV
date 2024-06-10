@@ -59,7 +59,7 @@
                         app:tabGravity="fill"
                         app:tabMode="fixed" />
 
-                    <com.smartwavettn.horoscope.customview.HeightViewPager
+                    <com.smartwavettn.horoscope.customview.DynamicHeightViewPager
                         android:id="@+id/viewPager"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
