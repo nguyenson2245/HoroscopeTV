@@ -113,4 +113,10 @@
     <string name="time_prefix">H-M  >>   </string>
     <string name="time_suffix"></string>
     <string name="health2">Brings success in performing tasks, doing business, and competing</string>
+
+    <string name="foregroundService">Foreground Service</string>
+    <string name="running">Running...</string>
+    <string name="foregroundServiceChannel">Foreground Service Channel</string>
+
+
 </resources>

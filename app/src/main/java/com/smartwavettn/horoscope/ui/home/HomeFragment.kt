@@ -117,8 +117,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
         binding.menu.layoutNotification.click {
             binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
-            val v =
-                if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+            val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
             binding.menu.itemNotification.visibility = v
 
@@ -132,11 +131,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.menu.layoutLanguage.click {
-            binding.menu.btnLanguage.setImageResource(
-                if (binding.menu.itemLanguage.isVisible) R.drawable.soo else R.drawable.soo2
-            )
-            val v =
-                if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
+            binding.menu.btnLanguage.setImageResource(if (binding.menu.itemLanguage.isVisible) R.drawable.soo else R.drawable.soo2)
+            val v = if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
             TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
             binding.menu.itemLanguage.visibility = v
         }
@@ -248,21 +244,21 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             }
         }
 
-
     }
-
-
     private fun tabLayout() {
         adapter = HomeAdapter(
             parentFragmentManager,
             FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
+
         binding.viewPager.adapter = adapter
-        adapter.setData(listFragment)
+                adapter.setData(listFragment)
+
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         binding.viewPager.measureCurrentView(listFragment[0].view)
         binding.viewPager.viewTreeObserver.addOnGlobalLayoutListener {
             binding.viewPager.measureCurrentView(listFragment[binding.viewPager.currentItem].view)
         }
     }
+
     }
