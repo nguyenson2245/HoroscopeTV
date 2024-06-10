@@ -11,7 +11,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
-import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
@@ -255,31 +254,15 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
     private fun tabLayout() {
         adapter = HomeAdapter(
-            childFragmentManager,
+            parentFragmentManager,
             FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
         binding.viewPager.adapter = adapter
         adapter.setData(listFragment)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
-        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                binding.viewPager.updateHeight(position)
-            }
-
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-        })
-
+        binding.viewPager.measureCurrentView(listFragment[0].view)
+        binding.viewPager.viewTreeObserver.addOnGlobalLayoutListener {
+            binding.viewPager.measureCurrentView(listFragment[binding.viewPager.currentItem].view)
+        }
     }
-
-}
+    }
