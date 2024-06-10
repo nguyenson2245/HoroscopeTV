@@ -32,7 +32,6 @@ abstract class BaseRecyclerAdapter<T : Any, VH : BaseViewHolder<T>>(
     }
 
     fun getViewHolderDataBinding(parent: ViewGroup, viewType: Int): ViewDataBinding =
-        DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), getItemLayoutResource(viewType), parent, false
+        DataBindingUtil.inflate(LayoutInflater.from(parent.context), getItemLayoutResource(viewType), parent, false
         )
 }
