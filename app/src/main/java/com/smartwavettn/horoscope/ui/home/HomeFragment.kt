@@ -1,11 +1,9 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -13,9 +11,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2
+import androidx.viewpager.widget.ViewPager
 import com.bumptech.glide.Glide
-import com.google.android.material.tabs.TabLayout
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
@@ -101,8 +98,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.calendarView.onClickSelected = {
-            Log.d(TAG, "init: hii")
+
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
+            binding.calendarView.dayModel = it
         }
 
         tabLayout()
@@ -264,6 +262,25 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         binding.viewPager.adapter = adapter
         adapter.setData(listFragment)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                binding.viewPager.updateHeight(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+        })
+
     }
 
 }

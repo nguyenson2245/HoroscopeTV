@@ -30,6 +30,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     private val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val weekCalendarAdapter: WeekCalendarAdapter = WeekCalendarAdapter()
     var onClickSelected:((DayModel) -> Unit)? = null
+    var dayModel: DayModel? = null
 
     init {
         init()
@@ -96,7 +97,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         binding.callMeasure.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 val calendar = Calendar.getInstance()
-
+                dayModel?.let { getViewCurrentViewHolder()?.onChangedCalendarSelect(it) }
                 calendar.set(Calendar.YEAR,mothList.get(position).year.toInt())
                 calendar.set(Calendar.MONTH,mothList.get(position).month.toInt()-1)
 
@@ -128,7 +129,6 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         if (listFitter.isNotEmpty())
             binding.callMeasure.setCurrentItem(adapter.listItem.indexOf(listFitter.first()), false)
 
-
     }
     fun setDaySelect(dayModel: DayModel) {
         val list = adapter.listItem.filter {
@@ -136,8 +136,10 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         }
         if (list.isNotEmpty()) {
             binding.callMeasure.currentItem = adapter.listItem.lastIndexOf(list.first())
+
         }
-       getViewCurrentViewHolder()?.onChangedCalendarSelect?.invoke(dayModel)
+        this.dayModel = dayModel
+        getViewCurrentViewHolder()?.onChangedCalendarSelect?.invoke(dayModel)
     }
 
     fun getViewCurrentViewHolder(): ItemViewCalendar? {

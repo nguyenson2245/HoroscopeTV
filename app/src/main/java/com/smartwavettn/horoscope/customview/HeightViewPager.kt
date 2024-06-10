@@ -20,4 +20,18 @@ class HeightViewPager (context: Context, attrs: AttributeSet) : ViewPager(contex
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpecMod)
     }
+    fun updateHeight(position: Int) {
+        val child = getChildAt(position)
+        child?.let {
+            child.measure(
+                MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+            )
+            val height = child.measuredHeight
+            val params = layoutParams
+            params.height = height
+            layoutParams = params
+        }
+
+    }
 }

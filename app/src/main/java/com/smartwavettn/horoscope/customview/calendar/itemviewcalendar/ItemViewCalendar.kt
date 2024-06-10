@@ -11,7 +11,6 @@ import com.smartwavettn.horoscope.databinding.ItemViewCalendarBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(context, attrs) {
@@ -104,10 +103,14 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
 
     fun setSelectedDay() {
         onChangedCalendarSelect = { dayModel ->
+            onChangedCalendarSelect(dayModel)
+        }
 
+    }
 
+    fun onChangedCalendarSelect(dayModel: DayModel) {
             val lits = adapter.listItem.filter {
-                it.day.toIntOrNull()== dayModel.day.toInt() && it.month.toIntOrNull() == dayModel.month.toInt() && it.year.toIntOrNull() == dayModel.year.toInt()
+                it.day.toIntOrNull() == dayModel.day.toInt() && it.month.toIntOrNull() == dayModel.month.toInt() && it.year.toIntOrNull() == dayModel.year.toInt()
             }
             if (lits.size > 0) {
                 val position = adapter.listItem.indexOf(lits.first())
@@ -116,13 +119,17 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
                         it.isSelected = false
                     }
                     adapter.listItem.get(position).isSelected = true
-
                     adapter.notifyItemChanged(this@ItemViewCalendar.position)
                     adapter.notifyItemChanged(position)
                     this@ItemViewCalendar.position = position
                 }
+            } else {
+                if (position != -1) {
+                    adapter.listItem[position].isSelected = false
+                    adapter.notifyItemChanged(position)
+                    position = -1
+                }
             }
-        }
 
     }
 
