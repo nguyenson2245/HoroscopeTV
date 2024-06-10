@@ -1,6 +1,5 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
-import android.util.Log
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.bumptech.glide.Glide
@@ -10,7 +9,6 @@ import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
 import com.smartwavettn.horoscope.databinding.ItemDailyBinding
 import com.smartwavettn.horoscope.databinding.ItemTitleDailyBinding
 import com.smartwavettn.horoscope.model.Daily
-import kotlin.math.log
 
 class DailyAdapter(val viewModel: DailyViewModel, val click: (Class<*>) -> Unit) :
     BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
@@ -33,7 +31,7 @@ class DailyAdapter(val viewModel: DailyViewModel, val click: (Class<*>) -> Unit)
 
     override fun getItemViewType(position: Int): Int {
         val item = listItem[position]
-        return if (item.title.isNotEmpty() && item.content.isEmpty() )
+        return if (item.content.isEmpty() && item.icon==null)
             TYPE_TITLE
          else if (item.content.isNotEmpty())
             TYPE_TITLE_CONTENT
