@@ -15,7 +15,6 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>(){
     private lateinit var adapter: DailyAdapter
     private val viewModel: DailyViewModel by viewModels()
 
-
     companion object {
         fun newInstance() = DailyFragment()
     }
@@ -26,14 +25,14 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>(){
 
     override fun init() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter = DailyAdapter(viewModel){}
+        adapter = DailyAdapter()
         binding.rcvDaily.layoutManager = layoutManager
         binding.rcvDaily.adapter = adapter
         binding.rcvDaily.setHasFixedSize(true)
     }
 
     override fun initData() {
-        viewModel.initData(requireActivity())
+        viewModel.initData()
 
         viewModel.listAddSettings.observe(viewLifecycleOwner) {it->
             adapter.submitList(it)

@@ -10,7 +10,7 @@ import com.smartwavettn.horoscope.databinding.ItemDailyBinding
 import com.smartwavettn.horoscope.databinding.ItemTitleDailyBinding
 import com.smartwavettn.horoscope.model.Daily
 
-class DailyAdapter(val viewModel: DailyViewModel, val click: (Class<*>) -> Unit) :
+class DailyAdapter() :
     BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
 
     inner class DailyViewHolder(val binding: ViewDataBinding) : BaseViewHolder<Daily>(binding) {
@@ -31,11 +31,11 @@ class DailyAdapter(val viewModel: DailyViewModel, val click: (Class<*>) -> Unit)
 
     override fun getItemViewType(position: Int): Int {
         val item = listItem[position]
-        return if (item.content.isEmpty() && item.icon==null)
+        return if (item.content.isEmpty())
             TYPE_TITLE
-         else if (item.content.isNotEmpty())
+         else
             TYPE_TITLE_CONTENT
-         else 2
+
     }
 
     override fun getItemLayoutResource(position: Int): Int {

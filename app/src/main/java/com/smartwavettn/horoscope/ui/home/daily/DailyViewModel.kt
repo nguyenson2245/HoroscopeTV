@@ -13,7 +13,7 @@ class DailyViewModel : ViewModel() {
     val listAddSettings: MutableLiveData<ArrayList<Daily>> = MutableLiveData()
 
 
-    fun initData(context: Context) {
+    fun initData() {
         listSettings.clear()
 
         listSettings.add(Daily(title = "Personal indicators"))
