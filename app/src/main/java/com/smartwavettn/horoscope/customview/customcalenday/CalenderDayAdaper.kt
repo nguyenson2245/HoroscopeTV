@@ -95,7 +95,6 @@ class CalenderDayAdapter : BaseRecyclerAdapter<DayModel, CalenderDayAdapter.View
                             }
                             binding.lunarCalendar.text = lunarDay[Constants.INDEX_0].toString() + "/" + lunarDay[Constants.INDEX_1]
 
-                            Log.d(TAG, "bind: " + rangeDay)
                             when (rangeDay) {
                                 "Good" -> {
                                     binding.icon.setImageDrawable(

@@ -2,10 +2,11 @@ package com.smartwavettn.horoscope.ui.home
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
 
 class HomeAdapter(fragmentManager: FragmentManager, behavior: Int) :
-    FragmentStatePagerAdapter(fragmentManager, behavior) {
+    FragmentPagerAdapter(fragmentManager) {
     var listFragment: ArrayList<Fragment> = arrayListOf()
     override fun getCount(): Int {
         return listFragment.size
@@ -28,5 +29,4 @@ class HomeAdapter(fragmentManager: FragmentManager, behavior: Int) :
             else-> "Daily"
         }
     }
-
 }

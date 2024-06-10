@@ -98,7 +98,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
 
         binding.calendarView.onClickSelected = {
-
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
         }
