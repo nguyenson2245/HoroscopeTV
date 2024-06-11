@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.example.scannerqr.popup.CustomPopup
 import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.base.utils.SafeClickListener
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
@@ -26,7 +28,7 @@ import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFra
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
-class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
+class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Unit   {
 
     private var nameAppOwner = ""
     private var dateApplicationOwner = ""
@@ -44,7 +46,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: HomeAdapter
 
-    override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
+    override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding{
         return FragmentHomeBinding.inflate(inflater)
     }
 
@@ -66,7 +68,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
                     }
                 }
 
-                if (profilePersona.icon != null && profilePersona.icon != 1) {
+                if (profilePersona.icon != 1) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(profilePersona.icon)
                     binding.profileHeader.image.setImageResource(profilePersona.icon)
                 } else if (profilePersona.iconImage.isNotEmpty()) {
@@ -106,6 +108,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
 
 
     override fun initData() {
+        viewModel.init(requireActivity())
     }
 
     override fun initAction() {
@@ -113,6 +116,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             binding.drawer.openDrawer(GravityCompat.START)
         }
 
+        binding.profileHeader.image.click {
+            context?.let { it1 -> CustomPopup.showPopupMenu(it1, viewModel.getListData(),it) }
+        }
         binding.menu.view1.layoutTransition.enableTransitionType(LayoutTransition.CHANGING)
 
         binding.menu.layoutNotification.click {
@@ -244,13 +250,15 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
             }
         }
 
+
     }
+
+
     private fun tabLayout() {
         adapter = HomeAdapter(
             parentFragmentManager,
             FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
         )
-
         binding.viewPager.adapter = adapter
                 adapter.setData(listFragment)
 
@@ -261,4 +269,14 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>() {
         }
     }
 
+    override fun invoke(view: View) {
+        when (view.id){
+            R.id.btnTravel -> {
+
+            }
+            R.id.linnerLayoutProfile -> {
+
+            }
+        }
     }
+}

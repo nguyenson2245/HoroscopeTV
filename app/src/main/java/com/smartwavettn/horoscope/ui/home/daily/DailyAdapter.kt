@@ -10,7 +10,7 @@ import com.smartwavettn.horoscope.databinding.ItemDailyBinding
 import com.smartwavettn.horoscope.databinding.ItemTitleDailyBinding
 import com.smartwavettn.horoscope.model.Daily
 
-class DailyAdapter() :
+class DailyAdapter(val viewModel: DailyViewModel, val click: (Class<*>) -> Unit) :
     BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
 
     inner class DailyViewHolder(val binding: ViewDataBinding) : BaseViewHolder<Daily>(binding) {
@@ -42,7 +42,7 @@ class DailyAdapter() :
         return when (position) {
             TYPE_TITLE -> R.layout.item_title_daily
             else -> {
-                return  R.layout.item_daily
+                return R.layout.item_daily
             }
         }
     }

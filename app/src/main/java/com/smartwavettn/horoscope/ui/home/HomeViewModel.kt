@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager
 import com.akexorcist.snaptimepicker.SnapTimePickerDialog
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.BaseViewModel
+import com.smartwavettn.horoscope.model.PersonalInformation
 import java.util.Calendar
 
 class HomeViewModel : BaseViewModel() {
@@ -36,6 +37,9 @@ class HomeViewModel : BaseViewModel() {
         )
 
         timePickerDialog.show()
+    }
+    fun getListData(): ArrayList<PersonalInformation>{
+        return  repository.getListProfiles().toMutableList()  as ArrayList<PersonalInformation>
     }
 
 }
