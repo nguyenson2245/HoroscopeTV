@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.gone
 import com.smartwavettn.horoscope.base.utils.visible
@@ -21,9 +22,10 @@ import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
-    private var positionPickerLayout: Int = 0
+    private var positionPickerLayout: Int = 1
     private var uriImage: String = ""
     private var personalInformation: PersonalInformation? = null
+    private lateinit var preferences : Preferences
 
     private val viewModel: IntroTwoViewModel by viewModels()
     private lateinit var adapter: AvatarAdapter
@@ -34,7 +36,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
     override fun init() {
         context?.let { viewModel.init(it) }
-
+        preferences = Preferences.getInstance(requireActivity())
         personalInformation = arguments?.getSerializable("profilePersona") as PersonalInformation?
 
         var type = arguments?.getString("checkFragment")
@@ -125,6 +127,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                     showDialogEnterInFormation(personalInformation)
                 else {
                     viewModel.addPersonalInformation(personalInformation)
+                    preferences.firstInstall = true
                     openFragment(IntroThreeFragment::class.java, null, true)
                 }
             } else {
