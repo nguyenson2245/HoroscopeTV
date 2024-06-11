@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.databinding.FragmentSplashBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
+import com.smartwavettn.horoscope.ui.intro.introOne.IntroOneFragment
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
@@ -29,9 +30,14 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
         preferences = Preferences.getInstance(requireActivity())
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val bundle = Bundle()
-            bundle.putString("checkFragment", "slashFragment")
-            openFragment(HomeFragment::class.java, bundle, false)
+            if (preferences.firstInstall)
+                openFragment(HomeFragment::class.java, null, false)
+            else {
+                val bundle = Bundle()
+                bundle.putString("checkFragment", "slashFragment")
+                openFragment(IntroOneFragment::class.java, bundle, false)
+            }
+
         }, 1000)
     }
 

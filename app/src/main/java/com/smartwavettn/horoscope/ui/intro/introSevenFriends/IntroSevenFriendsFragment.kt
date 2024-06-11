@@ -20,7 +20,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
 
     var name = ""
     var date = ""
-    private var positionPickerLayout: Int = 0
+    private var positionPickerLayout: Int = 1
     private var uriImage: String = ""
     private var personalInformation: PersonalInformation? = null
 
