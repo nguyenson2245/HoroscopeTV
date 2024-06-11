@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.example.scannerqr.popup.CustomPopup
+import com.smartwavettn.horoscope.popup.CustomPopup
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
@@ -20,6 +20,7 @@ import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
 import com.smartwavettn.horoscope.ui.home.moth.MothFragment
 import com.smartwavettn.horoscope.ui.home.year.YearFragment
+import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenFriendsFragment
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
@@ -27,10 +28,8 @@ import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFra
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
-class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Unit   {
-
-    private var nameAppOwner = ""
-    private var dateApplicationOwner = ""
+class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
+    View.OnClickListener {
 
     companion object {
         fun newInstance() = HomeFragment()
@@ -45,7 +44,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Un
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: HomeAdapter
 
-    override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding{
+    override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)
     }
 
@@ -70,16 +69,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Un
 
     override fun initData() {
         viewModel.init(requireActivity())
+        viewModel.getPersonalLiveData()
         viewModel.personal.observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
                 with(binding) {
-                    profileHeader.txtName.text = nameAppOwner
+                    profileHeader.txtName.text = personal.name
                     menu.drawerHeaderProifile.apply {
                         txtName.text = personal.name
                         txtDate.text = personal.date
                     }
                 }
-                if (personal.icon != 1) {
+                if (personal.icon != 0) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
                 } else if (personal.iconImage.isNotEmpty()) {
@@ -103,9 +103,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Un
         binding.menu.drawerHeaderProifile.linnerLayoutProfile.click(this)
         binding.profileHeader.menuProfileHeader.click(this)
         binding.profileHeader.image.click(this)
-        binding.menu.layoutNotification.click(this)
+        binding.menu.layoutNotification.setOnClickListener(this)
         binding.menu.timeNoti.click(this)
-        binding.menu.layoutLanguage.click(this)
+        binding.menu.layoutLanguage.setOnClickListener(this)
         binding.menu.friends.click(this)
         binding.menu.btnlunaDay.click(this)
         binding.menu.btnCuttinghair.click(this)
@@ -160,15 +160,20 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Un
     }
 
     override fun invoke(view: View) {
-        when (view.id){
-            R.id.profileHeader -> binding.drawer.openDrawer(GravityCompat.START)
+        when (view.id) {
+            R.id.menuProfileHeader -> binding.drawer.openDrawer(GravityCompat.START)
 
             R.id.image -> context?.let { it1 ->
+                val list = viewModel.getListData()
+                list.removeIf { !it.isProfile }
                 CustomPopup.showPopupMenu(
                     it1,
-                    viewModel.getListData(),
-                    view
-                )
+                    list,view
+                ) {
+                    val bundle = Bundle()
+                    bundle.putString("checkFragmentFriends", "FriendsFragment")
+                    openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
+                }
             }
 
             R.id.friends -> openFragmentCloseDrawer(
@@ -196,7 +201,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Un
                 addBackStack = true
             )
 
-            R.id.layoutLanguage -> setOnCLickLanguages()
 
             R.id.share -> {
                 activity?.shareApp()
@@ -207,7 +211,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Un
                 binding.menu.timeNoti.text = it
             }
 
-            R.id.layoutNotification -> setOnCLickShowNotification()
             R.id.linnerLayoutProfile -> {
                 val bundle = Bundle()
                 bundle.putString("checkFragment", "home")
@@ -245,6 +248,13 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(),(View) -> Un
             if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
         TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
         binding.menu.itemLanguage.visibility = v
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.layoutNotification -> setOnCLickShowNotification()
+            R.id.layoutLanguage -> setOnCLickLanguages()
+        }
     }
 
 }

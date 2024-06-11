@@ -1,4 +1,4 @@
-package com.example.scannerqr.popup
+package com.smartwavettn.horoscope.popup
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -15,8 +15,9 @@ object CustomPopup {
     fun showPopupMenu(
         context: Context,
         listData: ArrayList<PersonalInformation>,
-        anchor: View
-        ) {
+        anchor: View,
+        openAddFiends: () -> Unit,
+    ) {
         val inflater: LayoutInflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupViewBinding: PopupMenuLayoutBinding =
@@ -27,7 +28,11 @@ object CustomPopup {
             LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT, true
         )
-        val adapter = PopupAdapter()
+        val adapter = PopupAdapter() {
+            if (it == listData.size)
+                openAddFiends.invoke()
+            popupWindow.dismiss()
+        }
         popupViewBinding.rcView.adapter = adapter
         adapter.submitList(listData)
 

@@ -25,6 +25,7 @@ class IntroSevenViewModel : BaseViewModel() {
     fun initDataAvatar() {
 
         listAvatarResIds = arrayListOf(
+            0,
             R.drawable.avatar1,
             R.drawable.avatar2,
             R.drawable.avatar3,
@@ -51,7 +52,8 @@ class IntroSevenViewModel : BaseViewModel() {
             R.drawable.avatar24,
             R.drawable.avatar25,
             R.drawable.avatar26,
-            R.drawable.avatar27
+            R.drawable.avatar27,
+            0
         )
 
         listAvatarLiveData.postValue(listAvatarResIds)

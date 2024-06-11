@@ -28,7 +28,6 @@ class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
             val bundle = Bundle()
             bundle.putString("checkFragmentFriends", "FriendsFragment")
             bundle.putSerializable("personalInformation",personalInformation)
-
             openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
         }, { personalInformation -> runBlocking { viewModel.deletePersonal(personalInformation) } })
         binding.rcvViewAvatar.apply {
