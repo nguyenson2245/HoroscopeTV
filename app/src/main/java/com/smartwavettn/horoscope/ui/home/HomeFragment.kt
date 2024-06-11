@@ -2,32 +2,24 @@ package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
 import android.content.ContentValues.TAG
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.core.app.NotificationCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.smartwavettn.horoscope.popup.CustomPopup
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
-import com.smartwavettn.horoscope.ui.MainActivity
+import com.smartwavettn.horoscope.popup.CustomPopup
 import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
 import com.smartwavettn.horoscope.ui.home.moth.MothFragment
 import com.smartwavettn.horoscope.ui.home.year.YearFragment
@@ -51,6 +43,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         MothFragment.newInstance(),
         YearFragment.newInstance()
     )
+
     private var personalInformation : PersonalInformation ?= null
 
     private val viewModel: HomeViewModel by viewModels()
@@ -59,8 +52,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)
     }
-
-
+    
     override fun init() {
         context?.let { viewModel.init(it) }
         tabLayout()
@@ -75,7 +67,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             binding.calendarView.dayModel = it
         }
     }
-
 
     override fun initData() {
         viewModel.init(requireActivity())
@@ -240,7 +231,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
         binding.menu.timeNoti.visibility = if (v == View.VISIBLE) View.VISIBLE else View.GONE
     }
-
 
     private fun openFragmentCloseDrawer(
         clazz: Class<*>,

@@ -21,6 +21,7 @@ import com.smartwavettn.horoscope.ui.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
+import java.util.Date
 
 class HomeViewModel : BaseViewModel() {
     fun getPersonalLiveData() = repository.getProFile()
@@ -89,7 +90,12 @@ class HomeViewModel : BaseViewModel() {
 
         // Show the notification
         val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(NOTIFICATION_ID, builder.build())
+        notificationManager.notify(getNotificationID(), builder.build())
+    }
+
+    // set nhiêu notification
+    private fun getNotificationID() : Int{
+        return (Date().time / 1000).toInt()
     }
 
 }
