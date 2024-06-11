@@ -23,6 +23,8 @@ interface Dao {
 
     @Query("SELECT * FROM PersonalInformation where name= :title")
     fun checkName(title: String): List<PersonalInformation>
+    @Query("SELECT * FROM PersonalInformation where isProfile= :isProfile  LIMIT 1")
+    fun getProfile(isProfile: Boolean):LiveData<PersonalInformation>
 
     @Query("SELECT * FROM PersonalInformation")
     fun getListNote(): LiveData<List<PersonalInformation>>

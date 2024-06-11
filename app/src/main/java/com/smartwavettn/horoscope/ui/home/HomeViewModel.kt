@@ -23,18 +23,8 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class HomeViewModel : BaseViewModel() {
-    var personal: MutableLiveData<PersonalInformation?> = MutableLiveData()
-    fun getPersonalLiveData() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-               val personalInformation=  repository.getListProfiles().find { it.isProfile }
-                Log.d(TAG, "getPersonalLiveData: " +  personalInformation?.name)
-                personal.postValue(personalInformation)
-            } catch (e: Throwable) {
-                //
-            }
-        }
-    }
+    fun getPersonalLiveData() = repository.getProFile()
+
 
     fun openEmailApp() {
         val intent = Intent(Intent.ACTION_SENDTO)
