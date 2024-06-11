@@ -1,18 +1,31 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.app.TimePickerDialog
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
-import androidx.fragment.app.FragmentManager
-import com.akexorcist.snaptimepicker.SnapTimePickerDialog
-import com.smartwavettn.horoscope.R
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.smartwavettn.horoscope.base.BaseViewModel
 import com.smartwavettn.horoscope.model.PersonalInformation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class HomeViewModel : BaseViewModel() {
-
-    fun getListPersonaLiveData() = repository.getListLiveData()
+    var personal: MutableLiveData<PersonalInformation?> = MutableLiveData()
+    fun getPersonalLiveData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+               val personalInformation=  repository.getListProfiles().find { it.isProfile }
+                Log.d(TAG, "getPersonalLiveData: " +  personalInformation?.name)
+                personal.postValue(personalInformation)
+            } catch (e: Throwable) {
+                //
+            }
+        }
+    }
 
     fun openEmailApp() {
         val intent = Intent(Intent.ACTION_SENDTO)

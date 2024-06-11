@@ -9,7 +9,7 @@ import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
 import com.smartwavettn.horoscope.databinding.ItemPopupBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 
-class PopupAdapter : BaseRecyclerAdapter<PersonalInformation, PopupAdapter.ViewHolder>() {
+class PopupAdapter(val onClickItem: (Int)-> Unit) : BaseRecyclerAdapter<PersonalInformation, PopupAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ViewDataBinding) : BaseViewHolder<PersonalInformation>(binding){
         override fun bind(itemData: PersonalInformation?) {
             super.bind(itemData)
@@ -20,6 +20,7 @@ class PopupAdapter : BaseRecyclerAdapter<PersonalInformation, PopupAdapter.ViewH
                     binding.name.text = "Add Friend"
                 }
             }
+            onItemClickListener {onClickItem.invoke(adapterPosition)  }
         }
     }
 
