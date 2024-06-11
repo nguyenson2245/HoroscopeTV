@@ -1,9 +1,11 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -17,6 +19,7 @@ import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
+import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
 import com.smartwavettn.horoscope.ui.home.moth.MothFragment
 import com.smartwavettn.horoscope.ui.home.year.YearFragment
@@ -40,6 +43,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         MothFragment.newInstance(),
         YearFragment.newInstance()
     )
+    private var personalInformation : PersonalInformation ?= null
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: HomeAdapter
@@ -69,9 +73,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
     override fun initData() {
         viewModel.init(requireActivity())
-        viewModel.getPersonalLiveData()
-        viewModel.personal.observe(viewLifecycleOwner) { personal ->
+        viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
+                personalInformation = personal
                 with(binding) {
                     profileHeader.txtName.text = personal.name
                     menu.drawerHeaderProifile.apply {
@@ -213,8 +217,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
             R.id.linnerLayoutProfile -> {
                 val bundle = Bundle()
+                Log.d(TAG, "invoke: "+ personalInformation?.name)
                 bundle.putString("checkFragment", "home")
-                bundle.putSerializable("profilePersona", viewModel.personal.value)
+                bundle.putSerializable("profilePersona",personalInformation)
                 openFragmentCloseDrawer(IntroTwoFragment::class.java, bundle, true)
             }
         }

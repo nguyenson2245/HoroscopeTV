@@ -19,6 +19,7 @@ class Repository(context: Context) {
         appDatabase.getInformationDao().getListNote()
 
     fun getListProfiles(): List<PersonalInformation> = appDatabase.getInformationDao().getAll()
+    fun getProFile():LiveData<PersonalInformation> = appDatabase.getInformationDao().getProfile(true)
     suspend fun deletePersonal(personalInformation: PersonalInformation) =
         appDatabase.getInformationDao().delete(personalInformation)
 
