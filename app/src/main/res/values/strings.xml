@@ -118,5 +118,8 @@
     <string name="running">Running...</string>
     <string name="foregroundServiceChannel">Foreground Service Channel</string>
 
+    <string name="alarm">Alarm Manager</string>
+
+
 
 </resources>

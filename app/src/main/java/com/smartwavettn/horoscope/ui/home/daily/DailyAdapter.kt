@@ -10,7 +10,7 @@ import com.smartwavettn.horoscope.databinding.ItemDailyBinding
 import com.smartwavettn.horoscope.databinding.ItemTitleDailyBinding
 import com.smartwavettn.horoscope.model.Daily
 
-class DailyAdapter(val viewModel: DailyViewModel, val click: (Class<*>) -> Unit) :
+class DailyAdapter( val click: (Class<*>) -> Unit) :
     BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
 
     inner class DailyViewHolder(val binding: ViewDataBinding) : BaseViewHolder<Daily>(binding) {

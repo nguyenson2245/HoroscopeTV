@@ -5,12 +5,15 @@ import android.view.LayoutInflater
 import androidx.annotation.RequiresApi
 import com.smartwavettn.horoscope.base.BaseActivity
 import com.smartwavettn.horoscope.base.local.Preferences
+import com.smartwavettn.horoscope.broadcast.AlarmBroadcastReceiver
 import com.smartwavettn.horoscope.databinding.ActivityMainBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
 import com.smartwavettn.scanqr.ui.splash.SplashFragment
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    private lateinit var broadcastReceiver: AlarmBroadcastReceiver
 
     private lateinit var preferences: Preferences
     override fun getViewBinding(inflater: LayoutInflater): ActivityMainBinding {
@@ -26,6 +29,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             openFragment(HomeFragment::class.java, null, false)
 
         }
+
+        createNotificationChanel()
+
     }
 
+//    override fun onStop() {
+//        super.onStop()
+//        unregisterReceiver(broadcastReceiver);
+//    }
+
+    private fun createNotificationChanel() {
+
+    }
 }

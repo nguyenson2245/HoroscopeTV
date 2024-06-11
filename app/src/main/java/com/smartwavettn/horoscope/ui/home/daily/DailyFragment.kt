@@ -25,7 +25,7 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>(){
 
     override fun init() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter = DailyAdapter()
+        adapter = DailyAdapter {}
         binding.rcvDaily.layoutManager = layoutManager
         binding.rcvDaily.adapter = adapter
         binding.rcvDaily.setHasFixedSize(true)
