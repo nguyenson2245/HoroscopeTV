@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
+
             android:layout_marginLeft="@dimen/_16dp"
             android:id="@+id/image"
             android:layout_width="@dimen/_48dp"
@@ -23,10 +24,10 @@
             app:civ_border_width="0.2dp" />
 
         <LinearLayout
-            android:layout_marginLeft="@dimen/_5sdp"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_5sdp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -34,17 +35,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hello"
-                android:textSize="@dimen/_12sp"
                 android:textColor="#C7F8FF"
+                android:textSize="@dimen/_12sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtName"
-                android:textSize="@dimen/_16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
-                android:textColor="#C7F8FF" />
+                android:textColor="#C7F8FF"
+                android:textSize="@dimen/_16sp" />
 
         </LinearLayout>
 

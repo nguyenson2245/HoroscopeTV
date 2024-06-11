@@ -23,7 +23,6 @@ class DynamicHeightViewPager : ViewPager {
                 widthMeasureSpec,
                 MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
             )
-
             val height =
                 max(0.0, mCurrentView!!.measuredHeight.toDouble()).toInt()
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY)

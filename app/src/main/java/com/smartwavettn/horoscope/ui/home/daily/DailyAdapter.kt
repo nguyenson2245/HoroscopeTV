@@ -31,18 +31,17 @@ class DailyAdapter(val viewModel: DailyViewModel, val click: (Class<*>) -> Unit)
 
     override fun getItemViewType(position: Int): Int {
         val item = listItem[position]
-        return if (item.content.isEmpty() && item.icon==null)
+        return if (item.title.isNotEmpty() && item.content.isEmpty())
             TYPE_TITLE
-         else if (item.content.isNotEmpty())
+        else
             TYPE_TITLE_CONTENT
-         else 2
     }
 
     override fun getItemLayoutResource(position: Int): Int {
         return when (position) {
             TYPE_TITLE -> R.layout.item_title_daily
             else -> {
-                return  R.layout.item_daily
+                return R.layout.item_daily
             }
         }
     }
