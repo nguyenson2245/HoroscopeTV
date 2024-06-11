@@ -1,8 +1,15 @@
 package com.smartwavettn.horoscope.ui
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
+import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.BaseActivity
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.broadcast.AlarmBroadcastReceiver
@@ -13,7 +20,7 @@ import com.smartwavettn.scanqr.ui.splash.SplashFragment
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
-    private lateinit var broadcastReceiver: AlarmBroadcastReceiver
+
 
     private lateinit var preferences: Preferences
     override fun getViewBinding(inflater: LayoutInflater): ActivityMainBinding {
@@ -30,8 +37,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         }
 
-        createNotificationChanel()
-
     }
 
 //    override fun onStop() {
@@ -39,7 +44,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 //        unregisterReceiver(broadcastReceiver);
 //    }
 
-    private fun createNotificationChanel() {
-
-    }
 }

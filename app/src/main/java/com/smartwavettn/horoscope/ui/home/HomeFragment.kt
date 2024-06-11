@@ -1,11 +1,18 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
+import androidx.core.app.NotificationCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -17,6 +24,7 @@ import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
+import com.smartwavettn.horoscope.ui.MainActivity
 import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
 import com.smartwavettn.horoscope.ui.home.moth.MothFragment
 import com.smartwavettn.horoscope.ui.home.year.YearFragment
@@ -34,6 +42,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     companion object {
         fun newInstance() = HomeFragment()
     }
+
 
     private val listFragment: ArrayList<Fragment> = arrayListOf(
         DailyFragment.newInstance(),
@@ -62,8 +71,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
         }
-
-
     }
 
 
@@ -121,7 +128,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.menu.termsOfUse.click(this)
 
         binding.menu.btnlunaDay.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) toast(" ON") else toast(" OFF")
+            if (isChecked) {
+                toast(" ON")
+            } else toast(" OFF")
         }
 
         binding.menu.btnCuttinghair.setOnCheckedChangeListener { _, isChecked ->
@@ -133,17 +142,24 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) toast(" ON") else toast(" OFF")
+            if (isChecked) {
+                toast(" ON")
+            } else toast(" OFF")
         }
 
         binding.menu.noAniceDayNotification.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) toast(" ON") else toast(" OFF")
+            if (isChecked) {
+                toast(" ON")
+                viewModel.createNotification(requireActivity(),Intent(requireActivity(), MainActivity::class.java))
+
+            } else toast(" OFF")
         }
 
         binding.menu.abedDayNotification.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) toast(" ON") else toast(" OFF")
         }
     }
+
 
     private fun tabLayout() {
         adapter = HomeAdapter(
@@ -168,7 +184,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 list.removeIf { !it.isProfile }
                 CustomPopup.showPopupMenu(
                     it1,
-                    list,view
+                    list, view
                 ) {
                     val bundle = Bundle()
                     bundle.putString("checkFragmentFriends", "FriendsFragment")
