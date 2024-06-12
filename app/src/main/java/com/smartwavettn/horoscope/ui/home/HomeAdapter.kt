@@ -24,10 +24,10 @@ class HomeAdapter(fragmentManager: FragmentManager, behavior: Int) :
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){
-            0 -> R.string.daily.toString()
-            1-> R.string.month.toString()
-            2-> R.string.year.toString()
-            else-> R.string.daily.toString()
+            0 -> "Daily"
+            1-> "Month"
+            2-> "Year"
+            else->  "Daily"
         }
     }
 }
