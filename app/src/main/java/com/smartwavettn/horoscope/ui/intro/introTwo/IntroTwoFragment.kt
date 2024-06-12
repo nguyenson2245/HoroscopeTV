@@ -44,7 +44,8 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
         var type = arguments?.getString(KeyWord.checkFragment)
 
         when (type) {
-            R.string.home.toString() -> {
+
+           "home"-> {
                 binding.btnContinue.gone()
                 binding.btnOke.visible()
 
@@ -52,7 +53,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                 binding.txtDateOfBirth.setText(personalInformation?.date)
             }
 
-            R.string.slashFragment.toString() -> {}
+           "slashFragment" -> {}
         }
 
         val pickerLayoutManager =
