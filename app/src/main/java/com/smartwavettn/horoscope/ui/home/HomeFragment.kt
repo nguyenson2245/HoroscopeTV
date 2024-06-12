@@ -29,7 +29,10 @@ import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+
+
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
     View.OnClickListener {
@@ -52,11 +55,10 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)
     }
-    
+
     override fun init() {
         context?.let { viewModel.init(it) }
         tabLayout()
-
 
         binding.day.onDateListener {
             binding.calendarView.setDaySelect(it)
@@ -94,7 +96,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     binding.menu.drawerHeaderProifile.image.setImageResource(R.drawable.intro1)
                     binding.profileHeader.image.setImageResource(R.drawable.intro1)
                 }
-
             }
         }
     }
@@ -146,20 +147,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
-    private fun tabLayout() {
-        adapter = HomeAdapter(
-            parentFragmentManager,
-            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-        )
-        binding.viewPager.adapter = adapter
-        adapter.setData(listFragment)
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
-        binding.viewPager.measureCurrentView(listFragment[0].view)
-        binding.viewPager.viewTreeObserver.addOnGlobalLayoutListener {
-            binding.viewPager.measureCurrentView(listFragment[binding.viewPager.currentItem].view)
-        }
-    }
-
     override fun invoke(view: View) {
         when (view.id) {
             R.id.menuProfileHeader -> binding.drawer.openDrawer(GravityCompat.START)
@@ -172,7 +159,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     list,view
                 ) {
                     val bundle = Bundle()
-                    bundle.putString("checkFragmentFriends", "FriendsFragment")
+                    bundle.putString(KeyWord.checkFragmentFriends, KeyWord.friendsFragment)
                     openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
                 }
             }
@@ -202,7 +189,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 addBackStack = true
             )
 
-
             R.id.share -> {
                 activity?.shareApp()
                 binding.drawer.closeDrawers()
@@ -214,22 +200,11 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
             R.id.linnerLayoutProfile -> {
                 val bundle = Bundle()
-                Log.d(TAG, "invoke: "+ personalInformation?.name)
-                bundle.putString("checkFragment", "home")
-                bundle.putSerializable("profilePersona",personalInformation)
+                bundle.putString(KeyWord.checkFragment, KeyWord.home)
+                bundle.putSerializable(KeyWord.profilePersona,personalInformation)
                 openFragmentCloseDrawer(IntroTwoFragment::class.java, bundle, true)
             }
         }
-    }
-
-    private fun setOnCLickShowNotification() {
-        binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
-        val v =
-            if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
-        TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
-        binding.menu.itemNotification.visibility = v
-
-        binding.menu.timeNoti.visibility = if (v == View.VISIBLE) View.VISIBLE else View.GONE
     }
 
     private fun openFragmentCloseDrawer(
@@ -241,12 +216,35 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.drawer.closeDrawers()
     }
 
+    private fun tabLayout() {
+        adapter = HomeAdapter(
+            parentFragmentManager,
+            FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
+        binding.viewPager.adapter = adapter
+        adapter.setData(listFragment)
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.viewPager.measureCurrentView(listFragment[0].view)
+        binding.viewPager.viewTreeObserver.addOnGlobalLayoutListener {
+            binding.viewPager.measureCurrentView(listFragment[binding.viewPager.currentItem].view)
+        }
+    }
+
+    private fun setOnCLickShowNotification() {
+        binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
+        val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+
+        TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
+        binding.menu.itemNotification.visibility = v
+
+        binding.menu.timeNoti.visibility = if (v == View.VISIBLE) View.VISIBLE else View.GONE
+    }
+
     private fun setOnCLickLanguages() {
         binding.menu.btnLanguage.setImageResource(
             if (binding.menu.itemLanguage.isVisible) R.drawable.soo else R.drawable.soo2
         )
-        val v =
-            if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
+        val v = if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
         TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
         binding.menu.itemLanguage.visibility = v
     }

@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.gone
@@ -17,6 +18,7 @@ import com.smartwavettn.horoscope.databinding.FragmentIntroTwoBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.home.HomeFragment
 import com.smartwavettn.horoscope.ui.intro.introThreeInformation.IntroThreeFragment
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
@@ -37,12 +39,12 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
     override fun init() {
         context?.let { viewModel.init(it) }
         preferences = Preferences.getInstance(requireActivity())
-        personalInformation = arguments?.getSerializable("profilePersona") as PersonalInformation?
+        personalInformation = arguments?.getSerializable(KeyWord.profilePersona) as PersonalInformation?
 
-        var type = arguments?.getString("checkFragment")
+        var type = arguments?.getString(KeyWord.checkFragment)
 
         when (type) {
-            "home" -> {
+            R.string.home.toString() -> {
                 binding.btnContinue.gone()
                 binding.btnOke.visible()
 
@@ -50,7 +52,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                 binding.txtDateOfBirth.setText(personalInformation?.date)
             }
 
-            "slashFragment" -> {}
+            R.string.slashFragment.toString() -> {}
         }
 
         val pickerLayoutManager =
@@ -162,8 +164,8 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
         AlertDialog.Builder(requireActivity())
-            .setTitle("Duplicate name ! " + " '${personalInformation?.name}'")
-            .setMessage("Change to another name : ")
+            .setTitle(R.string.duplicateNAme.toString() + " '${personalInformation?.name}'")
+            .setMessage(R.string.another.toString() )
             .setNegativeButton("OK", null)
             .show()
     }

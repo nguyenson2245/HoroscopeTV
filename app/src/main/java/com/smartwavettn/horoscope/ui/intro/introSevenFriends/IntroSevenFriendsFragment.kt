@@ -7,6 +7,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.gone
 import com.smartwavettn.horoscope.base.utils.visible
@@ -164,7 +165,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             else {
                 viewModel.addPersonalInformation(personalInformation)
                 setTextView()
-                toast("Add Friends - Success")
+                toast(R.string.addFriendsSuccess.toString())
             }
         } else {
             if (name.isEmpty() && date.isEmpty()) {
@@ -185,8 +186,8 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
 
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
         AlertDialog.Builder(requireActivity())
-            .setTitle("Duplicate name ! " + " '${personalInformation?.name}'")
-            .setMessage("Change to another name : ")
+            .setTitle(R.string.duplicateNAme.toString() + " '${personalInformation?.name}'")
+            .setMessage(R.string.another.toString())
             .setNegativeButton("OK", null)
             .show()
     }

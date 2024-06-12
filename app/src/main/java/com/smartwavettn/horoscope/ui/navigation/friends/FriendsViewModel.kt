@@ -9,6 +9,4 @@ class FriendsViewModel : BaseViewModel() {
 
     suspend fun deletePersonal(personalInformation: PersonalInformation) = repository.deletePersonal(personalInformation)
 
-    suspend fun updatePersonalI(personalInformation: PersonalInformation)=repository.updatePersonalInformation(personalInformation)
-
 }

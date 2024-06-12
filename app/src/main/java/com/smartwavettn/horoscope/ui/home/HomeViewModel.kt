@@ -18,6 +18,7 @@ import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.BaseViewModel
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.MainActivity
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -26,18 +27,17 @@ import java.util.Date
 class HomeViewModel : BaseViewModel() {
     fun getPersonalLiveData() = repository.getProFile()
 
-
     fun openEmailApp() {
         val intent = Intent(Intent.ACTION_SENDTO)
-        intent.data = Uri.parse("mailto:")
-        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("trunghy1999@gmail.com"))
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Subject of the email")
-        intent.putExtra(Intent.EXTRA_TEXT, "Body of the email")
+        intent.data = Uri.parse(KeyWord.mailTo)
+        intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(KeyWord.mail))
+        intent.putExtra(Intent.EXTRA_SUBJECT, KeyWord.subject)
+        intent.putExtra(Intent.EXTRA_TEXT, KeyWord.body)
         context.startActivity(intent)
     }
 
-    fun getListData(): ArrayList<PersonalInformation>{
-        return  repository.getListProfiles().toMutableList()  as ArrayList<PersonalInformation>
+    fun getListData(): ArrayList<PersonalInformation> {
+        return repository.getListProfiles().toMutableList() as ArrayList<PersonalInformation>
     }
 
     fun timeApp(setText: (String) -> Unit) {
@@ -56,10 +56,9 @@ class HomeViewModel : BaseViewModel() {
         timePickerDialog.show()
     }
 
-
     private val CHANNEL_ID = "my_channel_id"
     private val NOTIFICATION_ID = 1
-     fun createNotification(context: Context,intent: Intent) {
+    fun createNotification(context: Context, intent: Intent) {
         // Create the NotificationChannel (r) {
         // Create the NotificationChannel (required for Android 8.0 and higher)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -89,12 +88,13 @@ class HomeViewModel : BaseViewModel() {
         builder.setContentIntent(pendingIntent)
 
         // Show the notification
-        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(getNotificationID(), builder.build())
     }
 
     // set nhiêu notification
-    private fun getNotificationID() : Int{
+    private fun getNotificationID(): Int {
         return (Date().time / 1000).toInt()
     }
 

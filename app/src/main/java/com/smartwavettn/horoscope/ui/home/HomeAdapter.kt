@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.smartwavettn.horoscope.R
 
 class HomeAdapter(fragmentManager: FragmentManager, behavior: Int) :
     FragmentPagerAdapter(fragmentManager) {
@@ -23,10 +24,10 @@ class HomeAdapter(fragmentManager: FragmentManager, behavior: Int) :
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position){
-            0 -> "Daily"
-            1-> "Month"
-            2-> "Year"
-            else-> "Daily"
+            0 -> R.string.daily.toString()
+            1-> R.string.month.toString()
+            2-> R.string.year.toString()
+            else-> R.string.daily.toString()
         }
     }
 }

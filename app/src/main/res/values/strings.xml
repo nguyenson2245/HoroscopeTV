@@ -119,7 +119,15 @@
     <string name="foregroundServiceChannel">Foreground Service Channel</string>
 
     <string name="alarm">Alarm Manager</string>
-
+    <string name="addFriend">Add Friend</string>
+    <string name="daily">Daily</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="addFriendsSuccess">Add Friends - Success</string>
+    <string name="duplicateNAme">"Duplicate name ! "</string>
+    <string name="another">"Change to another name : "</string>
+    <string name="home">home</string>
+    <string name="slashFragment">slashFragment</string>
 
 
 </resources>

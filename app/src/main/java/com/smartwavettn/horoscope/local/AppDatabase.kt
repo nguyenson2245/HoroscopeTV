@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.smartwavettn.horoscope.local.dao.Dao
 import com.smartwavettn.horoscope.model.PersonalInformation
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 
 
 @Database(entities = [PersonalInformation::class], version = 1)
@@ -21,7 +22,7 @@ abstract class AppDatabase : RoomDatabase() {
         fun getInstance(context: Context): AppDatabase {
             if (instance == null) {
                 instance = Room.databaseBuilder(
-                    context, AppDatabase::class.java, "database"
+                    context, AppDatabase::class.java, KeyWord.database
                 ).allowMainThreadQueries().build()
             }
             return instance!!

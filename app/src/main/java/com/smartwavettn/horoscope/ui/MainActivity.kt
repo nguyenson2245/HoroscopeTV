@@ -1,21 +1,13 @@
 package com.smartwavettn.horoscope.ui
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
-import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.BaseActivity
 import com.smartwavettn.horoscope.base.local.Preferences
-import com.smartwavettn.horoscope.broadcast.AlarmBroadcastReceiver
 import com.smartwavettn.horoscope.databinding.ActivityMainBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
-import com.smartwavettn.scanqr.ui.splash.SplashFragment
+import com.smartwavettn.horoscope.ui.splash.SplashFragment
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
