@@ -4,6 +4,7 @@ androidJoda = "2.12.7"
 circleimageview = "3.1.0"
 glide = "4.16.0"
 googleMaterial = "1.6.1"
+gson = "2.11.0"
 kotlin = "1.9.10"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -37,6 +38,7 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", name = "room", 
 androidx-room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "roomTesting" }
 androidx-room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomTesting" }
 androidx-room-testing = { module = "androidx.room:room-testing", name = "room", version.ref = "roomTesting" }
+gson = { group = "com.google.code.gson:gson",name = "gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
