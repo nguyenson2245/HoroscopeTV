@@ -29,6 +29,7 @@ import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragm
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.horoscope.ui.utils.Constants
+import com.smartwavettn.horoscope.ui.utils.DataJson
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
@@ -56,6 +57,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
 
     override fun init() {
+
+        DataJson.getMessageBigComboKeys(requireActivity())
+
         context?.let { viewModel.init(it) }
         tabLayout()
         preferences = Preferences.getInstance(requireActivity())
@@ -139,7 +143,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.menu.btnCuttinghair.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.CUTTING_HAIR, isChecked)
             binding.calendarView.setShowLunarAndCuttingHair()
-
         }
 
         binding.menu.btnTravel.setOnCheckedChangeListener { _, isChecked ->
