@@ -7,10 +7,12 @@ import com.smartwavettn.horoscope.base.BaseActivity
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.databinding.ActivityMainBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
-import com.smartwavettn.scanqr.ui.splash.SplashFragment
+import com.smartwavettn.horoscope.ui.splash.SplashFragment
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+
 
     private lateinit var preferences: Preferences
     override fun getViewBinding(inflater: LayoutInflater): ActivityMainBinding {
@@ -26,6 +28,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             openFragment(HomeFragment::class.java, null, false)
 
         }
+
     }
+
+//    override fun onStop() {
+//        super.onStop()
+//        unregisterReceiver(broadcastReceiver);
+//    }
 
 }

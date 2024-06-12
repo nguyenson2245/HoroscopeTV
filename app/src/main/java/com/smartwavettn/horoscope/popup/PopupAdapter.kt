@@ -17,7 +17,7 @@ class PopupAdapter(val onClickItem: (Int)-> Unit) : BaseRecyclerAdapter<Personal
             if (binding is ItemPopupBinding){
                 if (itemData == null){
                     binding.imageAvatar.setImageResource(R.drawable.ic_add)
-                    binding.name.text = "Add Friend"
+                    binding.name.text = R.string.addFriend.toString()
                 }
             }
             onItemClickListener {onClickItem.invoke(adapterPosition)  }

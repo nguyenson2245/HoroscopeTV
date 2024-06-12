@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentIntroOneBinding
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 
@@ -27,7 +28,7 @@ class IntroOneFragment : BaseFragmentWithBinding<FragmentIntroOneBinding>() {
 
             binding.getYourHoroscope.click {
                 val bundle = Bundle()
-                bundle.putBoolean("checkFragment" ,true)
+                bundle.putBoolean(KeyWord.checkFragment ,true)
                 openFragment(IntroTwoFragment::class.java,bundle,true)
 
             }

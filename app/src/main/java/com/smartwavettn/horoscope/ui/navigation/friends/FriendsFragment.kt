@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentFriendsBinding
 import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenFriendsFragment
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import kotlinx.coroutines.runBlocking
 
@@ -26,8 +27,8 @@ class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
     override fun initData() {
         adapterFriends = FriendsAdapter({ personalInformation ->
             val bundle = Bundle()
-            bundle.putString("checkFragmentFriends", "FriendsFragment")
-            bundle.putSerializable("personalInformation",personalInformation)
+            bundle.putString(KeyWord.checkFragmentFriends, KeyWord.friendsFragment)
+            bundle.putSerializable(KeyWord.personalInformation,personalInformation)
             openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
         }, { personalInformation -> runBlocking { viewModel.deletePersonal(personalInformation) } })
         binding.rcvViewAvatar.apply {
@@ -43,7 +44,7 @@ class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
 
         binding.addFriends.click {
             val bundle = Bundle()
-            bundle.putString("checkFragmentFriends", "addFriends")
+            bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
             openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
         }
     }
@@ -51,7 +52,6 @@ class FriendsFragment : BaseFragmentWithBinding<FragmentFriendsBinding>() {
     fun loadData() {
         viewModel.getListPersonaLiveData().observe(viewLifecycleOwner) {
             val profilePersona = it.filter { !it.isProfile }
-            Log.d("loadData", "loadData: $profilePersona")
             if (profilePersona != null) {
                 adapterFriends.submitList(profilePersona )
             }
