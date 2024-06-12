@@ -1,17 +1,16 @@
 package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.util.Log
+import android.content.Context
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.base.recyclerview.BaseRecyclerAdapter
 import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
 import com.smartwavettn.horoscope.base.utils.gone
 import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.customview.model.DayModel
-import com.smartwavettn.horoscope.customview.model.MothModel
 import com.smartwavettn.horoscope.databinding.ItemDayBinding
 import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
@@ -22,8 +21,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Calendar
 
-class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter<DayModel, ItemViewCalendarAdapter.ViewHolder>() {
+class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) :
+    BaseRecyclerAdapter<DayModel, ItemViewCalendarAdapter.ViewHolder>() {
     val scope = CoroutineScope(Job() + Dispatchers.Default)
+    private val preferences: Preferences = Preferences.getInstance(context)
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
@@ -36,6 +37,10 @@ class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter
                         binding.root.background = if (itemData?.isSelected== true) itemView.context.getDrawable(R.drawable.bg_select_day) else null
                         binding.viewLayout.visible()
                         binding.underline.visible()
+
+                        binding.statusMoon.visibility =
+                            if (preferences.getBoolean(Constants.LUNAR) == true) View.VISIBLE else View.GONE
+
                         scope.launch(Dispatchers.Main) {
                             val calander = Calendar.getInstance().apply {
                                 if (itemData != null) {
@@ -62,7 +67,7 @@ class ItemViewCalendarAdapter(val onClickItem:(Int)->Unit) : BaseRecyclerAdapter
                             )
 
                             withContext(Dispatchers.Main) {
-                                if (Constants.listDayHaircutting.any { it == lunarDay.get(0) }) {
+                                if (Constants.listDayHaircutting.any { it == lunarDay.get(0) }&& preferences.getBoolean(Constants.CUTTING_HAIR)== true) {
                                     binding.cuttingHair.visible()
                                 } else binding.cuttingHair.gone()
                                 if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {

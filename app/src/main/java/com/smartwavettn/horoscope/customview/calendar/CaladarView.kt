@@ -31,6 +31,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
     private val weekCalendarAdapter: WeekCalendarAdapter = WeekCalendarAdapter()
     var onClickSelected:((DayModel) -> Unit)? = null
     var dayModel: DayModel? = null
+    private var isShowLunar: Boolean = false
 
     init {
         init()
@@ -103,12 +104,10 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
 
                 binding.mothYear.text =  SimpleDateFormat("MMM").format(calendar.time)+"/"+ mothList.get(position).year
                 binding.callMeasure.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT)
-
+                getViewCurrentViewHolder()?.setShowLunarAndCuttingHair()
                 super.onPageSelected(position)
             }
         })
-
-
     }
 
     private fun getDataWeek(): ArrayList<DayModel> {
@@ -152,6 +151,10 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
         }
         return null
     }
+    fun setShowLunarAndCuttingHair(){
+        getViewCurrentViewHolder()?.setShowLunarAndCuttingHair()
+    }
+
 }
 
 

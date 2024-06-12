@@ -1,6 +1,8 @@
 package com.smartwavettn.horoscope.ui.utils
 
 object Constants {
+    const val LUNAR = "LUNAR"
+    const val CUTTING_HAIR = "CUTTING_HAIR"
     const val INDEX_0 = 0
     const val INDEX_1 = 1
     const val INDEX_15 = 15

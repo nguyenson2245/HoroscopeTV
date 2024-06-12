@@ -31,7 +31,7 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         removeAllViews()
         addView(binding.root)
 
-        adapter = ItemViewCalendarAdapter{
+        adapter = ItemViewCalendarAdapter(context){
             listDay.forEach {
                 it.isSelected = false
             }
@@ -107,12 +107,15 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
         }
 
     }
+    fun setShowLunarAndCuttingHair(){
+        adapter.notifyDataSetChanged()
+    }
 
     fun onChangedCalendarSelect(dayModel: DayModel) {
             val lits = adapter.listItem.filter {
                 it.day.toIntOrNull() == dayModel.day.toInt() && it.month.toIntOrNull() == dayModel.month.toInt() && it.year.toIntOrNull() == dayModel.year.toInt()
             }
-            if (lits.size > 0) {
+            if (lits.isNotEmpty()) {
                 val position = adapter.listItem.indexOf(lits.first())
                 if (position != -1) {
                     adapter.listItem.forEach {
