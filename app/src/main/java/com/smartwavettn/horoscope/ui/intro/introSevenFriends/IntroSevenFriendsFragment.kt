@@ -14,6 +14,7 @@ import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.databinding.FragmentIntroSevenFriendsBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.intro.introEight.IntroEightFragment
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.horoscope.ui.utils.PickerLayoutManager
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
@@ -36,7 +37,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     override fun init() {
         context?.let { viewModel.init(it) }
 
-        var type = arguments?.getString("checkFragmentFriends")
+        var type = arguments?.getString(KeyWord.checkFragmentFriends)
         when (type) {
             "addFriends" -> {
                 binding.no.gone()
@@ -51,7 +52,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        personalInformation = arguments?.getSerializable("personalInformation") as PersonalInformation?
+        personalInformation = arguments?.getSerializable(KeyWord.personalInformation) as PersonalInformation?
     }
 
     override fun initData() {
