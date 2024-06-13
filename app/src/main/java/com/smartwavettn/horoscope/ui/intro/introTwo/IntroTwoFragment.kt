@@ -44,7 +44,6 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
         var type = arguments?.getString(KeyWord.checkFragment)
 
         when (type) {
-
            "home"-> {
                 binding.btnContinue.gone()
                 binding.btnOke.visible()

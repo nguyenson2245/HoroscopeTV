@@ -128,6 +128,8 @@
     <string name="another">"Change to another name : "</string>
     <string name="home">home</string>
     <string name="slashFragment">slashFragment</string>
+    <string name="channel_name">noti</string>
+    <string name="channel_description">notyfication</string>
 
 
 </resources>

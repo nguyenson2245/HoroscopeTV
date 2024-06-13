@@ -1,8 +1,15 @@
 package com.smartwavettn.horoscope.ui.home
 
 import android.animation.LayoutTransition
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.util.Log
@@ -14,13 +21,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
-import com.smartwavettn.horoscope.popup.CustomPopup
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
+import com.smartwavettn.horoscope.broadcast.AlarmBroadcastReceiver
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
+import com.smartwavettn.horoscope.popup.CustomPopup
 import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
 import com.smartwavettn.horoscope.ui.home.moth.MothFragment
 import com.smartwavettn.horoscope.ui.home.year.YearFragment
@@ -32,6 +40,7 @@ import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFra
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
     View.OnClickListener {
@@ -146,6 +155,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
+            setAlarmManager()
             if (isChecked) toast(" ON") else toast(" OFF")
         }
 
@@ -271,4 +281,57 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
+    @SuppressLint("MissingPermission")
+    fun setAlarmManager() {
+        val alarmManager =
+            context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (alarmManager?.canScheduleExactAlarms() == false) {
+                Intent().also { intent ->
+                    intent.action = Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM
+                    context?.startActivity(intent)
+                }
+            } else {
+                val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
+
+                val pendingIntent =
+                    PendingIntent.getBroadcast(
+                        context,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                    )
+
+                val triggerAtMillis = System.currentTimeMillis() + 10000
+
+                if (alarmManager != null) {
+                    alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        triggerAtMillis,
+                        pendingIntent
+                    )
+                }
+            }
+        } else {
+            val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
+
+            val pendingIntent =
+                PendingIntent.getBroadcast(
+                    context,
+                    0,
+                    intent,
+                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+
+            val triggerAtMillis = System.currentTimeMillis() + 100
+
+            if (alarmManager != null) {
+                alarmManager.setExactAndAllowWhileIdle(
+                    AlarmManager.RTC_WAKEUP,
+                    triggerAtMillis,
+                    pendingIntent
+                )
+            }
+        }
+    }
 }
