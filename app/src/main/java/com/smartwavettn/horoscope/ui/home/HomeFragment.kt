@@ -6,8 +6,10 @@ import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.viewModels
@@ -54,7 +56,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)
     }
-
 
     override fun init() {
 
@@ -173,6 +174,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.viewPager.viewTreeObserver.addOnGlobalLayoutListener {
             binding.viewPager.measureCurrentView(listFragment[binding.viewPager.currentItem].view)
         }
+
     }
 
     override fun invoke(view: View) {
@@ -238,7 +240,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
     private fun setOnCLickShowNotification() {
         binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
-        val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+        val v =
+            if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
         TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
         binding.menu.itemNotification.visibility = v
 

@@ -22,8 +22,7 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
     }
 
     override fun init() {
-        val layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter = DailyAdapter { daily, position ->
             when (position) {
 
