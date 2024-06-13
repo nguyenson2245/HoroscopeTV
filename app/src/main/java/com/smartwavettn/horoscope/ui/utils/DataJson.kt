@@ -33,8 +33,6 @@ object DataJson {
         }
     }
 
-    //---------------
-
     fun getMessagePersonalDayKeys(context: Context, prefix: String): Map<String, String> {
         val jsonObject = readJsonFromAssets(context)
         val keys = mutableMapOf<String, String>()
@@ -47,14 +45,4 @@ object DataJson {
         return keys
     }
 
-    fun getMessagePersonalDayWithStarKeys(context: Context): Map<String, String> {
-        val jsonObject = readJsonFromAssets(context)
-        val keys = mutableMapOf<String, String>()
-        for (key in jsonObject.keySet()) {
-            if (key.startsWith("Message-Personal-Day-With-Star-")) {
-                keys[key] = jsonObject.get(key).asString
-            }
-        }
-        return keys
-    }
 }

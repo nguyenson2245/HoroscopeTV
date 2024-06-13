@@ -43,12 +43,10 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
                 }
 
                 5 -> {
-                    //luna_day
                     DataJson.getValueByKey(requireActivity(), "Moon-Day-")
                 }
 
                 6 -> {
-                    //hair
                     DataJson.getValueByKey(requireActivity(), "Haircut-Day-")
                 }
 
