@@ -1,7 +1,6 @@
 package com.smartwavettn.horoscope.ui.navigation.friends
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.utils.click

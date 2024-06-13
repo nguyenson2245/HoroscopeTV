@@ -1,5 +1,6 @@
 package com.smartwavettn.horoscope.customview.calendar.itemviewcalendar
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +27,7 @@ class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) 
     val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val preferences: Preferences = Preferences.getInstance(context)
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
+        @SuppressLint("UseCompatLoadingForDrawables")
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
             if (binding is ItemDayBinding){
@@ -67,9 +69,13 @@ class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) 
                             )
 
                             withContext(Dispatchers.Main) {
-                                if (Constants.listDayHaircutting.any { it == lunarDay.get(0) }&& preferences.getBoolean(Constants.CUTTING_HAIR)== true) {
+                                if (Constants.listTravel.any { it == lunarDay[0] }&& preferences.getBoolean(Constants.TRAVEL)== true) {
+                                    binding.fly.visible()
+                                }
+                                else if (Constants.listDayHaircutting.any { it == lunarDay[0] }&& preferences.getBoolean(Constants.CUTTING_HAIR)== true) {
                                     binding.cuttingHair.visible()
                                 } else binding.cuttingHair.gone()
+
                                 if (lunarDay[Constants.INDEX_0] == Constants.INDEX_15) {
                                     binding.statusMoon.setImageDrawable(itemView.context.getDrawable(R.drawable.ic_full_moon_pink))
 

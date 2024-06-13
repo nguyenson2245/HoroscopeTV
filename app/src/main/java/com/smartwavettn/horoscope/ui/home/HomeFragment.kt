@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -39,6 +38,8 @@ import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragm
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.horoscope.ui.utils.Constants
+import com.smartwavettn.horoscope.ui.utils.DataJson
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 
@@ -54,8 +55,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         MothFragment.newInstance(),
         YearFragment.newInstance()
     )
-    private var personalInformation : PersonalInformation ?= null
-    private lateinit var preferences : Preferences
+    private var personalInformation: PersonalInformation? = null
+    private lateinit var preferences: Preferences
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: HomeAdapter
@@ -78,15 +79,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
         }
-
-
     }
 
 
     override fun initData() {
         viewModel.init(requireActivity())
-        binding.menu.btnlunaDay.isChecked = preferences.getBoolean(Constants.LUNAR)?: false
-        binding.menu.btnCuttinghair.isChecked = preferences.getBoolean(Constants.CUTTING_HAIR)?: false
+
+        binding.menu.btnlunaDay.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
+        binding.menu.btnCuttinghair.isChecked =
+            preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
+        binding.menu.btnTravel.isChecked = preferences.getBoolean(Constants.TRAVEL) ?: false
+
         viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
                 personalInformation = personal
@@ -139,19 +142,19 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.menu.termsOfUse.click(this)
 
         binding.menu.btnlunaDay.setOnCheckedChangeListener { _, isChecked ->
-            preferences.setBoolean(Constants.LUNAR , isChecked)
+            preferences.setBoolean(Constants.LUNAR, isChecked)
             binding.calendarView.setShowLunarAndCuttingHair()
-            if (isChecked) toast(" ON") else toast(" OFF")
+
         }
 
         binding.menu.btnCuttinghair.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.CUTTING_HAIR, isChecked)
             binding.calendarView.setShowLunarAndCuttingHair()
-            if (isChecked) toast(" ON") else toast(" OFF")
         }
 
         binding.menu.btnTravel.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) toast(" ON") else toast(" OFF")
+            preferences.setBoolean(Constants.TRAVEL, isChecked)
+            binding.calendarView.setShowLunarAndCuttingHair()
         }
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
@@ -191,10 +194,10 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 list.removeIf { it.isProfile }
                 CustomPopup.showPopupMenu(
                     it1,
-                    list,view
+                    list, view
                 ) {
                     val bundle = Bundle()
-                    bundle.putString("checkFragmentFriends", "FriendsFragment")
+                    bundle.putString(KeyWord.checkFragmentFriends, KeyWord.friendsFragment)
                     openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
                 }
             }
@@ -236,9 +239,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
             R.id.linnerLayoutProfile -> {
                 val bundle = Bundle()
-                Log.d(TAG, "invoke: "+ personalInformation?.name)
-                bundle.putString("checkFragment", "home")
-                bundle.putSerializable("profilePersona",personalInformation)
+                bundle.putString(KeyWord.checkFragment, KeyWord.home)
+                bundle.putSerializable(KeyWord.profilePersona, personalInformation)
                 openFragmentCloseDrawer(IntroTwoFragment::class.java, bundle, true)
             }
         }
@@ -246,8 +248,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
     private fun setOnCLickShowNotification() {
         binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
-        val v =
-            if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+        val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
         TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
         binding.menu.itemNotification.visibility = v
 

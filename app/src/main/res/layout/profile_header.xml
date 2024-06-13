@@ -7,19 +7,19 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="@dimen/_7sdp"
         android:id="@+id/linnerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginBottom="15dp"
         android:orientation="horizontal">
 
         <de.hdodenhof.circleimageview.CircleImageView
 
-            android:layout_marginLeft="@dimen/_16dp"
             android:id="@+id/image"
             android:layout_width="@dimen/_48dp"
             android:layout_height="@dimen/_48dp"
+            android:layout_marginLeft="@dimen/_16dp"
             android:src="@drawable/intro1"
             app:civ_border_width="0.2dp" />
 
@@ -51,9 +51,9 @@
 
         <ImageView
             android:id="@+id/menuProfileHeader"
-            android:layout_gravity="center"
             android:layout_width="@dimen/_24dp"
             android:layout_height="@dimen/_24dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginRight="@dimen/_15sdp"
             android:src="@drawable/more" />

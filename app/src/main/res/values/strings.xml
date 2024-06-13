@@ -131,5 +131,7 @@
     <string name="channel_name">noti</string>
     <string name="channel_description">notyfication</string>
 
+<!--    //data-->
+    <string name="Sources">Sources-</string>
 
 </resources>
