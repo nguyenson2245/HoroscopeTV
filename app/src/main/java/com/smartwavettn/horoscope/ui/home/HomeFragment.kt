@@ -4,7 +4,6 @@ import android.animation.LayoutTransition
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -38,9 +37,9 @@ import com.smartwavettn.horoscope.ui.navigation.friends.introduce.IntroduceFragm
 import com.smartwavettn.horoscope.ui.navigation.friends.privacy.PrivacyPolicyFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.horoscope.ui.utils.Constants
-import com.smartwavettn.horoscope.ui.utils.DataJson
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import java.util.Calendar
 
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
@@ -86,9 +85,11 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         viewModel.init(requireActivity())
 
         binding.menu.btnlunaDay.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
-        binding.menu.btnCuttinghair.isChecked =
-            preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
+        binding.menu.btnCuttinghair.isChecked = preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
         binding.menu.btnTravel.isChecked = preferences.getBoolean(Constants.TRAVEL) ?: false
+        binding.menu.lunaNotification.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
+        binding.menu.noAniceDayNotification.isChecked = preferences.getBoolean(Constants.DAY_NICE) ?: false
+        binding.menu.abedDayNotification.isChecked = preferences.getBoolean(Constants.DAY_BAD) ?: false
 
         viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
@@ -100,16 +101,20 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                         txtDate.text = personal.date
                     }
                 }
+
                 if (personal.icon != 0) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
+
                 } else if (personal.iconImage.isNotEmpty()) {
+
                     Glide.with(this)
                         .load(personal.iconImage)
                         .into(binding.menu.drawerHeaderProifile.image)
                     Glide.with(this)
                         .load(personal.iconImage)
                         .into(binding.profileHeader.image)
+
                 } else {
                     binding.menu.drawerHeaderProifile.image.setImageResource(R.drawable.intro1)
                     binding.profileHeader.image.setImageResource(R.drawable.intro1)
@@ -158,16 +163,19 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
-            setAlarmManager()
-            if (isChecked) toast(" ON") else toast(" OFF")
+            preferences.setBoolean(Constants.LUNAR, isChecked)
+            if (isChecked) setAlarmManager(200, "PushDay") else cancelAlarm(200)
         }
 
         binding.menu.noAniceDayNotification.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) toast(" ON") else toast(" OFF")
+            preferences.setBoolean(Constants.DAY_NICE, isChecked)
+            if (isChecked) setAlarmManager(300, "RangeDay") else cancelAlarm(300)
         }
 
         binding.menu.abedDayNotification.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) toast(" ON") else toast(" OFF")
+            preferences.setBoolean(Constants.DAY_BAD, isChecked)
+            if (isChecked) setAlarmManager(400, "RangeDay") else cancelAlarm(400)
+
         }
     }
 
@@ -227,7 +235,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 addBackStack = true
             )
 
-
             R.id.share -> {
                 activity?.shareApp()
                 binding.drawer.closeDrawers()
@@ -282,10 +289,20 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
+
     @SuppressLint("MissingPermission")
-    fun setAlarmManager() {
+    fun setAlarmManager(requestCode: Int, action: String) {
         val alarmManager =
             context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        intent.action = action
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager?.canScheduleExactAlarms() == false) {
                 Intent().also { intent ->
@@ -293,46 +310,35 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     context?.startActivity(intent)
                 }
             } else {
-                val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
-
-                val pendingIntent =
-                    PendingIntent.getBroadcast(
-                        context,
-                        0,
-                        intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                    )
-
-                val triggerAtMillis = System.currentTimeMillis() + 10000
-
-                if (alarmManager != null) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        triggerAtMillis,
-                        pendingIntent
-                    )
-                }
-            }
-        } else {
-            val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
-
-            val pendingIntent =
-                PendingIntent.getBroadcast(
-                    context,
-                    0,
-                    intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-                )
-
-            val triggerAtMillis = System.currentTimeMillis() + 100
-
-            if (alarmManager != null) {
-                alarmManager.setExactAndAllowWhileIdle(
+                alarmManager?.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
-                    triggerAtMillis,
+                    Calendar.getInstance().timeInMillis,
+                    AlarmManager.INTERVAL_DAY,
                     pendingIntent
                 )
             }
+        } else {
+            alarmManager?.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP,
+                Calendar.getInstance().timeInMillis,
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+            )
         }
+    }
+
+    private fun cancelAlarm(requestCode: Int) {
+        val alarmManager =
+            context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
+
+        val pendingIntent =
+            PendingIntent.getBroadcast(
+                context,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+        alarmManager?.cancel(pendingIntent)
     }
 }

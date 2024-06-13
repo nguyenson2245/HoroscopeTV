@@ -1,21 +1,19 @@
 package com.smartwavettn.horoscope.broadcast
 
-import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
-import android.util.Log
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.ui.MainActivity
+import com.smartwavettn.horoscope.ui.utils.Constants
+import com.smartwavettn.horoscope.ui.utils.LunarCoreHelper
+import java.util.Calendar
 
 
 class AlarmBroadcastReceiver : BroadcastReceiver() {
@@ -23,15 +21,23 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
 
 
     override fun onReceive(context: Context, intent: Intent?) {
-
-        val intent = Intent(context, MainActivity::class.java)
-
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent,
-            PendingIntent.FLAG_IMMUTABLE)
-        Log.d(TAG, "onReceive: " + "hello")
+        val preferences = Preferences.getInstance(context)
         val notificationManager: NotificationManager =
             context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val intent = Intent(context, MainActivity::class.java)
+        val calendar = Calendar.getInstance()
+        val lunarDay = LunarCoreHelper.convertSolar2Lunar(
+            calendar.get(Calendar.DAY_OF_MONTH),
+            calendar.get(Calendar.MONTH) + 1,
+            calendar.get(Calendar.YEAR),
+            Constants.TIME_ZONE
+        )
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        val pendingIntent = PendingIntent.getActivity(
+            context, 0, intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.channel_name)
             val descriptionText = context.getString(R.string.channel_description)
@@ -41,16 +47,36 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             }
             notificationManager.createNotificationChannel(channel)
         }
+
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.logo)
             .setContentTitle(context.getString(R.string.app_name))
-            .setContentText("Hom nay la mot ngay tot lanh")
-            .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
             .setDefaults(NotificationCompat.DEFAULT_SOUND)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .build()
-        notificationManager.notify(getNotificationManager(), builder)
+
+        if (intent?.action == "pushDay" && Constants.listDayPushNotification.any { it == lunarDay[0] }) {
+            builder.setContentText("Hom nay la mot ngay tot lanh")
+            notificationManager.notify(getNotificationManager(), builder.build())
+        } else if (intent?.action == "RangeDay") {
+            val rangeDay = LunarCoreHelper.rateDay(
+                LunarCoreHelper.getChiDayLunar(
+                    calendar.get(Calendar.DAY_OF_MONTH),
+                    calendar.get(Calendar.MONTH) + 1,
+                    calendar.get(Calendar.YEAR)
+                ), calendar.get(Calendar.MONTH) + 1
+            )
+            if (preferences.getBoolean(Constants.DAY_NICE) == true && rangeDay == "Good") {
+                builder.setContentText("Hom nay la mot ngay tot lanh")
+
+                notificationManager.notify(getNotificationManager(), builder.build())
+            } else if (preferences.getBoolean(Constants.DAY_BAD) == true && rangeDay == "Bad") {
+                builder.setContentText("Hom nay la mot ngay buồn")
+                notificationManager.notify(getNotificationManager(), builder.build())
+            }
+
+        }
     }
 
     fun getNotificationManager() : Int {
