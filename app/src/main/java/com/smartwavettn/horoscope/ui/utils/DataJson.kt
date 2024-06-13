@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.io.InputStreamReader
+import kotlin.math.log
 
 object DataJson {
 
@@ -19,21 +20,41 @@ object DataJson {
         }
     }
 
-    fun getMessageBigComboKeys(context: Context) {
+    fun getValueByKey(context: Context, prefix: String) {
         val jsonObject = readJsonFromAssets(context)
         val keys = mutableListOf<String>()
+        Log.d("logDataJson", " \n$prefix")
         for (key in jsonObject.keySet()) {
-            if (key.startsWith("Message-Big-Combo-")) {
+            if (key.startsWith(prefix)) {
                 keys.add(key)
                 val value = jsonObject.get(key).asString
-                Log.d("JsonDataFragment_sdsndkdsk", "$key: $value")
+                Log.d("logDataJson", "$key: $value")
             }
         }
     }
 
-    //  lấy gt key cụ thể
-    fun getValueForKey(context: Context, key: String): String {
+    //---------------
+
+    fun getMessagePersonalDayKeys(context: Context, prefix: String): Map<String, String> {
         val jsonObject = readJsonFromAssets(context)
-        return jsonObject.get(key).asString
+        val keys = mutableMapOf<String, String>()
+        Log.d("logDataJson", " \n$prefix")
+        for (key in jsonObject.keySet()) {
+            if (key.startsWith(prefix)) {
+                keys[key] = jsonObject.get(key).asString
+            }
+        }
+        return keys
+    }
+
+    fun getMessagePersonalDayWithStarKeys(context: Context): Map<String, String> {
+        val jsonObject = readJsonFromAssets(context)
+        val keys = mutableMapOf<String, String>()
+        for (key in jsonObject.keySet()) {
+            if (key.startsWith("Message-Personal-Day-With-Star-")) {
+                keys[key] = jsonObject.get(key).asString
+            }
+        }
+        return keys
     }
 }

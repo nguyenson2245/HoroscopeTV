@@ -129,5 +129,7 @@
     <string name="home">home</string>
     <string name="slashFragment">slashFragment</string>
 
+<!--    //data-->
+    <string name="Sources">Sources-</string>
 
 </resources>

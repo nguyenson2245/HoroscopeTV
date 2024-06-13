@@ -1,6 +1,8 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
+import android.util.Log
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.ViewDataBinding
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
@@ -10,8 +12,7 @@ import com.smartwavettn.horoscope.databinding.ItemDailyBinding
 import com.smartwavettn.horoscope.databinding.ItemTitleDailyBinding
 import com.smartwavettn.horoscope.model.Daily
 
-class DailyAdapter( val click: (Class<*>) -> Unit) :
-    BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
+class DailyAdapter( private val click: (Daily, Int) -> Unit) : BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
 
     inner class DailyViewHolder(val binding: ViewDataBinding) : BaseViewHolder<Daily>(binding) {
         override fun bind(itemData: Daily?) {
@@ -26,6 +27,13 @@ class DailyAdapter( val click: (Class<*>) -> Unit) :
                 binding.content.text = itemData?.content
                 Glide.with(itemView).load(itemData?.icon).into(binding.image)
             }
+
+            onItemClickListener {position
+                itemData?.let { data ->
+                    click.invoke(data,position)
+                }
+            }
+
         }
     }
 

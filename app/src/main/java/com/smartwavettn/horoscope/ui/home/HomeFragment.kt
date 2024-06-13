@@ -58,8 +58,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
     override fun init() {
 
-        DataJson.getMessageBigComboKeys(requireActivity())
-
         context?.let { viewModel.init(it) }
         tabLayout()
         preferences = Preferences.getInstance(requireActivity())
@@ -146,7 +144,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
 
         binding.menu.btnTravel.setOnCheckedChangeListener { _, isChecked ->
-
             preferences.setBoolean(Constants.TRAVEL, isChecked)
             binding.calendarView.setShowLunarAndCuttingHair()
         }
@@ -241,8 +238,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
     private fun setOnCLickShowNotification() {
         binding.menu.btnNotification.setImageResource(if (binding.menu.itemNotification.isVisible) R.drawable.soo else R.drawable.soo2)
-        val v =
-            if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
+        val v = if (binding.menu.itemNotification.visibility == View.GONE) View.VISIBLE else View.GONE
         TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
         binding.menu.itemNotification.visibility = v
 
