@@ -9,9 +9,9 @@ import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.databinding.FragmentSplashBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
 import com.smartwavettn.horoscope.ui.home.HomeViewModel
+import com.smartwavettn.horoscope.ui.intro.introOne.IntroOneFragment
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
-import com.smartwavettn.scanqr.ui.splash.SplashViewModel
 
 class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
 
@@ -29,15 +29,15 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
 
     override fun init() {
         preferences = Preferences.getInstance(requireActivity())
-
+        viewModel.init(requireActivity())
         Handler(Looper.getMainLooper()).postDelayed({
-         if (viewModel.getPersonalLiveData().value!= null)
+         if (viewModel.getPersonalLiveData().value != null)
                 openFragment(HomeFragment::class.java, null, false)
             else {
                 val bundle = Bundle()
                 bundle.putString(KeyWord.checkFragment, KeyWord.slashFragment)
-//                openFragment(IntroOneFragment::class.java, bundle, false)
-                openFragment(HomeFragment::class.java, null, false)
+                openFragment(IntroOneFragment::class.java, bundle, false)
+
             }
 
         }, 1000)
