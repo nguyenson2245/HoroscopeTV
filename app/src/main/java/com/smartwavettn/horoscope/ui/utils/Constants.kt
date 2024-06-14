@@ -7,7 +7,8 @@ object Constants {
     const val DAY_NICE= "DAY_NICE"
     const val LUNAR = "LUNAR"
     const val CUTTING_HAIR = "CUTTING_HAIR"
-    const val TRAVEL = "TRAVEL"
+    const val TRAVEL = "TRAVEL"// STOPSHIP:
+    const val NOTICES = "NOTICES"
 
     const val INDEX_0 = 0
     const val INDEX_1 = 1

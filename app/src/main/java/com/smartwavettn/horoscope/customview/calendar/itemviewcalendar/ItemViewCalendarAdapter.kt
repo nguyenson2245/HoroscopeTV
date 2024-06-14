@@ -107,7 +107,7 @@ class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) 
                     }
                 }
             onItemClickListener {
-                if (itemData != null) {
+                if (itemData != null && itemData.day.isNotEmpty()) {
                     onClickItem.invoke(adapterPosition)
                 }
             }

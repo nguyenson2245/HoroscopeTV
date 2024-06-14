@@ -4,9 +4,11 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.local.Preferences
@@ -32,6 +34,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             calendar.get(Calendar.YEAR),
             Constants.TIME_ZONE
         )
+        Log.d(TAG, "onReceive: "+ intent.action)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_TASK_ON_HOME or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         val pendingIntent = PendingIntent.getActivity(
             context, 0, intent,
@@ -56,10 +59,10 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             .setDefaults(NotificationCompat.DEFAULT_SOUND)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-        if (intent?.action == "PushDay" && Constants.listDayPushNotification.any { it == lunarDay[0] }) {
+        if (intent.action == "PushDay" && Constants.listDayPushNotification.any { it == lunarDay[0] }) {
             builder.setContentText("Hom nay la mot ngay tot lanh")
             notificationManager.notify(getNotificationManager(), builder.build())
-        } else if (intent?.action == "RangeDay") {
+        } else if (intent.action== "RangeDay") {
             val rangeDay = LunarCoreHelper.rateDay(
                 LunarCoreHelper.getChiDayLunar(
                     calendar.get(Calendar.DAY_OF_MONTH),
@@ -77,6 +80,8 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             }
 
         }
+        builder.setContentText("Hom nay la mot ngay buồn")
+        notificationManager.notify(getNotificationManager(), builder.build())
     }
 
     fun getNotificationManager() : Int {

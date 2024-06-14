@@ -1,11 +1,13 @@
 package com.smartwavettn.horoscope.ui.home
 
+import android.Manifest
 import android.animation.LayoutTransition
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -14,6 +16,7 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
@@ -23,8 +26,10 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.local.Preferences
+import com.smartwavettn.horoscope.base.utils.checkPermission
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
+import com.smartwavettn.horoscope.base.utils.showToast
 import com.smartwavettn.horoscope.broadcast.AlarmBroadcastReceiver
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
@@ -67,8 +72,14 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     }
 
     override fun init() {
+
         context?.let { viewModel.init(it) }
+
         tabLayout()
+        if (context?.checkPermission(Manifest.permission.POST_NOTIFICATIONS) == false) {
+            requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 200)
+        }
+
         preferences = Preferences.getInstance(requireActivity())
 
         binding.day.onDateListener {
@@ -76,19 +87,23 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
 
         binding.calendarView.onClickSelected = {
-//            binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
+            binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
+            context?.showToast("son soi")
         }
     }
 
     override fun initData() {
         viewModel.init(requireActivity())
+
         binding.menu.btnlunaDay.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
         binding.menu.btnCuttinghair.isChecked = preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
         binding.menu.btnTravel.isChecked = preferences.getBoolean(Constants.TRAVEL) ?: false
-        binding.menu.lunaNotification.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
+        binding.menu.lunaNotification.isChecked = preferences.getBoolean(Constants.NOTICES) ?: false
+
         binding.menu.noAniceDayNotification.isChecked = preferences.getBoolean(Constants.DAY_NICE) ?: false
         binding.menu.abedDayNotification.isChecked = preferences.getBoolean(Constants.DAY_BAD) ?: false
+
         viewModel.getTime { binding.menu.timeNoti.text = it }
         viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
@@ -161,7 +176,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
-            preferences.setBoolean(Constants.LUNAR, isChecked)
+            preferences.setBoolean(Constants.NOTICES, isChecked)
             if (isChecked) setAlarmManager(200, "PushDay") else cancelAlarm(200)
         }
 
@@ -191,7 +206,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
-        override fun invoke(view: View) {
+    override fun invoke(view: View) {
         when (view.id) {
             R.id.menuProfileHeader -> binding.drawer.openDrawer(GravityCompat.START)
 
@@ -203,7 +218,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     list, view
                 ) {
                     val bundle = Bundle()
-                    bundle.putString(KeyWord.checkFragmentFriends, KeyWord.friendsFragment)
+                    bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
                     openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
                 }
             }
@@ -244,7 +259,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
             R.id.linnerLayoutProfile -> {
                 val bundle = Bundle()
-                bundle.putString(KeyWord.checkFragment,"home")
+                bundle.putString(KeyWord.checkFragment, "home")
                 bundle.putSerializable(KeyWord.profilePersona, personalInformation)
                 openFragmentCloseDrawer(IntroTwoFragment::class.java, bundle, true)
             }
@@ -288,7 +303,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
-    @SuppressLint("MissingPermission")
+
     fun setAlarmManager(requestCode: Int, action: String) {
         val alarmManager =
             context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
@@ -301,6 +316,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
         intent.action = action
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR, preferences.getInt(Constants.HOUR) ?: 0)
+        calendar.set(Calendar.MINUTE, preferences.getInt(Constants.MINUTE) ?: 0)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager?.canScheduleExactAlarms() == false) {
                 Intent().also { intent ->
@@ -308,18 +326,18 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     context?.startActivity(intent)
                 }
             } else {
-                alarmManager?.setInexactRepeating(
+                alarmManager?.setRepeating(
                     AlarmManager.RTC_WAKEUP,
-                    Calendar.getInstance().timeInMillis,
+                    calendar.timeInMillis,
                     AlarmManager.INTERVAL_DAY,
                     pendingIntent
                 )
             }
         } else {
-            alarmManager?.setInexactRepeating(
+            alarmManager?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
-                Calendar.getInstance().timeInMillis,
-                AlarmManager.INTERVAL_DAY,
+                calendar.timeInMillis,
+                20,
                 pendingIntent
             )
         }
