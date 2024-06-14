@@ -1,6 +1,8 @@
 package com.smartwavettn.horoscope.ui.utils
 
 object Constants {
+    const val HOUR = "HOUR"
+    const val MINUTE = "MINUTE"
     const val DAY_BAD= "DAY_BAD"
     const val DAY_NICE= "DAY_NICE"
     const val LUNAR = "LUNAR"

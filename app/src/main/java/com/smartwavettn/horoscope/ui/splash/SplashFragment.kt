@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.databinding.FragmentSplashBinding
 import com.smartwavettn.horoscope.ui.home.HomeFragment
+import com.smartwavettn.horoscope.ui.home.HomeViewModel
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import com.smartwavettn.scanqr.ui.splash.SplashViewModel
@@ -20,7 +21,7 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
 
     private lateinit var preferences: Preferences
 
-    private val viewModel: SplashViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentSplashBinding {
         return FragmentSplashBinding.inflate(inflater)
@@ -30,7 +31,7 @@ class SplashFragment : BaseFragmentWithBinding<FragmentSplashBinding>() {
         preferences = Preferences.getInstance(requireActivity())
 
         Handler(Looper.getMainLooper()).postDelayed({
-            if (preferences.firstInstall)
+         if (viewModel.getPersonalLiveData().value!= null)
                 openFragment(HomeFragment::class.java, null, false)
             else {
                 val bundle = Bundle()

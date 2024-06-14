@@ -84,14 +84,13 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
     override fun initData() {
         viewModel.init(requireActivity())
-
         binding.menu.btnlunaDay.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
         binding.menu.btnCuttinghair.isChecked = preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
         binding.menu.btnTravel.isChecked = preferences.getBoolean(Constants.TRAVEL) ?: false
         binding.menu.lunaNotification.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
         binding.menu.noAniceDayNotification.isChecked = preferences.getBoolean(Constants.DAY_NICE) ?: false
         binding.menu.abedDayNotification.isChecked = preferences.getBoolean(Constants.DAY_BAD) ?: false
-
+        viewModel.getTime { binding.menu.timeNoti.text = it }
         viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
                 personalInformation = personal
@@ -106,7 +105,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 if (personal.icon != 0) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
-
                 } else if (personal.iconImage.isNotEmpty()) {
 
                     Glide.with(this)
