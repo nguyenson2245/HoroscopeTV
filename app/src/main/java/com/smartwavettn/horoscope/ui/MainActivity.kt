@@ -25,7 +25,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         return ActivityMainBinding.inflate(inflater)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun init() {
         preferences = Preferences.getInstance(this)
         viewModel.init(this)
