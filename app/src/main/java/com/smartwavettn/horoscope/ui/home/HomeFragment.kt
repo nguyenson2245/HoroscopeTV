@@ -76,11 +76,10 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
 
         binding.calendarView.onClickSelected = {
-            binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
+//            binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
         }
     }
-
 
     override fun initData() {
         viewModel.init(requireActivity())
@@ -190,10 +189,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.viewPager.viewTreeObserver.addOnGlobalLayoutListener {
             binding.viewPager.measureCurrentView(listFragment[binding.viewPager.currentItem].view)
         }
-
     }
 
-    override fun invoke(view: View) {
+        override fun invoke(view: View) {
         when (view.id) {
             R.id.menuProfileHeader -> binding.drawer.openDrawer(GravityCompat.START)
 
@@ -246,7 +244,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
             R.id.linnerLayoutProfile -> {
                 val bundle = Bundle()
-                bundle.putString(KeyWord.checkFragment, KeyWord.home)
+                bundle.putString(KeyWord.checkFragment,"home")
                 bundle.putSerializable(KeyWord.profilePersona, personalInformation)
                 openFragmentCloseDrawer(IntroTwoFragment::class.java, bundle, true)
             }
@@ -289,7 +287,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             R.id.layoutLanguage -> setOnCLickLanguages()
         }
     }
-
 
     @SuppressLint("MissingPermission")
     fun setAlarmManager(requestCode: Int, action: String) {

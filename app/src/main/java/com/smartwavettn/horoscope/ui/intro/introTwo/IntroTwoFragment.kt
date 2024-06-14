@@ -47,7 +47,6 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
            "home"-> {
                 binding.btnContinue.gone()
                 binding.btnOke.visible()
-
                 binding.editName.setText(personalInformation?.name)
                 binding.txtDateOfBirth.setText(personalInformation?.date)
             }
@@ -55,8 +54,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
            "slashFragment" -> {}
         }
 
-        val pickerLayoutManager =
-            PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
+        val pickerLayoutManager = PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
                 changeAlpha = true
                 scaleDownBy = 0.99f
                 scaleDownDistance = 0.8f

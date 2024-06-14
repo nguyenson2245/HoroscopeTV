@@ -32,7 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S_V2)
             openFragment(SplashFragment::class.java, null, false)
         else {
-            if (viewModel.getPersonalLiveData().value != null)
+            if (viewModel.checkProfile())
                 openFragment(HomeFragment::class.java, null, false)
             else {
                 val bundle = Bundle()
