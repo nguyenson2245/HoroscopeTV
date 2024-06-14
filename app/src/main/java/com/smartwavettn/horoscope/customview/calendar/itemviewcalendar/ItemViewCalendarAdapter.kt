@@ -67,12 +67,11 @@ class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) 
                                     calander.get(Calendar.YEAR)
                                 ), calander.get(Calendar.MONTH) + 1
                             )
-
                             withContext(Dispatchers.Main) {
                                 if (Constants.listTravel.any { it == lunarDay[0] }&& preferences.getBoolean(Constants.TRAVEL)== true) {
                                     binding.fly.visible()
                                 }
-                                else if (Constants.listDayHaircutting.any { it == lunarDay[0] }&& preferences.getBoolean(Constants.CUTTING_HAIR)== true) {
+                                else if (Constants.listDayHaircutting.any { it == lunarDay[0] } && preferences.getBoolean(Constants.CUTTING_HAIR)== true) {
                                     binding.cuttingHair.visible()
                                 } else binding.cuttingHair.gone()
 

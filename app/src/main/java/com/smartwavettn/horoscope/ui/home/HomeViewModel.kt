@@ -16,8 +16,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.BaseViewModel
+import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.ui.MainActivity
+import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,6 +27,7 @@ import java.util.Calendar
 import java.util.Date
 
 class HomeViewModel : BaseViewModel() {
+    val currentTime = Calendar.getInstance()
     fun getPersonalLiveData() = repository.getProFile()
 
     fun openEmailApp() {
@@ -39,15 +42,23 @@ class HomeViewModel : BaseViewModel() {
     fun getListData(): ArrayList<PersonalInformation> {
         return repository.getListProfiles().toMutableList() as ArrayList<PersonalInformation>
     }
+    fun getTime(setText: (String)-> Unit){
+        val preferences : Preferences = Preferences.getInstance(context)
+        val minutes = preferences.getInt(Constants.MINUTE)
+        val hour =  preferences.getInt(Constants.HOUR)
+        currentTime.set(Calendar.HOUR,hour?: 0)
+        currentTime.set(Calendar.MINUTE, preferences.getInt(Constants.MINUTE)?:0)
+        setText.invoke(hour.toString() +":" + minutes.toString())
+    }
 
     fun timeApp(setText: (String) -> Unit) {
-        val currentTime = Calendar.getInstance()
         val hour = currentTime.get(Calendar.HOUR_OF_DAY)
         val minute = currentTime.get(Calendar.MINUTE)
-
         val timePickerDialog = TimePickerDialog(
             context,
             { _, selectedHour, selectedMinute ->
+                currentTime.set(Calendar.HOUR, selectedHour)
+                currentTime.set(Calendar.MINUTE, selectedMinute)
                 setText.invoke("$selectedHour:$selectedMinute")
             },
             hour, minute, true

@@ -2,6 +2,7 @@ package com.smartwavettn.horoscope.ui
 
 import android.app.Application
 import com.smartwavettn.horoscope.base.local.Preferences
+import com.smartwavettn.horoscope.ui.utils.Constants
 
 class MainApp : Application() {
 
@@ -13,6 +14,8 @@ class MainApp : Application() {
         preferences = Preferences.getInstance(this)
         if (!preferences.firstInstall) {
             preferences.firstInstall = true
+            preferences.setInt(Constants.MINUTE, 0)
+            preferences.setInt(Constants.HOUR, 10)
         }
     }
 

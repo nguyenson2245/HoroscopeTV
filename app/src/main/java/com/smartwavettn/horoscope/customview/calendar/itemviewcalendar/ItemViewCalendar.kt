@@ -94,7 +94,6 @@ class ItemViewCalendar(context: Context, attrs: AttributeSet?) : FrameLayout(con
                         position = listDay.size
                     }
                 }
-
             )
 
         }

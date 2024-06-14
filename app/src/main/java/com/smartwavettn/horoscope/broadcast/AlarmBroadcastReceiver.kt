@@ -56,7 +56,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             .setDefaults(NotificationCompat.DEFAULT_SOUND)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
 
-        if (intent?.action == "pushDay" && Constants.listDayPushNotification.any { it == lunarDay[0] }) {
+        if (intent?.action == "PushDay" && Constants.listDayPushNotification.any { it == lunarDay[0] }) {
             builder.setContentText("Hom nay la mot ngay tot lanh")
             notificationManager.notify(getNotificationManager(), builder.build())
         } else if (intent?.action == "RangeDay") {
