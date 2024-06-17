@@ -20,15 +20,12 @@ class FriendsAdapter(val click: (PersonalInformation) -> Unit , val detele : (Pe
         override fun bind(itemData: PersonalInformation?) {
             super.bind(itemData)
             if (binding is ItemFriendsBinding) {
-
                 if (itemData != null) {
                     Glide.with(itemView.context)
                         .load(
                             when {
-                                itemData?.icon != 1 -> itemData.icon
+                                itemData?.icon != 0 -> itemData.icon
                                 else -> Uri.parse(itemData?.iconImage)
-
-
                             }
                         )
                         .into(binding.image)

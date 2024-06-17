@@ -25,7 +25,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     private var positionPickerLayout: Int = 1
     private var uriImage: String = ""
     private var personalInformation: PersonalInformation? = null
-
+    private var type: String? = null
     private val viewModel: IntroSevenViewModel by viewModels()
 
     private lateinit var adapter: IntroSevenAdapter
@@ -37,7 +37,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     override fun init() {
         context?.let { viewModel.init(it) }
 
-        var type = arguments?.getString(KeyWord.checkFragmentFriends)
+        type = arguments?.getString(KeyWord.checkFragmentFriends)
         when (type) {
             "addFriends" -> {
                 binding.no.gone()
@@ -49,6 +49,11 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
                 binding.no.gone()
                 binding.yes.gone()
                 binding.update.visible()
+            }
+            KeyWord.addFriendsIntro -> {
+                binding.no.visible()
+                binding.update.gone()
+                binding.yes.visible()
             }
         }
 
@@ -102,8 +107,8 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
                 if (uri != null) {
                     binding.rcvViewAvatar.gone()
                     binding.imageAvatarConstraintLayout.visible()
-
                     uriImage = uri.toString()
+                    context?.let { Glide.with(it).load(uri).into(binding.imageAvatar) }
                 } else {
                     binding.imageAvatarConstraintLayout.gone()
                     binding.rcvViewAvatar.visible()
@@ -119,8 +124,13 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             binding.imageAvatarConstraintLayout.gone()
         }
 
+        binding.pencl.click {
+            binding.imageAvatarConstraintLayout.gone()
+            binding.rcvViewAvatar.visible()
+        }
+
         binding.no.click {
-            openFragment(IntroEightFragment::class.java, null, false)
+            openFragment(IntroEightFragment::class.java, null, true)
         }
 
         binding.yes.click {
@@ -148,7 +158,6 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
     private fun addDataFriends() {
         val name = binding.editName.text.trim().toString()
         val date = binding.txtDateOfBirth.text.trim().toString()
-
         if (name.isNotEmpty() && date.isNotEmpty() && binding.editName.error == null) {
             var personalInformation =
                 PersonalInformation(
@@ -166,12 +175,17 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             else {
                 viewModel.addPersonalInformation(personalInformation)
                 setTextView()
-                toast("Add Friends - Success")
+                toast(R.string.addFriendsSuccess.toString())
+                if (type == KeyWord.addFriendsIntro){
+                    openFragment(IntroEightFragment::class.java, null, false)
+                }else{
+                    requireActivity().finish()
+                }
             }
         } else {
             if (name.isEmpty() && date.isEmpty()) {
-                binding.editName.error = "not value"
-                binding.txtDateOfBirth.error = "not value"
+                binding.editName.error = getString(R.string.not_value)
+                binding.txtDateOfBirth.error = getString(R.string.not_value)
             }
         }
     }
@@ -180,16 +194,16 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
         with(binding) {
             editName.setText("")
             txtDateOfBirth.text = ""
-            editName.hint = "Name :"
-            txtDateOfBirth.hint = "Date of birth"
+            editName.hint = getString(R.string.name)
+            txtDateOfBirth.hint = getString(R.string.date_of_birth)
         }
     }
 
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
         AlertDialog.Builder(requireActivity())
-            .setTitle(R.string.duplicateNAme.toString() + " '${personalInformation?.name}'")
-            .setMessage(R.string.another.toString())
-            .setNegativeButton("OK", null)
+            .setTitle(context?.getString(R.string.duplicateNAme)+ " '${personalInformation?.name}'")
+            .setMessage(context?.getString(R.string.another))
+            .setNegativeButton(getString(R.string.ok), null)
             .show()
     }
 

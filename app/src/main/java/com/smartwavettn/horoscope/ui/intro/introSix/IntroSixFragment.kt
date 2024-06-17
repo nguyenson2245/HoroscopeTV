@@ -9,6 +9,7 @@ import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentIntroSixBinding
 import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenFriendsFragment
+import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 
@@ -27,12 +28,14 @@ class IntroSixFragment : BaseFragmentWithBinding<FragmentIntroSixBinding>() {
 
     override fun initAction() {
         binding.noLatter.click {
-            openFragment(IntroSevenFriendsFragment::class.java,null,false)
-        }
+            val bundle = Bundle()
+            bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriendsIntro)
+            openFragment(IntroSevenFriendsFragment::class.java, bundle, false)           }
 
         binding.yesContinue.click {
-            openFragment(IntroSevenFriendsFragment::class.java,null,false)
-        }
+            val bundle = Bundle()
+            bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriendsIntro)
+            openFragment(IntroSevenFriendsFragment::class.java, bundle, false)        }
 
     }
 

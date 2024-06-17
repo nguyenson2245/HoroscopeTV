@@ -133,5 +133,9 @@
 
 <!--    //data-->
     <string name="Sources">Sources-</string>
+    <string name="ok">OK</string>
+    <string name="date_of_birth">Date of birth</string>
+    <string name="name">Name :</string>
+    <string name="not_value">not value</string>
 
 </resources>

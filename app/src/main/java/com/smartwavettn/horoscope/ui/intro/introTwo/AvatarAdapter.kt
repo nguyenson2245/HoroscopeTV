@@ -15,6 +15,7 @@ class AvatarAdapter (val click: (Class<*>) -> Unit) : BaseRecyclerAdapter<Int, A
             super.bind(itemData)
             if (binding is ItemAvatarBinding){
                 Glide.with(itemView).load(itemData).into(binding.image)
+                binding
             }
         }
     }
