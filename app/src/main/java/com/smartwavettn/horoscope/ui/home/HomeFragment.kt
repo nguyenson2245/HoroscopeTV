@@ -93,7 +93,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.calendarView.onClickSelected = {
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
-            dailyViewModel.initData(requireActivity(),it.day.toInt() ,"Bad")
+            dailyViewModel.initData(requireActivity(),it.day.toInt())
         }
     }
 

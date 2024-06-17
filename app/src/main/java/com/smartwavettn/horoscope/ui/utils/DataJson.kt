@@ -1,7 +1,6 @@
 package com.smartwavettn.horoscope.ui.utils
 
 import android.content.Context
-import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.io.InputStreamReader
@@ -21,7 +20,6 @@ object DataJson {
 
     fun getValueByKey(context: Context, prefix: String): String ? {
         val jsonObject = readJsonFromAssets(context)
-        return jsonObject.get(prefix).asString
+        return jsonObject.get(prefix).toString()
     }
-
 }

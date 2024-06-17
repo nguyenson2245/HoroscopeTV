@@ -25,49 +25,13 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
 
     override fun init() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter = DailyAdapter { daily, position ->
-            when (position) {
-                1-> {
-
-                }
-
-                2 -> {
-                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
-                }
-
-                4 -> {
-                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
-                }
-
-                5 -> {
-                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
-                }
-
-                6 -> {
-                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
-                }
-
-                7 -> {
-                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
-                }
-
-                8 -> {
-                    DataJson.getValueByKey(requireActivity(), "La_position_in_the_body")
-                }
-
-                else -> {
-                    toast(position.toString())
-                }
-            }
-        }
+        adapter = DailyAdapter { _, _ -> }
         binding.rcvDaily.layoutManager = layoutManager
         binding.rcvDaily.adapter = adapter
         binding.rcvDaily.setHasFixedSize(true)
     }
 
     override fun initData() {
-
-
         viewModel.listAddSettings.observe(viewLifecycleOwner) { it ->
             adapter.submitList(it)
         }
@@ -76,6 +40,4 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
     override fun initAction() {
 
     }
-
-
 }
