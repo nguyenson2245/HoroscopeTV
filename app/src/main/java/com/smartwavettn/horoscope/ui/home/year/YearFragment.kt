@@ -18,7 +18,7 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentYearBinding {
-        return FragmentYearBinding.inflate(inflater)
+       return  FragmentYearBinding.inflate(inflater)
     }
 
     override fun init() {
@@ -27,13 +27,11 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
     override fun initData() {
         adapter = YearAdapter { year, position ->
-            Log.d("position", "initDapositionta: $position")
+
         }
-        binding.rvView.apply {
-            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = adapter
-            setHasFixedSize(true)
-        }
+        binding.rvView.layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvView.adapter = adapter
+        binding.rvView.setHasFixedSize(true)
 
         viewModel.initDataCreateQr()
         viewModel.listYearLiveData.observe(viewLifecycleOwner) {
@@ -41,6 +39,7 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
         }
     }
 
-    override fun initAction() {}
+    override fun initAction() {
 
+    }
 }

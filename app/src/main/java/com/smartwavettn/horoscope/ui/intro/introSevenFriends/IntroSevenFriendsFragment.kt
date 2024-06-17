@@ -175,7 +175,6 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             else {
                 viewModel.addPersonalInformation(personalInformation)
                 setTextView()
-                toast(R.string.addFriendsSuccess.toString())
                 if (type == KeyWord.addFriendsIntro){
                     openFragment(IntroEightFragment::class.java, null, false)
                 }else{
