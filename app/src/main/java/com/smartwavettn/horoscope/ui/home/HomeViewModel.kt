@@ -29,6 +29,7 @@ import java.util.Date
 class HomeViewModel : BaseViewModel() {
     val currentTime = Calendar.getInstance()
     fun getPersonalLiveData() = repository.getProFile()
+    fun getPersonalSelectedData() = repository.getProFileSelect()
     fun checkProfile() = repository.checkProFile()
 
     fun openEmailApp() {

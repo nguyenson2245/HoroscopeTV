@@ -78,7 +78,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     override fun init() {
 
         context?.let { viewModel.init(it) }
-
+        dailyViewModel.initData(requireActivity(), Calendar.getInstance().get(Calendar.DAY_OF_MONTH ))
         tabLayout()
         if (context?.checkPermission(Manifest.permission.POST_NOTIFICATIONS) == false) {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 200)
@@ -109,7 +109,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
         viewModel.getTime { binding.menu.timeNoti.text = it }
 
-        viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
+        viewModel.getPersonalSelectedData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
                 personalInformation = personal
                 with(binding) {
@@ -124,14 +124,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
                 } else if (personal.iconImage.isNotEmpty()) {
-
                     Glide.with(this)
                         .load(personal.iconImage)
                         .into(binding.menu.drawerHeaderProifile.image)
                     Glide.with(this)
                         .load(personal.iconImage)
                         .into(binding.profileHeader.image)
-
                 } else {
                     binding.menu.drawerHeaderProifile.image.setImageResource(R.drawable.intro1)
                     binding.profileHeader.image.setImageResource(R.drawable.intro1)

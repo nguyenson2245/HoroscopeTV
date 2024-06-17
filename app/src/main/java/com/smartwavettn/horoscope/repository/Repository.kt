@@ -23,6 +23,7 @@ class Repository(context: Context) {
     fun checkProFile():Boolean = appDatabase.getInformationDao().checkProfile(true) != null
     suspend fun deletePersonal(personalInformation: PersonalInformation) =
         appDatabase.getInformationDao().delete(personalInformation)
+    fun getProFileSelect():LiveData<PersonalInformation> = appDatabase.getInformationDao().getProfileSelect(true)
 
     fun getProfileInformation(personalInformation: PersonalInformation) =    appDatabase.getInformationDao().getProfileInformation()
 }
