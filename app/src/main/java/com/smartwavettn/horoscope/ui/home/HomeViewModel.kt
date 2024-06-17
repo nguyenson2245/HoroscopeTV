@@ -65,52 +65,10 @@ class HomeViewModel : BaseViewModel() {
                  preferences.setInt(Constants.HOUR, selectedHour)
                 setText.invoke("$selectedHour:$selectedMinute")
             },
-            hour, minute, true
+            hour, minute, false
         )
 
         timePickerDialog.show()
-    }
-
-    private val CHANNEL_ID = "my_channel_id"
-    private val NOTIFICATION_ID = 1
-    fun createNotification(context: Context, intent: Intent) {
-        // Create the NotificationChannel (r) {
-        // Create the NotificationChannel (required for Android 8.0 and higher)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val name = "My Channel"
-            val descriptionText = "Today is a good day\n"
-            val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
-            // Register the channel with the system
-            val notificationManager: NotificationManager =
-                context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        // Create the NotificationCompat.Builder
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.notification)
-            .setContentTitle("Horoscope")
-            .setContentText("Today is a good day\n")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-
-        // Set the intent to open an activity when the notifiation is clicked
-
-        val pendingIntent =
-            PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        builder.setContentIntent(pendingIntent)
-
-        // Show the notification
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.notify(getNotificationID(), builder.build())
-    }
-
-    // set nhiêu notification
-    private fun getNotificationID(): Int {
-        return (Date().time / 1000).toInt()
     }
 
 }

@@ -19,7 +19,7 @@ class IntroNineCalculatedFragment :  BaseFragmentWithBinding<FragmentIntroNineCa
     }
 
     override fun initAction() {
-        openFragment(IntroTenEndFragment::class.java,null,true)
+        openFragment(IntroTenEndFragment::class.java,null,false)
     }
 
 }

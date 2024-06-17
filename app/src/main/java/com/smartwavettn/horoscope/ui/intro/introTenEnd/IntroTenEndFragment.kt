@@ -27,7 +27,7 @@ class IntroTenEndFragment : BaseFragmentWithBinding<FragmentIntroTenEndBinding>(
 
     override fun initAction() {
         binding.btnContinue.click {
-            openFragment(HomeFragment::class.java,null,true)
+            openFragment(HomeFragment::class.java,null,false)
         }
     }
 

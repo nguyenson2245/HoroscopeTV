@@ -41,7 +41,7 @@ class IntroThreeFragment : BaseFragmentWithBinding<FragmentIntroThreeBinding>() 
 
     override fun initAction() {
         binding.btnContinue.click {
-            openFragment(IntroFourTopicFragment::class.java, null, true)
+            openFragment(IntroFourTopicFragment::class.java, null, false)
         }
     }
 }

@@ -41,10 +41,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
     }
-
-//    override fun onStop() {
-//        super.onStop()
-//        unregisterReceiver(broadcastReceiver);
-//    }
-
 }

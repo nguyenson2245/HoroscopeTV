@@ -10,7 +10,7 @@ object KeyWord {
     const val addFriends = "addFriends"
     const val personalInformation = "personalInformation"
     const val slashFragment = "slashFragment"
-
+const val addFriendsIntro = "addFriendsIntro"
     const val home = "home"
     const val profilePersona = "profilePersona"
     const val body = "Body of the email"

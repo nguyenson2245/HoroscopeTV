@@ -25,11 +25,11 @@ class IntroFiveNotificationFragment :BaseFragmentWithBinding<FragmentIntroFiveNo
 
     override fun initAction() {
         binding.noLatter.click {
-            openFragment(IntroSixFragment::class.java,null,true)
+            openFragment(IntroSixFragment::class.java,null,false)
         }
 
         binding.yesContinue.click {
-            openFragment(IntroSixFragment::class.java,null,true)
+            openFragment(IntroSixFragment::class.java,null,false)
         }
 
     }

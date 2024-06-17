@@ -12,5 +12,6 @@ data class PersonalInformation(
     var date: String = "",
     var icon: Int = 0,
     var iconImage: String = "",
-    var isProfile: Boolean
+    var isProfile: Boolean,
+    var isSelect : Boolean = false
 ): Serializable

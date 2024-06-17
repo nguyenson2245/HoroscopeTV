@@ -105,7 +105,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
             pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
-        binding.imageAvatar.click {
+        binding.pencl.click {
             binding.rcvViewAvatar.visible()
             binding.imageAvatarConstraintLayout.gone()
         }
@@ -121,8 +121,9 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                             positionPickerLayout
                         ) else 0,
                         if (binding.imageAvatarConstraintLayout.isVisible) uriImage else "",
-                        true
+                        true, isSelect =  true
                     )
+
                 if (viewModel.isUserExist(personalInformation))
                     showDialogEnterInFormation(personalInformation)
                 else {
@@ -132,8 +133,8 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                 }
             } else {
                 if (name.isEmpty() && date.isEmpty()) {
-                    binding.editName.error = "not value"
-                    binding.txtDateOfBirth.error = "not value"
+                    binding.editName.error = getString(R.string.not_value)
+                    binding.txtDateOfBirth.error =getString(R.string.not_value)
                 }
             }
         }
@@ -162,9 +163,9 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
 
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
         AlertDialog.Builder(requireActivity())
-            .setTitle(R.string.duplicateNAme.toString() + " '${personalInformation?.name}'")
-            .setMessage(R.string.another.toString() )
-            .setNegativeButton("OK", null)
+            .setTitle(context?.getString(R.string.duplicateNAme) + " '${personalInformation?.name}'")
+            .setMessage(context?.getString(R.string.another) )
+            .setNegativeButton(getString(R.string.ok), null)
             .show()
     }
 }
