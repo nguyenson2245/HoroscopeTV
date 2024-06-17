@@ -2,12 +2,10 @@ package com.smartwavettn.horoscope.ui.home
 
 import android.Manifest
 import android.animation.LayoutTransition
-import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
@@ -15,11 +13,8 @@ import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.fragment.app.activityViewModels
@@ -30,7 +25,6 @@ import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.base.utils.checkPermission
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
-import com.smartwavettn.horoscope.base.utils.showToast
 import com.smartwavettn.horoscope.broadcast.AlarmBroadcastReceiver
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
@@ -78,7 +72,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     override fun init() {
 
         context?.let { viewModel.init(it) }
-
+        dailyViewModel.initData(requireActivity(), Calendar.getInstance().get(Calendar.DAY_OF_MONTH ))
         tabLayout()
         if (context?.checkPermission(Manifest.permission.POST_NOTIFICATIONS) == false) {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 200)
@@ -109,7 +103,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
         viewModel.getTime { binding.menu.timeNoti.text = it }
 
-        viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
+        viewModel.getPersonalSelectedData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
                 personalInformation = personal
                 with(binding) {
@@ -124,14 +118,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
                 } else if (personal.iconImage.isNotEmpty()) {
-
                     Glide.with(this)
                         .load(personal.iconImage)
                         .into(binding.menu.drawerHeaderProifile.image)
                     Glide.with(this)
                         .load(personal.iconImage)
                         .into(binding.profileHeader.image)
-
                 } else {
                     binding.menu.drawerHeaderProifile.image.setImageResource(R.drawable.intro1)
                     binding.profileHeader.image.setImageResource(R.drawable.intro1)
@@ -216,14 +208,20 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
             R.id.image -> context?.let { it1 ->
                 val list = viewModel.getListData()
-                list.removeIf { it.isProfile }
+                list.removeIf { it.isSelect }
                 CustomPopup.showPopupMenu(
                     it1,
                     list, view
-                ) {
+                ) {position, isAdd ->
+                    if (isAdd){
                     val bundle = Bundle()
                     bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
                     openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
+                    }else{
+                        viewModel.getListData().forEach { it.isSelect = false
+                        viewModel.updateProfile(it)}
+                        viewModel.updateProfile(viewModel.getListData().get(position).apply {isSelect = true})
+                    }
                 }
             }
 

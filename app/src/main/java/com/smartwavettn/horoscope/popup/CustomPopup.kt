@@ -16,7 +16,7 @@ object CustomPopup {
         context: Context,
         listData: ArrayList<PersonalInformation>,
         anchor: View,
-        openAddFiends: () -> Unit,
+        openAddFiends: (Int,Boolean) -> Unit,
     ) {
         val inflater: LayoutInflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -30,7 +30,10 @@ object CustomPopup {
         )
         val adapter = PopupAdapter() {
             if (it == listData.size)
-                openAddFiends.invoke()
+                openAddFiends.invoke(it, true)
+            else{
+                openAddFiends.invoke(it, false)
+            }
             popupWindow.dismiss()
         }
         popupViewBinding.rcView.adapter = adapter
