@@ -26,4 +26,5 @@ class Repository(context: Context) {
     fun getProFileSelect():LiveData<PersonalInformation> = appDatabase.getInformationDao().getProfileSelect(true)
 
     fun getProfileInformation(personalInformation: PersonalInformation) =    appDatabase.getInformationDao().getProfileInformation()
+    fun updateProfile(personalInformation: PersonalInformation)  = appDatabase.getInformationDao().updatePersonal(personalInformation)
 }

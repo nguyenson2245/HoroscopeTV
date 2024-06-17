@@ -72,4 +72,14 @@ class HomeViewModel : BaseViewModel() {
         timePickerDialog.show()
     }
 
+    fun updateProfile(personalInformation: PersonalInformation){
+        viewModelScope.launch {
+            try {
+                repository.updateProfile(personalInformation)
+            }catch (e: Throwable){
+
+            }
+        }
+
+    }
 }
