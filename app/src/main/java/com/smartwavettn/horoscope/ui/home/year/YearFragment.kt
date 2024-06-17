@@ -1,15 +1,11 @@
 package com.smartwavettn.horoscope.ui.home.year
 
+import android.util.Log
 import androidx.fragment.app.viewModels
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import com.smartwavettn.horoscope.R
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartwavettn.horoscope.databinding.FragmentYearBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
-import com.smartwavettn.socialmedia.base.BaseFragment
 
 class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
@@ -18,19 +14,33 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
     }
 
     private val viewModel: YearViewModel by viewModels()
+    private lateinit var adapter: YearAdapter
+
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentYearBinding {
-       return  FragmentYearBinding.inflate(inflater)
+        return FragmentYearBinding.inflate(inflater)
     }
 
     override fun init() {
-
+        context?.let { viewModel.init(it) }
     }
 
     override fun initData() {
+        adapter = YearAdapter { year, position ->
+            Log.d("position", "initDapositionta: $position")
+        }
+        binding.rvView.apply {
+            layoutManager = LinearLayoutManager(requireActivity(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = adapter
+            setHasFixedSize(true)
+        }
+
+        viewModel.initDataCreateQr()
+        viewModel.listYearLiveData.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
-    override fun initAction() {
+    override fun initAction() {}
 
-    }
 }

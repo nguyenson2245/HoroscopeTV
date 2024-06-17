@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="@dimen/_16dp"
     android:orientation="vertical"
     android:paddingStart="@dimen/_16dp"
@@ -35,9 +35,37 @@
         android:textColor="@color/blue"
         android:textSize="@dimen/_14sp" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/nextLeft"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/left" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_6sdp"
+            android:layout_marginRight="@dimen/_6sdp"
+            android:layout_weight="2" />
+
+
+        <ImageView
+            android:id="@+id/nextRight"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:src="@drawable/right" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,10 +101,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
@@ -120,10 +148,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
@@ -167,10 +195,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
@@ -215,10 +243,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
@@ -263,10 +291,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
