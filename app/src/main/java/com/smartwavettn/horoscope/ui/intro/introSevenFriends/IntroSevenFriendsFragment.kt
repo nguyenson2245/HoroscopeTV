@@ -120,7 +120,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
         }
 
         binding.no.click {
-            openFragment(IntroEightFragment::class.java, null, true)
+            openFragment(IntroEightFragment::class.java, null, false)
         }
 
         binding.yes.click {
@@ -166,7 +166,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             else {
                 viewModel.addPersonalInformation(personalInformation)
                 setTextView()
-                toast(R.string.addFriendsSuccess.toString())
+                toast("Add Friends - Success")
             }
         } else {
             if (name.isEmpty() && date.isEmpty()) {

@@ -128,7 +128,7 @@ class IntroTwoFragment : BaseFragmentWithBinding<FragmentIntroTwoBinding>() {
                 else {
                     viewModel.addPersonalInformation(personalInformation)
                     preferences.firstInstall = true
-                    openFragment(IntroThreeFragment::class.java, null, true)
+                    openFragment(IntroThreeFragment::class.java, null, false)
                 }
             } else {
                 if (name.isEmpty() && date.isEmpty()) {

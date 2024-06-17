@@ -27,11 +27,11 @@ class IntroSixFragment : BaseFragmentWithBinding<FragmentIntroSixBinding>() {
 
     override fun initAction() {
         binding.noLatter.click {
-            openFragment(IntroSevenFriendsFragment::class.java,null,true)
+            openFragment(IntroSevenFriendsFragment::class.java,null,false)
         }
 
         binding.yesContinue.click {
-            openFragment(IntroSevenFriendsFragment::class.java,null,true)
+            openFragment(IntroSevenFriendsFragment::class.java,null,false)
         }
 
     }

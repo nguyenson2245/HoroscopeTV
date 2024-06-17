@@ -29,7 +29,7 @@ class IntroOneFragment : BaseFragmentWithBinding<FragmentIntroOneBinding>() {
             binding.getYourHoroscope.click {
                 val bundle = Bundle()
                 bundle.putBoolean(KeyWord.checkFragment ,true)
-                openFragment(IntroTwoFragment::class.java,bundle,true)
+                openFragment(IntroTwoFragment::class.java,bundle,false)
 
             }
     }

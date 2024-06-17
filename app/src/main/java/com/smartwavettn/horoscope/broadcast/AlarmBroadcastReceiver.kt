@@ -87,6 +87,4 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
     fun getNotificationManager() : Int {
         return System.currentTimeMillis().toInt()
     }
-
-
 }

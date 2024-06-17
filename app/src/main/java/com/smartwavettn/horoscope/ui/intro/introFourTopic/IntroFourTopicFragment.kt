@@ -21,7 +21,7 @@ class IntroFourTopicFragment : BaseFragmentWithBinding<FragmentIntroFourTopicBin
 
     override fun initAction() {
         binding.btnContinue.click {
-            openFragment(IntroFiveNotificationFragment::class.java,null,true)
+            openFragment(IntroFiveNotificationFragment::class.java,null,false)
         }
     }
 
