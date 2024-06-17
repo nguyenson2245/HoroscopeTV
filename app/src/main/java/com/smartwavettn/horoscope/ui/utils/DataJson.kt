@@ -19,29 +19,9 @@ object DataJson {
         }
     }
 
-    fun getValueByKey(context: Context, prefix: String) {
+    fun getValueByKey(context: Context, prefix: String): String ? {
         val jsonObject = readJsonFromAssets(context)
-        val keys = mutableListOf<String>()
-        Log.d("logDataJson", " \n$prefix")
-        for (key in jsonObject.keySet()) {
-            if (key.startsWith(prefix)) {
-                keys.add(key)
-                val value = jsonObject.get(key).asString
-                Log.d("logDataJson", "$key: $value")
-            }
-        }
-    }
-
-    fun getMessagePersonalDayKeys(context: Context, prefix: String): Map<String, String> {
-        val jsonObject = readJsonFromAssets(context)
-        val keys = mutableMapOf<String, String>()
-        Log.d("logDataJson", " \n$prefix")
-        for (key in jsonObject.keySet()) {
-            if (key.startsWith(prefix)) {
-                keys[key] = jsonObject.get(key).asString
-            }
-        }
-        return keys
+        return jsonObject.get(prefix).asString
     }
 
 }

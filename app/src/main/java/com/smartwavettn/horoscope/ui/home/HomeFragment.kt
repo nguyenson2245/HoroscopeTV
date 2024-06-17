@@ -22,6 +22,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
@@ -35,6 +36,7 @@ import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.popup.CustomPopup
 import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
+import com.smartwavettn.horoscope.ui.home.daily.DailyViewModel
 import com.smartwavettn.horoscope.ui.home.moth.MothFragment
 import com.smartwavettn.horoscope.ui.home.year.YearFragment
 import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenFriendsFragment
@@ -61,6 +63,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         MothFragment.newInstance(),
         YearFragment.newInstance()
     )
+    private val dailyViewModel : DailyViewModel by activityViewModels()
+
     private var personalInformation: PersonalInformation? = null
     private lateinit var preferences: Preferences
 
@@ -89,13 +93,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.calendarView.onClickSelected = {
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
-            context?.showToast("son soi")
+            dailyViewModel.initData(requireActivity(),it.day.toInt() ,"Bad")
         }
     }
 
     override fun initData() {
         viewModel.init(requireActivity())
-
         binding.menu.btnlunaDay.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
         binding.menu.btnCuttinghair.isChecked = preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
         binding.menu.btnTravel.isChecked = preferences.getBoolean(Constants.TRAVEL) ?: false
@@ -105,6 +108,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.menu.abedDayNotification.isChecked = preferences.getBoolean(Constants.DAY_BAD) ?: false
 
         viewModel.getTime { binding.menu.timeNoti.text = it }
+
         viewModel.getPersonalLiveData().observe(viewLifecycleOwner) { personal ->
             if (personal != null) {
                 personalInformation = personal

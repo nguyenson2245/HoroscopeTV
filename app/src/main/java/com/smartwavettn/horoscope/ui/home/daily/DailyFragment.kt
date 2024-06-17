@@ -1,7 +1,9 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import android.view.LayoutInflater
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartwavettn.horoscope.databinding.FragmentDailyBinding
@@ -11,7 +13,7 @@ import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
 
     private lateinit var adapter: DailyAdapter
-    private val viewModel: DailyViewModel by viewModels()
+    private val viewModel: DailyViewModel by activityViewModels()
 
     companion object {
         fun newInstance() = DailyFragment()
@@ -25,32 +27,28 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         adapter = DailyAdapter { daily, position ->
             when (position) {
-
                 1-> {
-                    val personalDayKeysList = (DataJson.getMessagePersonalDayKeys(requireActivity(),"Message-Personal-Day-")).toList().take(3)
-                    for ((key, value) in personalDayKeysList) {
-                        Log.d("logDataJson", "-> $key, : $value")
-                    }
+
                 }
 
                 2 -> {
-                    DataJson.getValueByKey(requireActivity(), "Message-Group-Constellations-")
+                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
                 }
 
                 4 -> {
-                    DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-")
+                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
                 }
 
                 5 -> {
-                    DataJson.getValueByKey(requireActivity(), "Moon-Day-")
+                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
                 }
 
                 6 -> {
-                    DataJson.getValueByKey(requireActivity(), "Haircut-Day-")
+                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
                 }
 
                 7 -> {
-                    DataJson.getValueByKey(requireActivity(), "Sources-")
+                    Log.d(TAG, "init: "+  DataJson.getValueByKey(requireActivity(), "Message-Big-Combo-1"))
                 }
 
                 8 -> {
@@ -68,7 +66,7 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
     }
 
     override fun initData() {
-        viewModel.initData()
+
 
         viewModel.listAddSettings.observe(viewLifecycleOwner) { it ->
             adapter.submitList(it)

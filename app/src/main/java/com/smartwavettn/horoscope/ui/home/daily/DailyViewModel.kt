@@ -1,11 +1,14 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
+import android.content.ContentValues.TAG
 import android.content.Context
-import android.widget.Toast
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.model.Daily
+import com.smartwavettn.horoscope.ui.utils.DataJson
+import kotlin.math.log
 
 class DailyViewModel : ViewModel() {
 
@@ -13,11 +16,13 @@ class DailyViewModel : ViewModel() {
     val listAddSettings: MutableLiveData<ArrayList<Daily>> = MutableLiveData()
 
 
-    fun initData() {
+    fun initData(context: Context, position: Int, rangeDay: String) {
         listSettings.clear()
-
         listSettings.add(Daily(title = "Personal indicators"))
-        listSettings.add(Daily(title = "Health", content = "Brings success in performing tasks, doing business, and competing",icon = R.drawable.health))
+        listSettings.add(
+            Daily(title = "Health", content = DataJson.getValueByKey(context = context,
+                    "Message-Personal-Day-${(position % 3)}") ?: "", icon = R.drawable.health)
+        )
         listSettings.add(Daily(title = "Business", content = "Mang lại thành công trong thực thi nhiệm vụ, kinh doanh, thi đấu Mang lại thành công trong thực thi nhiệm vụ, kinh doanh",icon = R.drawable.business))
         listSettings.add(Daily(title = "General indicators"))
         listSettings.add(Daily(title = "Situation", content = "Mang lại thành công trong thực thi nhiệm vụ, kinh doanh, thi đấu",icon = R.drawable.situation))
@@ -25,8 +30,6 @@ class DailyViewModel : ViewModel() {
         listSettings.add(Daily(title = "Hair cutting", content = "Mang lại thành công trong thực thi nhiệm vụ, kinh doanh, thi đấu",icon = R.drawable.cuttinghairz))
         listSettings.add(Daily(title = "Clothing color", content = "Mang lại thành công trong thực thi nhiệm vụ, kinh doanh, thi đấu",icon = R.drawable.clothing))
         listSettings.add(Daily(title = "Location of La energy in the body", content = "Mang lại thành công trong thực thi nhiệm vụ, kinh doanh, thi đấu",icon = R.drawable.bodyz))
-
-
         listAddSettings.postValue(listSettings)
     }
 

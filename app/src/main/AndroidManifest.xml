@@ -28,12 +28,8 @@
             </intent-filter>
         </activity>
 
-
         <receiver android:name=".broadcast.AlarmBroadcastReceiver"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-            </intent-filter>
         </receiver>
     </application>
 
