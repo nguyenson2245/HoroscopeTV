@@ -20,6 +20,11 @@ object DataJson {
 
     fun getValueByKey(context: Context, prefix: String): String ? {
         val jsonObject = readJsonFromAssets(context)
-        return jsonObject.get(prefix).toString()
+        val value = jsonObject.get(prefix).toString()
+        return removeQuotes(value)
+    }
+
+    private fun removeQuotes(str: String): String {
+        return str.replaceFirst("\"", "").replaceFirst("\"", "")
     }
 }
