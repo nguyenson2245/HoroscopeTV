@@ -29,7 +29,7 @@ class DailyAdapter( private val click: (Daily, Int) -> Unit) : BaseRecyclerAdapt
                 val goldStarList = listOf(R.drawable.sv, R.drawable.sv, R.drawable.sv, R.drawable.sv, R.drawable.sv)
                 val whiteStarList = listOf(R.drawable.st, R.drawable.st, R.drawable.st, R.drawable.st, R.drawable.st)
 
-                binding.rate.setImageResource(if (Random.nextInt(2) == 0) goldStarList[0] else whiteStarList[0])
+                binding.rate.setImageResource(if  (Random.nextInt(2) == 0) goldStarList[0] else whiteStarList[0])
                 binding.rate1.setImageResource(if (Random.nextInt(2) == 0) goldStarList[1] else whiteStarList[1])
                 binding.rate2.setImageResource(if (Random.nextInt(2) == 0) goldStarList[2] else whiteStarList[2])
                 binding.rate3.setImageResource(if (Random.nextInt(2) == 0) goldStarList[3] else whiteStarList[3])
