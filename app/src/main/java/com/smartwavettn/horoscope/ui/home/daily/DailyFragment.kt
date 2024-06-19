@@ -1,13 +1,9 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.smartwavettn.horoscope.databinding.FragmentDailyBinding
-import com.smartwavettn.horoscope.ui.utils.DataJson
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 
 class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
@@ -40,4 +36,5 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
     override fun initAction() {
 
     }
+
 }

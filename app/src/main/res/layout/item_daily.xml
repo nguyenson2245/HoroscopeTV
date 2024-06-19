@@ -38,12 +38,47 @@
                 android:src="@drawable/health" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:src="@drawable/rate" />
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal">
+
+           <ImageView
+               android:id="@+id/rate"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="2dp"
+               android:src="@drawable/sv" />
+
+           <ImageView
+               android:id="@+id/rate1"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="2dp"
+               android:src="@drawable/sv" />
+
+           <ImageView
+               android:id="@+id/rate2"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="2dp"
+               android:src="@drawable/sv" />
+
+           <ImageView
+               android:id="@+id/rate3"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="2dp"
+               android:src="@drawable/sv" />
+
+           <ImageView
+               android:id="@+id/rate4"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="2dp"
+               android:src="@drawable/sv" />
+       </LinearLayout>
+
 
 
         <TextView

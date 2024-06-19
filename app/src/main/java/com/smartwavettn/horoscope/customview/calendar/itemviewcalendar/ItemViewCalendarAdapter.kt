@@ -27,7 +27,7 @@ class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) 
     val scope = CoroutineScope(Job() + Dispatchers.Default)
     private val preferences: Preferences = Preferences.getInstance(context)
     inner  class ViewHolder(val binding : ViewDataBinding) : BaseViewHolder<DayModel>(binding){
-        @SuppressLint("UseCompatLoadingForDrawables")
+        @SuppressLint("UseCompatLoadingForDrawables", "SuspiciousIndentation")
         override fun bind(itemData: DayModel?) {
             super.bind(itemData)
             if (binding is ItemDayBinding){
@@ -36,7 +36,7 @@ class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) 
                         binding.viewLayout.gone()
                         binding.underline.gone()
                     }else{
-                        binding.root.background = if (itemData?.isSelected== true) itemView.context.getDrawable(R.drawable.bg_select_day) else null
+                        binding.root.background = if (itemData?.isSelected == true) itemView.context.getDrawable(R.drawable.bg_select_day) else null
                         binding.viewLayout.visible()
                         binding.underline.visible()
 

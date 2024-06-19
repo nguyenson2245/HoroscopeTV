@@ -50,6 +50,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
                 binding.yes.gone()
                 binding.update.visible()
             }
+
             KeyWord.addFriendsIntro -> {
                 binding.no.visible()
                 binding.update.gone()
@@ -57,7 +58,8 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        personalInformation = arguments?.getSerializable(KeyWord.personalInformation) as PersonalInformation?
+        personalInformation =
+            arguments?.getSerializable(KeyWord.personalInformation) as PersonalInformation?
     }
 
     override fun initData() {
@@ -72,7 +74,8 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        val pickerLayoutManager = PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
+        val pickerLayoutManager =
+            PickerLayoutManager(requireContext(), PickerLayoutManager.HORIZONTAL, false).apply {
                 changeAlpha = true
                 scaleDownBy = 0.99f
                 scaleDownDistance = 0.8f
@@ -103,7 +106,8 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             }
         }
 
-        val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        val pickMedia =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
                     binding.rcvViewAvatar.gone()
                     binding.imageAvatarConstraintLayout.visible()
@@ -147,8 +151,10 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             name = binding.editName.text.toString().trim()
             date = binding.txtDateOfBirth.text.toString().trim()
 
-            icon= if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(positionPickerLayout) else 0
-            iconImage =if (binding.imageAvatarConstraintLayout.isVisible) uriImage else ""
+            icon = if (binding.rcvViewAvatar.isVisible) viewModel.listAvatarResIds.get(
+                positionPickerLayout
+            ) else 0
+            iconImage = if (binding.imageAvatarConstraintLayout.isVisible) uriImage else ""
 
             viewModel.updateFriends(this)
             onBackPressed()
@@ -175,11 +181,10 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
             else {
                 viewModel.addPersonalInformation(personalInformation)
                 setTextView()
-                toast(R.string.addFriendsSuccess.toString())
-                if (type == KeyWord.addFriendsIntro){
+                if (type == KeyWord.addFriendsIntro) {
                     openFragment(IntroEightFragment::class.java, null, false)
-                }else{
-                    requireActivity().finish()
+                } else {
+                    onBackPressed()
                 }
             }
         } else {
@@ -201,7 +206,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
 
     private fun showDialogEnterInFormation(personalInformation: PersonalInformation) {
         AlertDialog.Builder(requireActivity())
-            .setTitle(context?.getString(R.string.duplicateNAme)+ " '${personalInformation?.name}'")
+            .setTitle(context?.getString(R.string.duplicateNAme) + " '${personalInformation?.name}'")
             .setMessage(context?.getString(R.string.another))
             .setNegativeButton(getString(R.string.ok), null)
             .show()

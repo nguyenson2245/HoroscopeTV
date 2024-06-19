@@ -56,6 +56,7 @@ class DailyViewModel : ViewModel() {
                 icon = R.drawable.lunadayz
             )
         )
+
         listSettings.add(
             Daily(
                 title = "Hair cutting",
@@ -66,6 +67,7 @@ class DailyViewModel : ViewModel() {
                 icon = R.drawable.cuttinghairz
             )
         )
+
         listSettings.add(
             Daily(
                 title = "Clothing color",
