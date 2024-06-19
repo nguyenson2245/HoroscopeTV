@@ -9,7 +9,7 @@ object Constants {
     const val CUTTING_HAIR = "CUTTING_HAIR"
     const val TRAVEL = "TRAVEL"// STOPSHIP:
     const val NOTICES = "NOTICES"
-
+    const val AM_PM = "AM_PM"
     const val INDEX_0 = 0
     const val INDEX_1 = 1
     const val INDEX_15 = 15

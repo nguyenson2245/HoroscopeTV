@@ -4,6 +4,7 @@ import android.Manifest
 import android.animation.LayoutTransition
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -11,6 +12,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -321,6 +323,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR, preferences.getInt(Constants.HOUR) ?: 0)
         calendar.set(Calendar.MINUTE, preferences.getInt(Constants.MINUTE) ?: 0)
+        Log.d(TAG, "setAlarmManager: " + calendar.get(Calendar.HOUR))
+        Log.d(TAG, "setAlarmManager: " + calendar.get(Calendar.MINUTE))
+        calendar.set(Calendar.AM_PM,preferences.getInt(Constants.AM_PM)?:0)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager?.canScheduleExactAlarms() == false) {
                 Intent().also { intent ->

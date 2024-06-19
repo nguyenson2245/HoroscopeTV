@@ -137,5 +137,8 @@
     <string name="date_of_birth">Date of birth</string>
     <string name="name">Name :</string>
     <string name="not_value">not value</string>
+    <string name="do_you_want_to_exit">Do you want to exit ?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 
 </resources>

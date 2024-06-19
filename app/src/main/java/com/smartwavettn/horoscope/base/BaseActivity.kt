@@ -8,9 +8,10 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
-import com.smartwavettn.horoscope.base.utils.hideKeyboard
-
 import com.smartwavettn.horoscope.R
+import com.smartwavettn.horoscope.base.utils.click
+import com.smartwavettn.horoscope.base.utils.hideKeyboard
+import com.smartwavettn.horoscope.databinding.DialogExitBinding
 
 abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     lateinit var binding: VB
@@ -70,6 +71,19 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         loadingDialog?.setCancelable(false)
         loadingDialog?.setContentView(view)
     }
+    private fun showDialogExit(yes:()-> Unit) {
+        val dialog = Dialog(this)
+        val view = DialogExitBinding.inflate(LayoutInflater.from(this))
+        dialog.setContentView(view.root)
+        view.btnConfirm.click {
+            dialog.dismiss()
+            yes.invoke()
+        }
+        view.btnCancel.click {
+            dialog.dismiss()
+        }
+        dialog.show()
+    }
 
     fun showLoadingDialog() {
         loadingDialog?.show()
@@ -78,6 +92,17 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     fun hideLoadingDialog() {
         loadingDialog?.hide()
+    }
+
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            super.onBackPressed()
+        } else {
+            showDialogExit{
+                super.onBackPressed()
+            }
+        }
+
     }
 
 }
