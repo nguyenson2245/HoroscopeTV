@@ -26,9 +26,9 @@ class YearAdapter(private val click: (Year) -> Unit) :
                 if (binding is ItemYearBinding) {
                     binding.textYear.text = itemData?.tibYear.toString()
 
-                    binding.selectedIndicator.visibility =
-                        if (adapterPosition == getPositionSelected()) View.VISIBLE else View.GONE
 
+                    binding.selectedIndicator.visibility =
+                        if (adapterPosition == getPositionSelected()) View.VISIBLE else View.INVISIBLE
                     onItemClickListener {
                         itemData?.let { data ->
                             notifyItemChanged(getPositionSelected())
