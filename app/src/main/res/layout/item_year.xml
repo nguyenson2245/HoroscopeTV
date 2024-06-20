@@ -9,8 +9,8 @@
 
         <TextView
             android:id="@+id/textYear"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_margin="@dimen/_5sdp"
             android:background="@drawable/circular_background"
             android:gravity="center"
@@ -27,7 +27,7 @@
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_alignParentEnd="true"
-            android:layout_margin="5dp"
+            android:layout_margin="@dimen/_5sdp"
             android:background="@drawable/selected_item_background"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -41,6 +41,8 @@ abstract class BaseRecyclerAdapter<T : Any, VH : BaseViewHolder<T>>(
             parent,
             false
         )
+
+    // vt htai click
     fun getPositionSelected(): Int = positionSelected
 
     fun setPositionSelected(position: Int){

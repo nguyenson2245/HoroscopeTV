@@ -16,7 +16,6 @@ import com.smartwavettn.horoscope.databinding.ItemYearBinding
 class YearAdapter(private val click: (Year) -> Unit) :
     BaseRecyclerAdapter<Year, YearAdapter.YearViewHolder>() {
 
-
     inner class YearViewHolder(val binding: ViewDataBinding) : BaseViewHolder<Year>(binding) {
         override fun bind(itemData: Year?) {
             super.bind(itemData)
