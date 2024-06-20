@@ -1,6 +1,5 @@
 package com.smartwavettn.horoscope.ui.home.year
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.smartwavettn.horoscope.base.BaseViewModel
 import com.smartwavettn.horoscope.customview.model.Year
@@ -8,7 +7,7 @@ import com.smartwavettn.horoscope.ui.utils.DataJson
 
 class YearViewModel : BaseViewModel() {
 
-    private val listYear: ArrayList<Year> = arrayListOf()
+    private var listYear: ArrayList<Year> = arrayListOf()
     val listYearLiveData: MutableLiveData<ArrayList<Year>> = MutableLiveData()
 
     fun initDataCreateQr() {
@@ -18,6 +17,7 @@ class YearViewModel : BaseViewModel() {
             val tibYear = yearData.get("tibYear").asInt
             listYear.add(Year(tibYear))
         }
+        listYear = listYear.reversed().toMutableList() as ArrayList<Year>
 
         listYearLiveData.postValue(listYear)
     }

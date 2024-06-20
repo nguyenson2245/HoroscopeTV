@@ -36,34 +36,33 @@
         android:textSize="@dimen/_14sp" />
 
     <LinearLayout
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/nextLeft"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:src="@drawable/left" />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginLeft="@dimen/_6sdp"
             android:layout_marginRight="@dimen/_6sdp"
-            android:layout_weight="2" />
-
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <ImageView
             android:id="@+id/nextRight"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1"
             android:src="@drawable/right" />
     </LinearLayout>
 
@@ -212,7 +211,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:layout_width="match_parent"
