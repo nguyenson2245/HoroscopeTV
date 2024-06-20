@@ -1,5 +1,6 @@
 package com.smartwavettn.horoscope.ui.home.moth
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.smartwavettn.horoscope.R
@@ -14,9 +15,11 @@ class MothAdapter (val onClick:()-> Unit): BaseRecyclerAdapter<Int, MothAdapter.
             super.bind(itemData)
             if (binding is ItemYearBinding){
                 binding.textYear.text = itemData.toString()
+                binding.selectedIndicator.visibility =
+                    if (adapterPosition == getPositionSelected()) View.VISIBLE else View.GONE
             }
             onItemClickListener {
-//                onClick.invoke()
+                notifyItemChanged(getPositionSelected())
                 setPositionSelected(adapterPosition)
                 onClick.invoke()
             }

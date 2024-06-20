@@ -23,7 +23,6 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
     override fun init() {
         context?.let { viewModel.init(it) }
         adapter = YearAdapter { year ->
-
             Log.d("year", "year: $year")
             val tibYear = year.tibYear
             Log.d("year", "year: $tibYear")
@@ -37,6 +36,7 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
         viewModel.initDataCreateQr()
         viewModel.listYearLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+
         }
     }
 

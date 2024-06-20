@@ -1,13 +1,13 @@
 package com.smartwavettn.horoscope.ui.home.moth
 
 import android.content.ContentValues.TAG
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.smartwavettn.horoscope.databinding.FragmentMonthBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import java.util.Calendar
 
 class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
 
@@ -34,6 +34,12 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
         viewModel.initData()
         viewModel.listMothLiveData.observe(viewLifecycleOwner){
             adapter.submitList(it)
+
+            adapter.setPositionSelected(
+                it.lastIndexOf(
+                    Calendar.getInstance().get(Calendar.MONTH) + 1
+                )
+            )
         }
     }
 
