@@ -1,8 +1,8 @@
 package com.smartwavettn.horoscope.ui.home.year
 
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
+import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.FragmentYearBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import java.util.Calendar
@@ -23,11 +23,7 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
     override fun init() {
         context?.let { viewModel.init(it) }
         adapter = YearAdapter { year ->
-            Log.d("year", "year: $year")
-            val tibYear = year.tibYear
-            Log.d("year", "year: $tibYear")
-
-            Log.d("ItemYearBindingdd", "init : ${adapter.getPositionSelected()}")
+            setDataYear(adapter.listItem[adapter.getPositionSelected()])
         }
         binding.rvView.adapter = adapter
     }
@@ -36,24 +32,30 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
         viewModel.initDataCreateQr()
         viewModel.listYearLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-
+            if (it.size> 0){
+                val item = it.last {item ->  item.tibYear == Calendar.getInstance().get(Calendar.YEAR) }
+                setDataYear(item)
+            }
         }
     }
 
-    override fun initAction() {
-//        val yearMap = DataJson.readJsonYear(requireContext())
-//
-//        for ((year, yearData) in yearMap) {
-//            Log.d("MyFragmentYear", "Year: \n$year")
-//
-//            val tibYear = yearData.get("tibYear").asInt
-//            val tibYearFirstMonth = yearData.get("tibYearFirstMonth").asInt
-//            val tibYearFirstDay = yearData.get("tibYearFirstDay").asInt
-//            val yearEl = yearData.get("yearEl").asInt
-//            val yearAnimal = yearData.get("yearAnimal").asInt
-//        }
+    fun setDataYear(year: Year) {
+        binding.progressLuck.progress = year.luEl
+        binding.txLuck.text = year.luEl.toString() + "%"
+
+        binding.progressBodyEnergy.progress = year.luMe
+        binding.txEnergy.text = year.luMe.toString() + "%"
+
+        binding.progressAbility.progress = year.lungtaEl
+        binding.tvAbility.text = year.lungtaEl.toString() + "%"
+
+        binding.progressVitality.progress = year.meva
+        binding.txVitality.text = year.meva.toString() + "%"
     }
 
+    override fun initAction() {
+
+    }
 
 
 }

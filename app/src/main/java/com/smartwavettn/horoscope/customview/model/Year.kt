@@ -19,5 +19,4 @@ data class Year(
     val persDays: List<Int> = arrayListOf(),
     val persStars: List<Int> = arrayListOf(),
     val persMoonDays: List<Int> = arrayListOf()
-) {
-}
+)

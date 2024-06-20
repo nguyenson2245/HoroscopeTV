@@ -99,6 +99,7 @@
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:layout_width="0dp"
+            android:id="@+id/progress_luck"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
@@ -108,6 +109,7 @@
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tx_luck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"
@@ -146,6 +148,7 @@
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:layout_width="0dp"
+            android:id="@+id/progress_body_energy"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
@@ -155,6 +158,7 @@
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tx_energy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"
@@ -193,6 +197,7 @@
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:layout_width="0dp"
+            android:id="@+id/progress_ability"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
@@ -202,9 +207,9 @@
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tv_ability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="40%"
             android:textColor="@color/blue" />
     </LinearLayout>
 
@@ -244,11 +249,13 @@
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
+            android:id="@+id/progress_vitality"
             android:progress="40"
             app:indicatorColor="@color/blue"
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tx_Vitality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"
@@ -293,10 +300,12 @@
             android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
+            android:id="@+id/progress_energy"
             app:indicatorColor="@color/blue"
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tv_energy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"

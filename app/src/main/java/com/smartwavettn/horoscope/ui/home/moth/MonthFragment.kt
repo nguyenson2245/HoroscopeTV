@@ -21,7 +21,6 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
         return FragmentMonthBinding.inflate(inflater)
     }
 
-
     override fun init() {
         adapter = MothAdapter(){
             Log.d(TAG, "init:"+ adapter.getPositionSelected())
