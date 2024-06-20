@@ -23,14 +23,6 @@ class YearAdapter(private val click: (Year) -> Unit) :
             if (binding is ItemYearBinding) {
                 binding.textYear.text = itemData?.tibYear.toString()
 
-//                onItemClickListener {
-//                    itemData?.let { data ->
-//                        positionSelected = adapterPosition
-//                        click.invoke(data)
-//                    }
-//                }
-
-
                 if (binding is ItemYearBinding) {
                     binding.textYear.text = itemData?.tibYear.toString()
 
@@ -45,9 +37,7 @@ class YearAdapter(private val click: (Year) -> Unit) :
                         }
                     }
                 }
-
             }
-
         }
     }
 
