@@ -22,25 +22,21 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
     override fun init() {
         context?.let { viewModel.init(it) }
-        adapter = YearAdapter { year, position ->
+        adapter = YearAdapter { year ->
+
             Log.d("year", "year: $year")
             val tibYear = year.tibYear
             Log.d("year", "year: $tibYear")
-            Log.d("year", "position: $position")
+
+            Log.d("ItemYearBindingdd", "init : ${adapter.getPositionSelected()}")
         }
         binding.rvView.adapter = adapter
     }
-
 
     override fun initData() {
         viewModel.initDataCreateQr()
         viewModel.listYearLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-//            adapter.listItem.forEach {
-//                if (it.tibYear == Calendar.getInstance().get(Calendar.YEAR)) {
-//                    binding.rvView.scrollToPosition(adapter.listItem.lastIndexOf(it))
-//                }
-//            }
         }
     }
 

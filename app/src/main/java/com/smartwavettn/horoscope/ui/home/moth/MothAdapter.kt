@@ -16,8 +16,8 @@ class MothAdapter (val onClick:()-> Unit): BaseRecyclerAdapter<Int, MothAdapter.
                 binding.textYear.text = itemData.toString()
             }
             onItemClickListener {
-                onClick.invoke()
-                positionSelected = adapterPosition
+//                onClick.invoke()
+                setPositionSelected(adapterPosition)
                 onClick.invoke()
             }
         }

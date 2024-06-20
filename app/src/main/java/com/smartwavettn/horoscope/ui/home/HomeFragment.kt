@@ -280,7 +280,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.menu.timeNoti.visibility = if (v == View.VISIBLE) View.VISIBLE else View.GONE
     }
 
-
     private fun openFragmentCloseDrawer(
         clazz: Class<*>,
         args: Bundle? = null,
@@ -306,15 +305,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             R.id.layoutLanguage -> setOnCLickLanguages()
         }
     }
-
-
+    
     fun setAlarmManager(requestCode: Int, action: String) {
-        val alarmManager =
-            context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
+        val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
         val pendingIntent =
-            PendingIntent.getBroadcast(
-                context,
+            PendingIntent.getBroadcast(context,
                 requestCode,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE

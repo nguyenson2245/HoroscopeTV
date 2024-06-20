@@ -14,14 +14,14 @@ abstract class BaseRecyclerAdapter<T : Any, VH : BaseViewHolder<T>>(
 
 ) : Adapter<VH>() {
     var listItem: List<T> = arrayListOf()
-    var positionSelected: Int = 0
+    private var positionSelected: Int = -1
 
     @LayoutRes
     abstract fun getItemLayoutResource(@RecyclerType viewType: Int): Int
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         if (listItem.isNotEmpty() && position < listItem.size)
-        holder.bind(listItem[position])
+            holder.bind(listItem[position])
         else holder.bind(null)
     }
 
@@ -35,5 +35,16 @@ abstract class BaseRecyclerAdapter<T : Any, VH : BaseViewHolder<T>>(
     }
 
     fun getViewHolderDataBinding(parent: ViewGroup, viewType: Int): ViewDataBinding =
-        DataBindingUtil.inflate(LayoutInflater.from(parent.context), getItemLayoutResource(viewType), parent, false)
+        DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            getItemLayoutResource(viewType),
+            parent,
+            false
+        )
+    fun getPositionSelected(): Int = positionSelected
+
+    fun setPositionSelected(position: Int){
+        positionSelected = position
+        notifyItemChanged(position)
+    }
 }

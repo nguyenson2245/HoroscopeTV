@@ -24,7 +24,7 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
 
     override fun init() {
         adapter = MothAdapter(){
-            Log.d(TAG, "init:"+ adapter.positionSelected)
+            Log.d(TAG, "init:"+ adapter.getPositionSelected())
         }
         binding.rcView.adapter = adapter
         binding.rcView.layoutManager = GridLayoutManager(context, 5,GridLayoutManager.VERTICAL, false)
