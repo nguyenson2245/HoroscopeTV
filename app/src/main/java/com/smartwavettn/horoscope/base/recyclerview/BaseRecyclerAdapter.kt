@@ -14,6 +14,7 @@ abstract class BaseRecyclerAdapter<T : Any, VH : BaseViewHolder<T>>(
 
 ) : Adapter<VH>() {
     var listItem: List<T> = arrayListOf()
+    var positionSelected: Int = 0
 
     @LayoutRes
     abstract fun getItemLayoutResource(@RecyclerType viewType: Int): Int
