@@ -20,6 +20,17 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include
+                    android:id="@+id/profileHeader"
+                    layout="@layout/profile_header" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -33,19 +44,7 @@
                     <com.smartwavettn.horoscope.customview.customcalenday.CalanderDay
                         android:id="@+id/day"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" >
-
-                        <com.google.android.material.appbar.AppBarLayout
-                            android:id="@+id/app_bar_layout"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <include
-                                android:id="@+id/profileHeader"
-                                layout="@layout/profile_header" />
-
-                        </com.google.android.material.appbar.AppBarLayout>
-                    </com.smartwavettn.horoscope.customview.customcalenday.CalanderDay>
+                        android:layout_height="wrap_content" />
 
                     <com.smartwavettn.horoscope.customview.calendar.CaladarView
                         android:id="@+id/calendar_view"
