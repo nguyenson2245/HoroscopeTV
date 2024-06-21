@@ -16,4 +16,5 @@
         <item name="tabSelectedTextColor">#AE28C3</item>
         <item name="tabIndicatorColor">@color/white</item>
     </style>
+
 </resources>

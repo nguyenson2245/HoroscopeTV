@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.org.jetbrains.kotlin.kapt)
+
 }
 
 android {
@@ -81,6 +82,6 @@ dependencies {
     implementation(libs.snap.time.picker)
 
     implementation("com.google.code.gson:gson:2.11.0")
+    implementation(project(":chartview"))
 
-    
 }

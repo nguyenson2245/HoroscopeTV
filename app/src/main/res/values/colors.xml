@@ -10,7 +10,9 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-
+    <color name="primaryColor">#3F51B5</color>
+    <color name="primaryDarkColor">#303F9F</color>
+    <color name="accentColor">#FF4081</color>
     <color name="bg_item_blue">#3396FF</color>
     <color name="bg_item_blue_white">#E6F1FF</color>
     <color name="bg_item_light_blue">#43A6FF</color>
