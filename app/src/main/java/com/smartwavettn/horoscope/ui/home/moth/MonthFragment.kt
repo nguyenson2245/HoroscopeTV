@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.FragmentMonthBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import java.util.Calendar
@@ -20,6 +21,7 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
     override fun getViewBinding(inflater: LayoutInflater): FragmentMonthBinding {
         return FragmentMonthBinding.inflate(inflater)
     }
+
 
     override fun init() {
         adapter = MothAdapter(){
@@ -44,5 +46,19 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
 
     override fun initAction() {
 
+    }
+
+    private fun setDataYear(year: Year) {
+        binding.progressLuck.progress = year.luEl
+        binding.txLuck.text = year.luEl.toString() + "%"
+
+        binding.progressBodyEnergy.progress = year.luMe
+        binding.txEnergy.text = year.luMe.toString() + "%"
+
+        binding.progressAbility.progress = year.lungtaEl
+        binding.tvAbility.text = year.lungtaEl.toString() + "%"
+
+        binding.progressVitality.progress = year.meva
+        binding.txVitality.text = year.meva.toString() + "%"
     }
 }

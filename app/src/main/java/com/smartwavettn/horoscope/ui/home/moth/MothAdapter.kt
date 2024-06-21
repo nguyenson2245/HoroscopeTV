@@ -6,9 +6,10 @@ import androidx.databinding.ViewDataBinding
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.recyclerview.BaseRecyclerAdapter
 import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
+import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.ItemYearBinding
 
-class MothAdapter (val onClick:()-> Unit): BaseRecyclerAdapter<Int, MothAdapter.ViewHolder>() {
+class MothAdapter (private val click: (Int) -> Unit): BaseRecyclerAdapter<Int, MothAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ViewDataBinding) : BaseViewHolder<Int>(binding) {
         override fun bind(itemData: Int?) {
@@ -19,12 +20,13 @@ class MothAdapter (val onClick:()-> Unit): BaseRecyclerAdapter<Int, MothAdapter.
                     if (adapterPosition == getPositionSelected()) View.VISIBLE else View.GONE
             }
             onItemClickListener {
-                notifyItemChanged(getPositionSelected())
-                setPositionSelected(adapterPosition)
-                onClick.invoke()
+                itemData?.let { data ->
+                    notifyItemChanged(getPositionSelected())
+                    setPositionSelected(adapterPosition)
+                    click.invoke(data)
+                }
             }
         }
-
     }
 
     override fun getItemLayoutResource(viewType: Int): Int {

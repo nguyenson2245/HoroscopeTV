@@ -5,8 +5,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import androidx.core.view.get
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.smartwavettn.horoscope.customview.model.DayModel
 import com.smartwavettn.horoscope.databinding.CalendertDayBinding

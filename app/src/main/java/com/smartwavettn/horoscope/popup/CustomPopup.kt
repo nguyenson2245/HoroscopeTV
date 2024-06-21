@@ -3,13 +3,11 @@ package com.smartwavettn.horoscope.popup
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.PopupWindow
 import com.smartwavettn.horoscope.base.utils.dpToPx
 import com.smartwavettn.horoscope.databinding.PopupMenuLayoutBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
-import com.smartwavettn.horoscope.popup.PopupAdapter
 
 object CustomPopup {
     fun showPopupMenu(

@@ -1,9 +1,7 @@
 package com.smartwavettn.horoscope.ui.intro.introTwo
 
 import android.app.AlertDialog
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.view.isVisible

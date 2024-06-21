@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.smartwavettn.horoscope.base.BaseViewModel
 import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.ui.utils.DataJson
-import java.util.Calendar
-import java.util.Observable
 
 class YearViewModel : BaseViewModel() {
 
@@ -14,7 +12,7 @@ class YearViewModel : BaseViewModel() {
     val listYearLiveData: MutableLiveData<ArrayList<Year>> = MutableLiveData()
     val processLuck: ObservableInt = ObservableInt(0)
 
-    fun initDataCreateQr() {
+    fun initDataYear() {
         listYear.clear()
         val yearMap = DataJson.readJsonYear(context)
         for ((year, yearData) in yearMap) {

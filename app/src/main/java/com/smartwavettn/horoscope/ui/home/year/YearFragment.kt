@@ -1,7 +1,12 @@
 package com.smartwavettn.horoscope.ui.home.year
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.FragmentYearBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
@@ -22,24 +27,53 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
     override fun init() {
         context?.let { viewModel.init(it) }
-        adapter = YearAdapter { year ->
+
+        adapter = YearAdapter { _ ->
             setDataYear(adapter.listItem[adapter.getPositionSelected()])
+
+
         }
+        binding.nextLeft.setOnClickListener {
+            val a =
+                (binding.rvView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            if (a > 0) {
+                binding.rvView.scrollToPosition(a - 1)
+            }
+
+        }
+        binding.nextRight.click {
+            val a =
+                (binding.rvView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+            if (a < adapter.listItem.size - 1) {
+                binding.rvView.scrollToPosition(a + 1)
+            }
+
+        }
+
+
         binding.rvView.adapter = adapter
     }
 
     override fun initData() {
-        viewModel.initDataCreateQr()
+        viewModel.initDataYear()
+
         viewModel.listYearLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            if (it.size> 0){
-                val item = it.last {item ->  item.tibYear == Calendar.getInstance().get(Calendar.YEAR) }
-                setDataYear(item)
-            }
+            val position =
+                it.lastIndexOf(it.last { it.tibYear == Calendar.getInstance().get(Calendar.YEAR) })
+            binding.rvView.scrollToPosition(position)
+            adapter.setPositionSelected(position)
+                if (it.size > 0) {
+                    val item =
+                        it.last { item ->
+                            item.tibYear == Calendar.getInstance().get(Calendar.YEAR)
+                        }
+                    setDataYear(item)
+                }
         }
     }
 
-    fun setDataYear(year: Year) {
+    private fun setDataYear(year: Year) {
         binding.progressLuck.progress = year.luEl
         binding.txLuck.text = year.luEl.toString() + "%"
 
