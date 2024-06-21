@@ -134,7 +134,7 @@ class IntroSevenFriendsFragment : BaseFragmentWithBinding<FragmentIntroSevenFrie
         }
 
         binding.no.click {
-            openFragment(IntroEightFragment::class.java, null, true)
+            openFragment(IntroEightFragment::class.java, null, false)
         }
 
         binding.yes.click {

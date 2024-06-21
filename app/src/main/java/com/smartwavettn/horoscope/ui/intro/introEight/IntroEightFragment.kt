@@ -37,7 +37,7 @@ class IntroEightFragment : BaseFragmentWithBinding<FragmentIntroEightBinding>() 
         binding.imgRota.startAnimation(rotateAnimation)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            openFragment(IntroNineCalculatedFragment::class.java,null,true)
+            openFragment(IntroNineCalculatedFragment::class.java,null,false)
         }, 2500)
 
 //        myHandler = Handler(Looper.getMainLooper())

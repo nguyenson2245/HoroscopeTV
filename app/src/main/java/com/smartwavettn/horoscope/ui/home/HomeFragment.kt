@@ -4,7 +4,6 @@ import android.Manifest
 import android.animation.LayoutTransition
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,7 +11,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -220,9 +218,13 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
                     openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
                     }else{
-                        viewModel.getListData().forEach { it.isSelect = false
+                        viewModel.getListData().forEach {
+                            if (it.isSelect) {
+                                it.isSelect = false
                         viewModel.updateProfile(it)}
-                        viewModel.updateProfile(viewModel.getListData().get(position).apply {isSelect = true})
+                            viewModel.updateProfile(
+                                viewModel.getListData().get(position + 1).apply { isSelect = true })
+                        }
                     }
                 }
             }
