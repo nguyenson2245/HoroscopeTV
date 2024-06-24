@@ -1,0 +1,54 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:width="24dp"
+    android:height="24dp">
+    <group>
+        <clip-path
+            android:pathData="M0 0H24V24H0V0Z" />
+        <path
+            android:pathData="M3 10L6 7L9 10L12 7L15 10L18 7L21 10"
+            android:strokeWidth="1.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round">
+            <aapt:attr
+                name="android:strokeColor">
+                <gradient
+                    android:startX="4.35437"
+                    android:startY="9.62864"
+                    android:endX="5.65367"
+                    android:endY="3.51643"
+                    android:tileMode="clamp">
+                    <item
+                        android:color="#F2B7FD"
+                        android:offset="0" />
+                    <item
+                        android:color="#FDF0FF"
+                        android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path
+            android:pathData="M3 17L6 14L9 17L12 14L15 17L18 14L21 17"
+            android:strokeWidth="1.5"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round">
+            <aapt:attr
+                name="android:strokeColor">
+                <gradient
+                    android:startX="4.35437"
+                    android:startY="16.6286"
+                    android:endX="5.65367"
+                    android:endY="10.5164"
+                    android:tileMode="clamp">
+                    <item
+                        android:color="#F2B7FD"
+                        android:offset="0" />
+                    <item
+                        android:color="#FDF0FF"
+                        android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+</vector>
