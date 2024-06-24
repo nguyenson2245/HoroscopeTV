@@ -399,6 +399,21 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             "Pisces"
         )
 
+        val pictureN = arrayOf(
+            R.drawable.c_mk,
+            R.drawable.c_bb,
+            R.drawable.c_sn,
+            R.drawable.c_bd,
+            R.drawable.c_kn,
+            R.drawable.c_st,
+            R.drawable.c_cg,
+            R.drawable.c_sst,
+            R.drawable.c_xn,
+            R.drawable.c_tb,
+            R.drawable.c_ty,
+            R.drawable.c_nm,
+        )
+
         for (i in dates.indices) {
             try {
                 val signDate: Date = sdf.parse(dates[i])
