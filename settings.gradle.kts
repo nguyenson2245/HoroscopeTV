@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Horoscope"
 include(":app")
+include(":chartview")

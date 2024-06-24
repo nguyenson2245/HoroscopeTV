@@ -1,8 +1,10 @@
 package com.smartwavettn.horoscope.ui.home.moth
 
 import android.content.ContentValues.TAG
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.GridLayout.FILL
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.smartwavettn.horoscope.customview.model.Year
@@ -29,6 +31,21 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
         }
         binding.rcView.adapter = adapter
         binding.rcView.layoutManager = GridLayoutManager(context, 5,GridLayoutManager.VERTICAL, false)
+
+        val axis = LinkedHashMap<String, Float>(5   ).apply {
+            put("CA", 2312.895F)
+            put("ID", 871.640F)
+            put("NY", 751.280F)
+            put("NM", 661.293F)
+            put("MN", 661.293F)
+
+        }
+        val chartView = binding.radarChart
+        chartView.setAxis(axis)
+
+        chartView.setAutoSize(true)              // auto balance the chart
+        chartView.setCirclesOnly(true)           // if you want circles instead of polygons
+        chartView.setChartStyle(Paint.Style.FILL)
     }
 
     override fun initData() {

@@ -59,3 +59,4 @@ snap-time-picker = { module = "com.akexorcist:snap-time-picker", version.ref = "
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 org-jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "org-jetbrains-kotlin-android" }
+android-library = { id = "com.android.library", version.ref = "agp" }
