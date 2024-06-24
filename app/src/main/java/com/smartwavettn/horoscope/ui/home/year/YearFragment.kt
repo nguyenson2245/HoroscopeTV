@@ -34,26 +34,19 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
         adapter = YearAdapter { year ->
             setDataYear(adapter.listItem[adapter.getPositionSelected()])
-            binding.tvYear.text = "Year : "+ year.tibYear.toString()
+            binding.tvYear.text = "Year : " + year.tibYear.toString()
             val chineseZodiac = getChineseZodiacForYear(year.tibYear)
-            binding.calendarCa.text = chineseZodiac.toString()
+            binding.calendarCa.text = "Zodiac  : " + chineseZodiac.toString()
+            chartView(
+                year.luEl.toFloat(),
+                year.luMe.toFloat(),
+                year.lungtaEl.toFloat(),
+                year.meva.toFloat(),
+                year.vanMe.toFloat(),
+            )
         }
-        val axis = LinkedHashMap<String, Float>(5   ).apply {
-            put("CA", 2312.895F)
-            put("ID", 871.640F)
-            put("NY", 751.280F)
-            put("NM", 661.293F)
-            put("MN", 661.293F)
-        }
-        val chartView = binding.radarChart
-        chartView.setAxis(axis)
-        chartView.setAutoSize(true)              // auto balance the chart
-        chartView.setCirclesOnly(true)           // if you want circles instead of polygons
-        chartView.setListAxisColor(arrayListOf(
-            Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, context?.resources
-            ?.getColor(
-                R.color.purple_200)))
-        chartView.setChartStyle(Paint.Style.FILL)
+
+
         binding.nextLeft.setOnClickListener {
             val a = adapter.getPositionSelected()
             if (a > 0) {
@@ -79,10 +72,10 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
     override fun initData() {
         viewModel.initDataYear()
-
         viewModel.listYearLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            val position = it.lastIndexOf(it.last { it.tibYear == Calendar.getInstance().get(Calendar.YEAR) })
+            val position =
+                it.lastIndexOf(it.last { it.tibYear == Calendar.getInstance().get(Calendar.YEAR) })
             binding.rvView.scrollToPosition(position)
             adapter.setPositionSelected(position)
             if (it.size > 0) {
@@ -91,39 +84,66 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
                         item.tibYear == Calendar.getInstance().get(Calendar.YEAR)
                     }
                 setDataYear(item)
-                binding.tvYear.text = item.tibYear.toString()
-                binding.calendarCa.text= getChineseZodiacForYear(item.tibYear)
+                binding.tvYear.text = "Year : " + item.tibYear.toString()
+                binding.calendarCa.text = "Zodiac  : " + getChineseZodiacForYear(item.tibYear)
+
+                chartView(
+                    item.luEl.toFloat(),
+                    item.luMe.toFloat(),
+                    item.lungtaEl.toFloat(),
+                    item.meva.toFloat(),
+                    item.vanMe.toFloat(),
+                )
             }
         }
+    }
+
+    private fun chartView(a: Float, b: Float, c: Float, d: Float, e: Float) {
+        val axis = LinkedHashMap<String, Float>(5).apply {
+            put("CA", a)
+            put("ID", b)
+            put("NY", c)
+            put("NM", d)
+            put("MN", e)
+        }
+        val chartView = binding.radarChart
+        chartView.setAxis(axis)
+        chartView.setAutoSize(true)
+        chartView.setCirclesOnly(true)
+        chartView.setListAxisColor(
+            arrayListOf(
+                Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, context?.resources
+                    ?.getColor(
+                        R.color.purple_200
+                    )
+            )
+        )
+        chartView.setChartStyle(Paint.Style.FILL)
     }
 
     private fun setDataYear(year: Year) {
 
         binding.progressLuck.progress = year.luEl
-        binding.txLuck.text = year.luEl.toString() + "%"
-
         binding.progressBodyEnergy.progress = year.luMe
-        binding.txEnergy.text = year.luMe.toString() + "%"
-
         binding.progressAbility.progress = year.lungtaEl
-        binding.tvAbility.text = year.lungtaEl.toString() + "%"
-
         binding.progressVitality.progress = year.meva
-        binding.txVitality.text = year.meva.toString() + "%"
-
         binding.progressEnergy.progress = year.vanMe
+
+        binding.txLuck.text = year.luEl.toString() + "%"
+        binding.txEnergy.text = year.luMe.toString() + "%"
+        binding.tvAbility.text = year.lungtaEl.toString() + "%"
+        binding.txVitality.text = year.meva.toString() + "%"
         binding.tvEnergy.text = year.vanMe.toString() + "%"
+
     }
 
     override fun initAction() {
 
     }
 
+
     private fun getChineseZodiacForYear(year: Int): String {
-        val zodiacCycles = arrayOf(
-            "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake",
-            "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"
-        )
+
         val zodiacAnimals = arrayOf(
             "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake",
             "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"
@@ -131,7 +151,7 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
         val yearInCycle = (year - 1984) % 60
         val zodiacIndex = yearInCycle % 12
-        return "${zodiacAnimals[zodiacIndex]} ${zodiacCycles[zodiacIndex]}"
+        return "${zodiacAnimals[zodiacIndex]}"
     }
 }
 

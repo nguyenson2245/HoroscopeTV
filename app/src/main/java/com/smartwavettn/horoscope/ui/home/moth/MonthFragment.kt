@@ -43,8 +43,8 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
         }
         val chartView = binding.radarChart
         chartView.setAxis(axis)
-        chartView.setAutoSize(true)              // auto balance the chart
-        chartView.setCirclesOnly(true)           // if you want circles instead of polygons
+        chartView.setAutoSize(true)
+        chartView.setCirclesOnly(true)
         chartView.setListAxisColor(arrayListOf(Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, context?.resources
             ?.getColor(
             R.color.purple_200)))
@@ -69,6 +69,7 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
     }
 
     private fun setDataYear(year: Year) {
+
         binding.progressLuck.progress = year.luEl
         binding.txLuck.text = year.luEl.toString() + "%"
 
@@ -80,5 +81,8 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
 
         binding.progressVitality.progress = year.meva
         binding.txVitality.text = year.meva.toString() + "%"
+
+        binding.progressEnergy.progress = year.vanMe
+        binding.tvEnergy.text = year.vanMe.toString() + "%"
     }
 }

@@ -25,18 +25,18 @@
         android:background="@color/black"
         android:padding="30dp"
         app:axisColor="#22737b"
-        app:axisMax="800"
-        app:axisTick="70"
+        app:axisMax="100"
+        app:axisTick="1"
         app:axisWidth="3dp"
         android:layout_gravity="center"
         app:chartColor="#C8FF4081"
         app:chartStyle="stroke"
         app:chartWidth="3dp"
         app:circlesOnly="true"
-        app:endColor="#FDF0FF"
-        app:startColor="#F2B7FD"
+        app:endColor="@color/black"
+        app:startColor="#6C6C6C"
         app:textSize="12sp"
-        tools:ignore="MissingClass" />
+       />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
