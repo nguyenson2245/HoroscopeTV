@@ -30,26 +30,27 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
         adapter = YearAdapter { _ ->
             setDataYear(adapter.listItem[adapter.getPositionSelected()])
-
-
         }
+
         binding.nextLeft.setOnClickListener {
-            val a =
-                (binding.rvView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+            val a = adapter.getPositionSelected()
             if (a > 0) {
+                adapter.setPositionSelected(a-1)
+                adapter.notifyItemChanged(a)
+                setDataYear(adapter.listItem[adapter.getPositionSelected()])
                 binding.rvView.scrollToPosition(a - 1)
             }
-
         }
+
         binding.nextRight.click {
-            val a =
-                (binding.rvView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+            val a = adapter.getPositionSelected()
             if (a < adapter.listItem.size - 1) {
+                adapter.setPositionSelected(a+ 1)
+                adapter.notifyItemChanged(a)
+                setDataYear(adapter.listItem[adapter.getPositionSelected()])
                 binding.rvView.scrollToPosition(a + 1)
             }
-
         }
-
 
         binding.rvView.adapter = adapter
     }
@@ -59,17 +60,16 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
         viewModel.listYearLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
-            val position =
-                it.lastIndexOf(it.last { it.tibYear == Calendar.getInstance().get(Calendar.YEAR) })
+            val position = it.lastIndexOf(it.last { it.tibYear == Calendar.getInstance().get(Calendar.YEAR) })
             binding.rvView.scrollToPosition(position)
             adapter.setPositionSelected(position)
-                if (it.size > 0) {
-                    val item =
-                        it.last { item ->
-                            item.tibYear == Calendar.getInstance().get(Calendar.YEAR)
-                        }
-                    setDataYear(item)
-                }
+            if (it.size > 0) {
+                val item =
+                    it.last { item ->
+                        item.tibYear == Calendar.getInstance().get(Calendar.YEAR)
+                    }
+                setDataYear(item)
+            }
         }
     }
 
@@ -85,6 +85,9 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
         binding.progressVitality.progress = year.meva
         binding.txVitality.text = year.meva.toString() + "%"
+
+        binding.progressEnergy.progress = year.vanMe
+        binding.tvEnergy.text = year.vanMe.toString() + "%"
     }
 
     override fun initAction() {
@@ -93,3 +96,4 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
 
 }
+

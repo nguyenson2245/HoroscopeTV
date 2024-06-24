@@ -87,6 +87,7 @@
             android:textSize="@dimen/_14sp" />
     </LinearLayout>
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -94,16 +95,18 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_luck"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tx_luck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"
@@ -141,16 +144,18 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_body_energy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tx_energy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"
@@ -188,16 +193,18 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_ability"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tv_ability"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"
@@ -208,7 +215,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:layout_width="match_parent"
@@ -236,16 +242,18 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_vitality"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tx_Vitality"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"
@@ -284,16 +292,18 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_energy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
             app:indicatorColor="@color/blue"
-            android:layout_marginEnd="@dimen/_16dp"
             app:trackColor="#D5D5D5" />
 
         <TextView
+            android:id="@+id/tv_energy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="40%"

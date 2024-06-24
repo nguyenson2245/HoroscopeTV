@@ -49,10 +49,10 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_gravity="center"
             android:id="@+id/rv_view"
             android:layout_width="wrap_content"
             android:layout_height="85dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="@dimen/_6sdp"
             android:layout_marginRight="@dimen/_6sdp"
             android:layout_weight="1"
@@ -98,8 +98,8 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:layout_width="0dp"
             android:id="@+id/progress_luck"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
@@ -147,8 +147,8 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:layout_width="0dp"
             android:id="@+id/progress_body_energy"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
@@ -196,8 +196,8 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:layout_width="0dp"
             android:id="@+id/progress_ability"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
@@ -244,12 +244,12 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_vitality"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
-            android:id="@+id/progress_vitality"
             android:progress="40"
             app:indicatorColor="@color/blue"
             app:trackColor="#D5D5D5" />
@@ -294,13 +294,13 @@
 
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_energy"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_16dp"
             android:layout_weight="1"
             android:progress="40"
-            android:id="@+id/progress_energy"
             app:indicatorColor="@color/blue"
             app:trackColor="#D5D5D5" />
 
