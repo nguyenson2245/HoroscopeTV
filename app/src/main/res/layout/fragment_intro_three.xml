@@ -71,7 +71,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtName"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:drawableLeft="@drawable/avatar_cung"
                 android:text="14/05/2001"
                 android:textColor="@color/black"
                 android:textStyle="bold"

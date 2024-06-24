@@ -2,14 +2,13 @@ package com.smartwavettn.horoscope.ui.intro.introThreeInformation
 
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
-import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.databinding.FragmentIntroThreeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
-import com.smartwavettn.horoscope.ui.home.HomeViewModel
 import com.smartwavettn.horoscope.ui.intro.introFourTopic.IntroFourTopicFragment
+import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import java.text.SimpleDateFormat
 
 
 class IntroThreeFragment : BaseFragmentWithBinding<FragmentIntroThreeBinding>() {
@@ -35,6 +34,7 @@ class IntroThreeFragment : BaseFragmentWithBinding<FragmentIntroThreeBinding>() 
                     txtDate.text = personal.date
                     txt.text= personal.date
                 }
+
             }
         }
     }
