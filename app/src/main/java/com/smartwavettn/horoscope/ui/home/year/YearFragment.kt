@@ -1,11 +1,14 @@
 package com.smartwavettn.horoscope.ui.home.year
 
 import android.content.ContentValues.TAG
+import android.graphics.Color
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.FragmentYearBinding
@@ -31,7 +34,22 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
         adapter = YearAdapter { _ ->
             setDataYear(adapter.listItem[adapter.getPositionSelected()])
         }
-
+        val axis = LinkedHashMap<String, Float>(5   ).apply {
+            put("CA", 2312.895F)
+            put("ID", 871.640F)
+            put("NY", 751.280F)
+            put("NM", 661.293F)
+            put("MN", 661.293F)
+        }
+        val chartView = binding.radarChart
+        chartView.setAxis(axis)
+        chartView.setAutoSize(true)              // auto balance the chart
+        chartView.setCirclesOnly(true)           // if you want circles instead of polygons
+        chartView.setListAxisColor(arrayListOf(
+            Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, context?.resources
+            ?.getColor(
+                R.color.purple_200)))
+        chartView.setChartStyle(Paint.Style.FILL)
         binding.nextLeft.setOnClickListener {
             val a = adapter.getPositionSelected()
             if (a > 0) {
