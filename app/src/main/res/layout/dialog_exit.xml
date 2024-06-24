@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_40dp"
@@ -38,6 +39,7 @@
             android:layout_height="wrap_content" />
 
         <Button
+            android:textStyle="bold"
             android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

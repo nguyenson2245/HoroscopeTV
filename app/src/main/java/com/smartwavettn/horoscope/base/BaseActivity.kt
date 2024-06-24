@@ -74,6 +74,8 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
     private fun showDialogExit(yes:()-> Unit) {
         val dialog = Dialog(this)
         val view = DialogExitBinding.inflate(LayoutInflater.from(this))
+        dialog.window?.setBackgroundDrawableResource(R.drawable.ic_bg_dialog)
+
         dialog.setContentView(view.root)
         view.btnConfirm.click {
             dialog.dismiss()
