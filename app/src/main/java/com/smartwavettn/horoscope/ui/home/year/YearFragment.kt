@@ -11,6 +11,7 @@ import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.FragmentYearBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import java.util.Calendar
+import kotlin.math.log
 
 class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
@@ -28,14 +29,17 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
     override fun init() {
         context?.let { viewModel.init(it) }
 
-        adapter = YearAdapter { _ ->
+        adapter = YearAdapter { year ->
             setDataYear(adapter.listItem[adapter.getPositionSelected()])
+            binding.tvYear.text = "Year : "+ year.tibYear.toString()
+            val chineseZodiac = getChineseZodiacForYear(year.tibYear)
+            binding.calendarCa.text = chineseZodiac.toString()
         }
 
         binding.nextLeft.setOnClickListener {
             val a = adapter.getPositionSelected()
             if (a > 0) {
-                adapter.setPositionSelected(a-1)
+                adapter.setPositionSelected(a - 1)
                 adapter.notifyItemChanged(a)
                 setDataYear(adapter.listItem[adapter.getPositionSelected()])
                 binding.rvView.scrollToPosition(a - 1)
@@ -45,7 +49,7 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
         binding.nextRight.click {
             val a = adapter.getPositionSelected()
             if (a < adapter.listItem.size - 1) {
-                adapter.setPositionSelected(a+ 1)
+                adapter.setPositionSelected(a + 1)
                 adapter.notifyItemChanged(a)
                 setDataYear(adapter.listItem[adapter.getPositionSelected()])
                 binding.rvView.scrollToPosition(a + 1)
@@ -69,11 +73,14 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
                         item.tibYear == Calendar.getInstance().get(Calendar.YEAR)
                     }
                 setDataYear(item)
+                binding.tvYear.text = item.tibYear.toString()
+                binding.calendarCa.text= getChineseZodiacForYear(item.tibYear)
             }
         }
     }
 
     private fun setDataYear(year: Year) {
+
         binding.progressLuck.progress = year.luEl
         binding.txLuck.text = year.luEl.toString() + "%"
 
@@ -94,6 +101,19 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
 
     }
 
+    private fun getChineseZodiacForYear(year: Int): String {
+        val zodiacCycles = arrayOf(
+            "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake",
+            "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"
+        )
+        val zodiacAnimals = arrayOf(
+            "Rat", "Ox", "Tiger", "Rabbit", "Dragon", "Snake",
+            "Horse", "Goat", "Monkey", "Rooster", "Dog", "Pig"
+        )
 
+        val yearInCycle = (year - 1984) % 60
+        val zodiacIndex = yearInCycle % 12
+        return "${zodiacAnimals[zodiacIndex]} ${zodiacCycles[zodiacIndex]}"
+    }
 }
 

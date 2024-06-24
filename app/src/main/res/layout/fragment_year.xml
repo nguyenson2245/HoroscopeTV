@@ -9,31 +9,26 @@
     android:paddingEnd="@dimen/_16dp">
 
     <TextView
+        android:id="@+id/tvYear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8dp"
         android:gravity="center"
-        android:text="Tibetan month: 4"
+        android:text=""
         android:textColor="@color/blue"
         android:textSize="@dimen/_16sp"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/calendar_ca"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_8dp"
         android:gravity="center"
-        android:text="Iron - Sheep"
+        android:text=""
+        android:layout_marginBottom="@dimen/_10sdp"
         android:textColor="@color/blue"
         android:textSize="@dimen/_16sp" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8dp"
-        android:gravity="center"
-        android:text="May 9, 2024 - June 6, 2024"
-        android:textColor="@color/blue"
-        android:textSize="@dimen/_14sp" />
 
     <LinearLayout
         android:layout_width="match_parent"

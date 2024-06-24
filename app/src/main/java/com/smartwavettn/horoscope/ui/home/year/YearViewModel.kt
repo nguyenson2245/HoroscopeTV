@@ -12,6 +12,9 @@ class YearViewModel : BaseViewModel() {
     val listYearLiveData: MutableLiveData<ArrayList<Year>> = MutableLiveData()
     val processLuck: ObservableInt = ObservableInt(0)
 
+    private var currentTibYear: Int = 0
+
+
     fun initDataYear() {
         listYear.clear()
         val yearMap = DataJson.readJsonYear(context)
@@ -31,6 +34,8 @@ class YearViewModel : BaseViewModel() {
         listYear = listYear.reversed().toMutableList() as ArrayList<Year>
 
         listYearLiveData.postValue(listYear)
+        currentTibYear = listYear.last().tibYear
+
     }
 
 
