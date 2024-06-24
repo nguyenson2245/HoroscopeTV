@@ -1,12 +1,14 @@
 package com.smartwavettn.horoscope.ui.home.moth
 
 import android.content.ContentValues.TAG
+import android.graphics.Color
 import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.widget.GridLayout.FILL
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.FragmentMonthBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
@@ -43,6 +45,9 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
         chartView.setAxis(axis)
         chartView.setAutoSize(true)              // auto balance the chart
         chartView.setCirclesOnly(true)           // if you want circles instead of polygons
+        chartView.setListAxisColor(arrayListOf(Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, context?.resources
+            ?.getColor(
+            R.color.purple_200)))
         chartView.setChartStyle(Paint.Style.FILL)
     }
 

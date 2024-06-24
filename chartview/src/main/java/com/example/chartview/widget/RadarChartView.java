@@ -1,21 +1,5 @@
 package com.example.chartview.widget;
 
-import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Rect;
-import android.text.TextPaint;
-import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.view.View;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 import static android.graphics.Color.BLACK;
 import static android.graphics.Color.parseColor;
 import static android.graphics.Paint.Style.STROKE;
@@ -32,7 +16,25 @@ import static java.lang.StrictMath.cos;
 import static java.lang.StrictMath.max;
 import static java.lang.StrictMath.min;
 
+import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.text.TextPaint;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.View;
+
 import com.example.chartview.R;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 /**
@@ -57,6 +59,8 @@ public class RadarChartView extends View {
   private boolean     smoothGradient;
 
   private final LinkedHashMap<String, Float> axis;
+
+  private ArrayList<Integer> lisAxisColor;
   private final Rect                         rect;
   private final Path                         path;
   private final TextPaint                    textPaint;
@@ -84,6 +88,7 @@ public class RadarChartView extends View {
     path = new Path();
     textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
     paint = createPaint(BLACK);
+    lisAxisColor = new ArrayList();
 
     final TypedArray colors = context.obtainStyledAttributes(attrs, new int[] {
         R.attr.colorAccent, R.attr.colorPrimary, R.attr.colorPrimaryDark
@@ -143,6 +148,11 @@ public class RadarChartView extends View {
     invalidate();
   }
 
+  public final void setListAxisColor(ArrayList<Integer> lisAxisColor) {
+    this.lisAxisColor = lisAxisColor;
+    invalidate();
+  }
+
   public final float getAxisMax() {
     return axisMax;
   }
@@ -163,6 +173,11 @@ public class RadarChartView extends View {
     buildRings();
     invalidate();
   }
+
+  public ArrayList<Integer> getLisAxisColor() {
+    return lisAxisColor;
+  }
+
 
   public final float getAxisWidth() {
     return axisWidth;
@@ -333,9 +348,12 @@ public class RadarChartView extends View {
   private void drawAxis(Canvas canvas) {
     final Iterator<String> axisNames = axis.keySet()
         .iterator();
-    mutatePaint(createPaint(Color.YELLOW), axisColor, axisWidth, STROKE);
+
     final int length = vertices.length;
     for (int i = 0; i < length; i += 2) {
+      if (lisAxisColor.size() > 0)
+        mutatePaint(paint, lisAxisColor.get(i/2), axisWidth, STROKE);
+      else mutatePaint(paint, axisColor, axisWidth, STROKE);
       path.reset();
       path.moveTo(centerX, centerY);
       final float pointX = vertices[i];
@@ -448,4 +466,5 @@ public class RadarChartView extends View {
           '}';
     }
   }
+
 }
