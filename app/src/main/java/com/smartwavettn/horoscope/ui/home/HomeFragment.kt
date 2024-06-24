@@ -42,7 +42,13 @@ import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+
+
 
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
@@ -112,8 +118,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                         txtName.text = personal.name
                         txtDate.text = personal.date
                     }
+                    menu.drawerHeaderProifile.txZoadic.text = "Zodiac :"+ getZodiacSign((SimpleDateFormat("dd/MM/yyyy").parse(personal.date)))
                 }
-
                 if (personal.icon != 0) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
@@ -362,4 +368,48 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             )
         alarmManager?.cancel(pendingIntent)
     }
+    private fun getZodiacSign(date: Date): String {
+        val sdf: SimpleDateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
+        val dates = arrayOf(
+            "03/21",
+            "04/20",
+            "05/21",
+            "06/21",
+            "07/23",
+            "08/23",
+            "09/23",
+            "10/23",
+            "11/22",
+            "12/22",
+            "01/20",
+            "02/19"
+        )
+        val signs = arrayOf(
+            "Aries",
+            "Taurus",
+            "Gemini",
+            "Cancer",
+            "Leo",
+            "Virgo",
+            "Libra",
+            "Scorpio",
+            "Sagittarius",
+            "Capricorn",
+            "Aquarius",
+            "Pisces"
+        )
+
+        for (i in dates.indices) {
+            try {
+                val signDate: Date = sdf.parse(dates[i])
+                if (date.compareTo(signDate) >= 0) {
+                    return signs[i]
+                }
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+        }
+        return signs[0]
+    }
+
 }

@@ -38,11 +38,9 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
             put("NY", 751.280F)
             put("NM", 661.293F)
             put("MN", 661.293F)
-
         }
         val chartView = binding.radarChart
         chartView.setAxis(axis)
-
         chartView.setAutoSize(true)              // auto balance the chart
         chartView.setCirclesOnly(true)           // if you want circles instead of polygons
         chartView.setChartStyle(Paint.Style.FILL)
