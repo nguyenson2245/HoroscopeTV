@@ -3,6 +3,7 @@ package com.example.chartview.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
@@ -332,7 +333,7 @@ public class RadarChartView extends View {
   private void drawAxis(Canvas canvas) {
     final Iterator<String> axisNames = axis.keySet()
         .iterator();
-    mutatePaint(paint, axisColor, axisWidth, STROKE);
+    mutatePaint(createPaint(Color.YELLOW), axisColor, axisWidth, STROKE);
     final int length = vertices.length;
     for (int i = 0; i < length; i += 2) {
       path.reset();
@@ -373,8 +374,8 @@ public class RadarChartView extends View {
       path.close();
 
       //noinspection NumericCastThatLosesPrecision
-      mutatePaint(paint, ring.color, (float) (ring.width * cos(PI / count)) + 2, STROKE);
-      canvas.drawPath(path, paint);
+      mutatePaint(createPaint(Color.YELLOW), ring.color, (float) (ring.width * cos(PI / count)) + 2, STROKE);
+      canvas.drawPath(path,createPaint(Color.YELLOW) );
     }
   }
 
