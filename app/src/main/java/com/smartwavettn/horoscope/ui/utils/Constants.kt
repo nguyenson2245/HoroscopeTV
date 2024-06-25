@@ -3,6 +3,7 @@ package com.smartwavettn.horoscope.ui.utils
 import com.smartwavettn.horoscope.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -67,21 +68,35 @@ object Constants {
         "01/20",
         "02/19"
     )
-     fun getPositionZodiac(date: Date): Int {
-        val sdf: SimpleDateFormat = SimpleDateFormat("MM/dd", Locale.getDefault())
 
+    fun getPositionZodiac(date: Date): Int {
+        val sdf = SimpleDateFormat("MM/dd", Locale.getDefault())
+        val calendar = Calendar.getInstance()
+        calendar.time = date
 
+        val inputMonth = calendar.get(Calendar.MONTH) + 1
+        val inputDay = calendar.get(Calendar.DAY_OF_MONTH)
 
         for (i in dates.indices) {
             try {
-                val signDate: Date = sdf.parse(dates[i])
-                if (date.compareTo(signDate) >= 0) {
-                    return i
+                val signCalendar = Calendar.getInstance()
+                signCalendar.time = sdf.parse(dates[i])
+
+                val signMonth = signCalendar.get(Calendar.MONTH) + 1
+                val signDay = signCalendar.get(Calendar.DAY_OF_MONTH)
+
+                if ((inputMonth > signMonth) || (inputMonth == signMonth && inputDay >= signDay)) {
+                    if (i == dates.size - 1 && (inputMonth == 1 || inputMonth == 2)) {
+                        return i
+                    }
+                } else {
+                    return if (i == 0) dates.size - 1 else i - 1
                 }
             } catch (e: ParseException) {
                 e.printStackTrace()
             }
         }
-        return 0
+
+        return dates.size - 1
     }
 }
