@@ -54,6 +54,14 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
                 adapter.notifyItemChanged(a)
                 setDataYear(adapter.listItem[adapter.getPositionSelected()])
                 binding.rvView.scrollToPosition(a - 1)
+                val year = adapter.listItem.get(adapter.getPositionSelected())
+                chartView(
+                    year.luEl.toFloat(),
+                    year.luMe.toFloat(),
+                    year.lungtaEl.toFloat(),
+                    year.meva.toFloat(),
+                    year.vanMe.toFloat(),
+                )
             }
         }
 
@@ -64,6 +72,14 @@ class YearFragment : BaseFragmentWithBinding<FragmentYearBinding>() {
                 adapter.notifyItemChanged(a)
                 setDataYear(adapter.listItem[adapter.getPositionSelected()])
                 binding.rvView.scrollToPosition(a + 1)
+                val year = adapter.listItem.get(adapter.getPositionSelected())
+                chartView(
+                    year.luEl.toFloat(),
+                    year.luMe.toFloat(),
+                    year.lungtaEl.toFloat(),
+                    year.meva.toFloat(),
+                    year.vanMe.toFloat(),
+                )
             }
         }
 

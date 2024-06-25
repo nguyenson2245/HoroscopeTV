@@ -13,6 +13,7 @@ import com.smartwavettn.horoscope.customview.model.Year
 import com.smartwavettn.horoscope.databinding.FragmentMonthBinding
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import java.util.Calendar
+import kotlin.random.Random
 
 class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
 
@@ -29,26 +30,12 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
 
     override fun init() {
         adapter = MothAdapter(){
-            Log.d(TAG, "init:"+ adapter.getPositionSelected())
+            randomizeChartValues()
         }
         binding.rcView.adapter = adapter
         binding.rcView.layoutManager = GridLayoutManager(context, 5,GridLayoutManager.VERTICAL, false)
 
-        val axis = LinkedHashMap<String, Float>(5   ).apply {
-            put("CA", 12.895F)
-            put("ID", 61.640F)
-            put("NY", 37.280F)
-            put("NM", 60.293F)
-            put("MN", 31.293F)
-        }
-        val chartView = binding.radarChart
-        chartView.setAxis(axis)
-        chartView.setAutoSize(true)
-        chartView.setCirclesOnly(true)
-        chartView.setListAxisColor(arrayListOf(Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, context?.resources
-            ?.getColor(
-            R.color.purple_200)))
-        chartView.setChartStyle(Paint.Style.FILL)
+        randomizeChartValues()
     }
 
     override fun initData() {
@@ -68,8 +55,43 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
 
     }
 
-    private fun setDataYear(year: Year) {
+    private fun chartView(values: FloatArray) {
+        val axis = LinkedHashMap<String, Float>(5).apply {
+            put("CA", values[0])
+            put("ID", values[1])
+            put("NY", values[2])
+            put("NM", values[3])
+            put("MN", values[4])
+        }
+        val chartView = binding.radarChart
+        chartView.setAxis(axis)
+        chartView.setAutoSize(true)
+        chartView.setCirclesOnly(true)
+        chartView.setListAxisColor(
+            arrayListOf(
+                Color.YELLOW, Color.GREEN, Color.RED, Color.BLUE, context?.resources
+                    ?.getColor(R.color.purple_200)
+            )
+        )
+        chartView.setChartStyle(Paint.Style.FILL)
+        setDataYear(Year().apply {
+            luEl = values[0].toInt()
+            luMe = values[1].toInt()
+            lungtaEl = values[2].toInt()
+            meva = values[3].toInt()
+            vanMe = values[4].toInt()
+        })
+    }
 
+    private fun randomizeChartValues() {
+        val values = FloatArray(12) {
+            Random.nextFloat() * 100
+        }
+        chartView(values)
+
+    }
+
+    private fun setDataYear(year: Year) {
         binding.progressLuck.progress = year.luEl
         binding.txLuck.text = year.luEl.toString() + "%"
 

@@ -47,7 +47,6 @@ import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 
-
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
     View.OnClickListener {
 
@@ -216,14 +215,14 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                     list, view
                 ) {position, isAdd ->
                     if (isAdd){
-                    val bundle = Bundle()
-                    bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
-                    openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
+                        val bundle = Bundle()
+                        bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
+                        openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
                     }else{
                         viewModel.getListData().forEach {
                             if (it.isSelect) {
                                 it.isSelect = false
-                        viewModel.updateProfile(it)}
+                                viewModel.updateProfile(it)}
                             viewModel.updateProfile(
                                 viewModel.getListData().get(position + 1).apply { isSelect = true })
                         }
@@ -309,7 +308,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             R.id.layoutLanguage -> setOnCLickLanguages()
         }
     }
-    
+
     fun setAlarmManager(requestCode: Int,) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)

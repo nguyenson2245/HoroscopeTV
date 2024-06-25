@@ -62,8 +62,8 @@ class HomeViewModel : BaseViewModel() {
                 currentTime.set(Calendar.HOUR_OF_DAY, selectedHour)
                 currentTime.set(Calendar.MINUTE, selectedMinute)
                 val preferences : Preferences = Preferences.getInstance(context)
-                 preferences.setInt(Constants.MINUTE, selectedMinute)
-                 preferences.setInt(Constants.HOUR, selectedHour)
+                preferences.setInt(Constants.MINUTE, selectedMinute)
+                preferences.setInt(Constants.HOUR, selectedHour)
                 setText.invoke("$selectedHour:$selectedMinute")
             },
             hour, minute, true
