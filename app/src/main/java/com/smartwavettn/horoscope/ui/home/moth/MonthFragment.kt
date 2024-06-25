@@ -35,11 +35,11 @@ class MothFragment : BaseFragmentWithBinding<FragmentMonthBinding>() {
         binding.rcView.layoutManager = GridLayoutManager(context, 5,GridLayoutManager.VERTICAL, false)
 
         val axis = LinkedHashMap<String, Float>(5   ).apply {
-            put("CA", 2312.895F)
-            put("ID", 871.640F)
-            put("NY", 751.280F)
-            put("NM", 661.293F)
-            put("MN", 661.293F)
+            put("CA", 12.895F)
+            put("ID", 61.640F)
+            put("NY", 37.280F)
+            put("NM", 60.293F)
+            put("MN", 31.293F)
         }
         val chartView = binding.radarChart
         chartView.setAxis(axis)
