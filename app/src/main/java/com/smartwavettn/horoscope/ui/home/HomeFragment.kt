@@ -118,8 +118,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                         txtName.text = personal.name
                         txtDate.text = personal.date
                     }
-                    menu.drawerHeaderProifile.txZoadic.text = "Zodiac :"+ Constants.signs.get(Constants.getPositionZodiac((SimpleDateFormat("dd/MM/yyyy").parse(personal.date))))
-                }
+                    menu.drawerHeaderProifile.txZoadic.text = "Zodiac :"+ Constants.signs.get(Constants.getPositionZodiac((SimpleDateFormat("dd/MM/yyyy").parse(personal.date))))                }
                 if (personal.icon != 0) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
