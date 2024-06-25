@@ -48,7 +48,7 @@ class HomeViewModel : BaseViewModel() {
         val preferences : Preferences = Preferences.getInstance(context)
         val minutes = preferences.getInt(Constants.MINUTE)
         val hour =  preferences.getInt(Constants.HOUR)
-        currentTime.set(Calendar.HOUR,hour?: 0)
+        currentTime.set(Calendar.HOUR_OF_DAY,hour?: 0)
         currentTime.set(Calendar.MINUTE, preferences.getInt(Constants.MINUTE)?:0)
         setText.invoke(hour.toString() +":" + minutes.toString())
     }
@@ -59,14 +59,14 @@ class HomeViewModel : BaseViewModel() {
         val timePickerDialog = TimePickerDialog(
             context,
             { _, selectedHour, selectedMinute ->
-                currentTime.set(Calendar.HOUR, selectedHour)
+                currentTime.set(Calendar.HOUR_OF_DAY, selectedHour)
                 currentTime.set(Calendar.MINUTE, selectedMinute)
                 val preferences : Preferences = Preferences.getInstance(context)
                  preferences.setInt(Constants.MINUTE, selectedMinute)
                  preferences.setInt(Constants.HOUR, selectedHour)
                 setText.invoke("$selectedHour:$selectedMinute")
             },
-            hour, minute, false
+            hour, minute, true
         )
 
         timePickerDialog.show()

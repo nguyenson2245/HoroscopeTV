@@ -4,6 +4,7 @@ import android.Manifest
 import android.animation.LayoutTransition
 import android.app.AlarmManager
 import android.app.PendingIntent
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -11,6 +12,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -42,13 +44,8 @@ import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-
-
 
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
@@ -178,17 +175,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.NOTICES, isChecked)
-            if (isChecked) setAlarmManager(200, "PushDay") else cancelAlarm(200)
+            if (isChecked) setAlarmManager(200) else cancelAlarm(200)
         }
 
         binding.menu.noAniceDayNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.DAY_NICE, isChecked)
-            if (isChecked) setAlarmManager(300, "RangeDay") else cancelAlarm(300)
+            if (isChecked) setAlarmManager(300) else cancelAlarm(300)
         }
 
         binding.menu.abedDayNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.DAY_BAD, isChecked)
-            if (isChecked) setAlarmManager(400, "RangeDay") else cancelAlarm(400)
+            if (isChecked) setAlarmManager(400) else cancelAlarm(400)
 
         }
     }
@@ -313,7 +310,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
     
-    fun setAlarmManager(requestCode: Int, action: String) {
+    fun setAlarmManager(requestCode: Int,) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
         val pendingIntent =
@@ -322,13 +319,9 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
             )
-        intent.action = action
         val calendar = Calendar.getInstance()
-
-        calendar.set(Calendar.HOUR, preferences.getInt(Constants.HOUR) ?: 0)
+        calendar.set(Calendar.HOUR_OF_DAY, preferences.getInt(Constants.HOUR) ?: 0)
         calendar.set(Calendar.MINUTE, preferences.getInt(Constants.MINUTE) ?: 0)
-        calendar.set(Calendar.AM_PM,preferences.getInt(Constants.AM_PM)?:0)
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (alarmManager?.canScheduleExactAlarms() == false) {
                 Intent().also { intent ->
@@ -347,7 +340,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             alarmManager?.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.timeInMillis,
-                20,
+                AlarmManager.INTERVAL_DAY,
                 pendingIntent
             )
         }
