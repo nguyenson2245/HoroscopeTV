@@ -35,6 +35,7 @@ class ItemViewCalendarAdapter(context: Context, val onClickItem: (Int) -> Unit) 
                     if (itemData?.day.isNullOrEmpty()){
                         binding.viewLayout.gone()
                         binding.underline.gone()
+                        binding.root.background = null
                     }else{
                         binding.root.background = if (itemData?.isSelected == true) itemView.context.getDrawable(R.drawable.bg_select_day) else null
                         binding.viewLayout.visible()
