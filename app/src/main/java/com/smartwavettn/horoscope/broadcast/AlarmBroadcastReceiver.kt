@@ -19,6 +19,7 @@ import java.util.Calendar
 class AlarmBroadcastReceiver : BroadcastReceiver() {
     val CHANNEL_ID = "Noty"
 
+
     override fun onReceive(context: Context, intent: Intent?) {
         val preferences = Preferences.getInstance(context)
         val notificationManager: NotificationManager =
@@ -65,21 +66,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
             builder.setContentText("Today is : " + lunarCoreHelper)
             notificationManager.notify(getNotificationManager(), builder.build())
         }
-        val rangeDay = LunarCoreHelper.rateDay(
-            LunarCoreHelper.getChiDayLunar(
-                calendar.get(Calendar.DAY_OF_MONTH),
-                calendar.get(Calendar.MONTH) + 1,
-                calendar.get(Calendar.YEAR)
-            ), calendar.get(Calendar.MONTH) + 1
-        )
-        if (preferences.getBoolean(Constants.DAY_NICE) == true && rangeDay == "Good") {
-            builder.setContentText("Today is a good day")
-            notificationManager.notify(getNotificationManager(), builder.build())
-        }
-        if (preferences.getBoolean(Constants.DAY_BAD) == true && rangeDay == "Bad") {
-            builder.setContentText("Today is a sad day")
-            notificationManager.notify(getNotificationManager(), builder.build())
-        }
+
     }
 
 
