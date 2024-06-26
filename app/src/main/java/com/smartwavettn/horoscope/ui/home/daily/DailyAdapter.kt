@@ -26,14 +26,21 @@ class DailyAdapter( private val click: (Daily, Int) -> Unit) : BaseRecyclerAdapt
                 binding.content.text = itemData?.content
                 Glide.with(itemView).load(itemData?.icon).into(binding.image)
 
-                val goldStarList = listOf(R.drawable.sv, R.drawable.sv, R.drawable.sv, R.drawable.sv, R.drawable.sv)
-                val whiteStarList = listOf(R.drawable.st, R.drawable.st, R.drawable.st, R.drawable.st, R.drawable.st)
+                val totalStars = 5
+                val goldStars = Random.Default.nextInt(totalStars + 1)
+                val whiteStars = totalStars - goldStars
 
-                binding.rate.setImageResource(if  (Random.nextInt(2) == 0) goldStarList[0] else whiteStarList[0])
-                binding.rate1.setImageResource(if (Random.nextInt(2) == 0) goldStarList[1] else whiteStarList[1])
-                binding.rate2.setImageResource(if (Random.nextInt(2) == 0) goldStarList[2] else whiteStarList[2])
-                binding.rate3.setImageResource(if (Random.nextInt(2) == 0) goldStarList[3] else whiteStarList[3])
-                binding.rate4.setImageResource(if (Random.nextInt(2) == 0) goldStarList[4] else whiteStarList[4])
+                val starList = mutableListOf<Int>()
+
+                repeat(goldStars) { starList.add(R.drawable.sv) }
+
+                repeat(whiteStars) { starList.add(R.drawable.st) }
+
+                binding.rate.setImageResource(starList[0])
+                binding.rate1.setImageResource(starList[1])
+                binding.rate2.setImageResource(starList[2])
+                binding.rate3.setImageResource(starList[3])
+                binding.rate4.setImageResource(starList[4])
             }
 
             onItemClickListener {position
