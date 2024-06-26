@@ -4,7 +4,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
 import com.smartwavettn.horoscope.base.BaseActivity
 import com.smartwavettn.horoscope.base.local.Preferences
 import com.smartwavettn.horoscope.databinding.ActivityMainBinding
@@ -14,10 +13,7 @@ import com.smartwavettn.horoscope.ui.intro.introOne.IntroOneFragment
 import com.smartwavettn.horoscope.ui.splash.SplashFragment
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 
-
 class MainActivity : BaseActivity<ActivityMainBinding>() {
-
-
 
     private lateinit var preferences: Preferences
     private val viewModel: HomeViewModel by viewModels()
