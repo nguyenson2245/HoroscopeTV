@@ -4,7 +4,6 @@ import android.Manifest
 import android.animation.LayoutTransition
 import android.app.AlarmManager
 import android.app.PendingIntent
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,7 +11,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -28,6 +26,7 @@ import com.smartwavettn.horoscope.base.utils.checkPermission
 import com.smartwavettn.horoscope.base.utils.click
 import com.smartwavettn.horoscope.base.utils.shareApp
 import com.smartwavettn.horoscope.broadcast.AlarmBroadcastReceiver
+import com.smartwavettn.horoscope.broadcast.ChangerBroadcast
 import com.smartwavettn.horoscope.databinding.FragmentHomeBinding
 import com.smartwavettn.horoscope.model.PersonalInformation
 import com.smartwavettn.horoscope.popup.CustomPopup
@@ -175,17 +174,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.NOTICES, isChecked)
-            if (isChecked) setAlarmManager(200) else cancelAlarm(200)
+            if (isChecked) setAlarmManager(200, AlarmBroadcastReceiver::class.java) else cancelAlarm(200, AlarmBroadcastReceiver::class.java)
         }
 
         binding.menu.noAniceDayNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.DAY_NICE, isChecked)
-            if (isChecked) setAlarmManager(300) else cancelAlarm(300)
+            if (isChecked) setAlarmManager(300, ChangerBroadcast::class.java) else cancelAlarm(300, ChangerBroadcast::class.java)
         }
 
         binding.menu.abedDayNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.DAY_BAD, isChecked)
-            if (isChecked) setAlarmManager(400) else cancelAlarm(400)
+            if (isChecked) setAlarmManager(400, ChangerBroadcast::class.java) else cancelAlarm(400, ChangerBroadcast::class.java)
 
         }
     }
@@ -309,10 +308,10 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             R.id.layoutLanguage -> setOnCLickLanguages()
         }
     }
-    
-    fun setAlarmManager(requestCode: Int,) {
+
+    fun setAlarmManager(requestCode: Int, clazz: Class<*>) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
+        val intent = Intent(requireActivity(), clazz)
         val pendingIntent =
             PendingIntent.getBroadcast(context,
                 requestCode,
@@ -346,10 +345,10 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
-    private fun cancelAlarm(requestCode: Int) {
+    private fun cancelAlarm(requestCode: Int , clazz: Class<*>) {
         val alarmManager =
             context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        val intent = Intent(requireActivity(), AlarmBroadcastReceiver::class.java)
+        val intent = Intent(requireActivity(), clazz)
 
         val pendingIntent =
             PendingIntent.getBroadcast(
