@@ -63,12 +63,12 @@ class ChangerBroadcast : BroadcastReceiver() {
                 ), calendar.get(Calendar.MONTH) + 1
             )
             if (preferences.getBoolean(Constants.DAY_NICE) == true && rangeDay == "Good") {
-                builder.setContentText("Hom nay la mot ngay tot lanh")
+                builder.setContentText("Today is a good day")
 
                 notificationManager.notify(getNotificationManager(), builder.build())
             }
             if (preferences.getBoolean(Constants.DAY_BAD) == true && rangeDay == "Bad") {
-                builder.setContentText("Hom nay la mot ngay buồn")
+                builder.setContentText("Today is a sad day")
                 notificationManager.notify(getNotificationManager(), builder.build())
             }
         }

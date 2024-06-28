@@ -17,6 +17,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     private lateinit var preferences: Preferences
     private val viewModel: HomeViewModel by viewModels()
+
     override fun getViewBinding(inflater: LayoutInflater): ActivityMainBinding {
         return ActivityMainBinding.inflate(inflater)
     }

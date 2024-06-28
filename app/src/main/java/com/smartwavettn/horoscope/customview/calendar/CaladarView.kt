@@ -80,9 +80,7 @@ class CaladarView(context: Context, attrs: AttributeSet?) : FrameLayout(context,
                 viewTreeObserver.addOnGlobalLayoutListener {
                     onClickSelected?.let { getViewCurrentViewHolder()?.setOnClickItem (it) }
                 }
-
             }
-
         }
 
         binding.back.setOnClickListener {
