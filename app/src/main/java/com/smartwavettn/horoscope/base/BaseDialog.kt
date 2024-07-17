@@ -9,34 +9,34 @@ import android.view.ViewGroup
 
 abstract class BaseDialog(context: Context) : Dialog(context) {
 
-    private var onPositiveButtonClick: (() -> Unit)? = null
-    private var onNegativeButtonClick: (() -> Unit)? = null
+    private var onPositiveClick: (() -> Unit)? = null
+    private var onNegativeClick: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        window?.setBackgroundDrawable( ColorDrawable(Color.TRANSPARENT));
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
     }
 
-    fun setPositiveButtonClickListener(listener: () -> Unit) {
-        onPositiveButtonClick = listener
+    fun setPositiveButtonClickListenerApplication(listener: () -> Unit) {
+        onPositiveClick = listener
     }
 
-    fun setNegativeButtonClickListener(listener: () -> Unit) {
-        onNegativeButtonClick = listener
+    fun setNegativeButtonClickListenerApplication(listener: () -> Unit) {
+        onNegativeClick = listener
     }
 
-    protected fun dismissDialog() {
+    protected fun dismissDialogApplicationApplicationApplicationApplication() {
         dismiss()
     }
 
     protected fun handlePositiveButtonClick() {
-        onPositiveButtonClick?.invoke()
-        dismissDialog()
+        onPositiveClick?.invoke()
+        dismissDialogApplicationApplicationApplicationApplication()
     }
 
     protected open fun handleNegativeButtonClick() {
-        onNegativeButtonClick?.invoke()
-        dismissDialog()
+        onNegativeClick?.invoke()
+        dismissDialogApplicationApplicationApplicationApplication()
     }
 }

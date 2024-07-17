@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -17,6 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Horoscope"
         tools:targetApi="31">
+
+
+        <activity android:name=".ui.inapp.PurchaseActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">
@@ -24,21 +29,25 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+            </intent-filter>
         </activity>
 
-        <receiver android:name=".broadcast.AlarmBroadcastReceiver"
+        <receiver
+            android:name=".broadcast.AlarmBroadcastReceiver"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".broadcast.ChangerBroadcast"
+
+        <receiver
+            android:name=".broadcast.ChangerBroadcast"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ class DailyAdapter( private val click: (Daily, Int) -> Unit) : BaseRecyclerAdapt
             }
 
             if (binding is ItemDailyBinding) {
+
                 binding.title.text = itemData?.title
                 binding.content.text = itemData?.content
                 Glide.with(itemView).load(itemData?.icon).into(binding.image)

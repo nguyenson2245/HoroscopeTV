@@ -11,9 +11,6 @@ class Preferences(var sharedPreferences: SharedPreferences? = null) {
     private val KEY_FIRST_INSTALL = "KEY_FIRST_INSTALL" // coin
     private val INT_ZERO = 0 // coin
 
-    fun setString(key: String, string: String) {
-        sharedPreferences?.edit()?.putString(key, string)?.apply()
-    }
 
     fun setBoolean(key: String, boolean: Boolean) {
         sharedPreferences?.edit()?.putBoolean(key, boolean)?.apply()
@@ -79,4 +76,6 @@ class Preferences(var sharedPreferences: SharedPreferences? = null) {
             ).also { INSTANCE = it }
         }
     }
+
+
 }

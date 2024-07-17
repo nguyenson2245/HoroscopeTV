@@ -140,5 +140,8 @@
     <string name="do_you_want_to_exit">Do you want to exit ?</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
+    <string name="message_purchase_one">%s</string>
+    <string name="notication2">Do you want to watch another day?</string>
+
 
 </resources>

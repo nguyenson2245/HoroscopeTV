@@ -24,7 +24,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun init() {
         preferences = Preferences.getInstance(this)
+
         viewModel.init(this)
+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S_V2)
             openFragment(SplashFragment::class.java, null, false)
         else {

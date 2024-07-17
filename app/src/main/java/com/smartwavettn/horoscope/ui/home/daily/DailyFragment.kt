@@ -1,5 +1,6 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +22,13 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
 
     override fun init() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter = DailyAdapter { _, _ -> }
+        adapter = DailyAdapter { click_, position ->
+
+            Log.d("position", "position: ${click_}")
+            Log.d("position", "position: ${position}")
+
+            
+        }
         binding.rcvDaily.layoutManager = layoutManager
         binding.rcvDaily.adapter = adapter
         binding.rcvDaily.setHasFixedSize(true)

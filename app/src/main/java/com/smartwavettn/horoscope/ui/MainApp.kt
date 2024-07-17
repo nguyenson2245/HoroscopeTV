@@ -8,6 +8,7 @@ class MainApp : Application() {
 
     private lateinit var preferences: Preferences
 
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -16,6 +17,7 @@ class MainApp : Application() {
             preferences.firstInstall = true
             preferences.setInt(Constants.MINUTE, 0)
             preferences.setInt(Constants.HOUR, 10)
+            preferences.setValueCoin(10)
         }
     }
 

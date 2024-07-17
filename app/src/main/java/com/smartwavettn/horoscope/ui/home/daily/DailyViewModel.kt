@@ -82,10 +82,7 @@ class DailyViewModel : ViewModel() {
         listSettings.add(
             Daily(
                 title = "Location of La energy in the body",
-                content = DataJson.getValueByKey(
-                    context = context,
-                    "La_position_in_the_body"
-                ) ?: "",
+                content = DataJson.getValueByKey(context = context, "La_position_in_the_body") ?: "",
                 icon = R.drawable.bodyz
             )
         )

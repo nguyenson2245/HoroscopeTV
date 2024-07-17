@@ -3,8 +3,8 @@ package com.smartwavettn.horoscope.ui.home
 import android.Manifest
 import android.animation.LayoutTransition
 import android.app.AlarmManager
+import android.app.AlertDialog
 import android.app.PendingIntent
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -12,7 +12,6 @@ import android.os.Bundle
 import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -36,6 +35,7 @@ import com.smartwavettn.horoscope.ui.home.daily.DailyFragment
 import com.smartwavettn.horoscope.ui.home.daily.DailyViewModel
 import com.smartwavettn.horoscope.ui.home.moth.MothFragment
 import com.smartwavettn.horoscope.ui.home.year.YearFragment
+import com.smartwavettn.horoscope.ui.inapp.PurchaseActivity
 import com.smartwavettn.horoscope.ui.intro.introSevenFriends.IntroSevenFriendsFragment
 import com.smartwavettn.horoscope.ui.intro.introTwo.IntroTwoFragment
 import com.smartwavettn.horoscope.ui.navigation.friends.FriendsFragment
@@ -45,9 +45,9 @@ import com.smartwavettn.horoscope.ui.navigation.friends.term.TermOfUseFragment
 import com.smartwavettn.horoscope.ui.utils.Constants
 import com.smartwavettn.horoscope.ui.utils.KeyWord
 import com.smartwavettn.scannerqr.base.BaseFragmentWithBinding
+import com.smartwavettn.horoscope.ui.home.dialogSave.DialogSaveSelectApplication
 import java.text.SimpleDateFormat
 import java.util.Calendar
-
 
 class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> Unit,
     View.OnClickListener {
@@ -61,13 +61,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         MothFragment.newInstance(),
         YearFragment.newInstance()
     )
-    private val dailyViewModel : DailyViewModel by activityViewModels()
+    private val dailyViewModel: DailyViewModel by activityViewModels()
 
     private var personalInformation: PersonalInformation? = null
     private lateinit var preferences: Preferences
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: HomeAdapter
+
+
+    private var currentCoin = 0
+
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)
@@ -76,14 +80,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     override fun init() {
 
         context?.let { viewModel.init(it) }
-        dailyViewModel.initData(requireActivity(), Calendar.getInstance().get(Calendar.DAY_OF_MONTH ))
+        dailyViewModel.initData(
+            requireActivity(),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        )
         tabLayout()
         if (context?.checkPermission(Manifest.permission.POST_NOTIFICATIONS) == false) {
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 200)
         }
 
         preferences = Preferences.getInstance(requireActivity())
-
+        currentCoin = preferences.getValueCoin()
         binding.day.onDateListener {
             binding.calendarView.setDaySelect(it)
         }
@@ -91,19 +98,22 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.calendarView.onClickSelected = {
             binding.day.selectDay(it.day.toInt(), it.month.toInt(), it.year.toInt(), true)
             binding.calendarView.dayModel = it
-            dailyViewModel.initData(requireActivity(),it.day.toInt())
+            dailyViewModel.initData(requireActivity(), it.day.toInt())
         }
     }
 
     override fun initData() {
         viewModel.init(requireActivity())
         binding.menu.btnlunaDay.isChecked = preferences.getBoolean(Constants.LUNAR) ?: false
-        binding.menu.btnCuttinghair.isChecked = preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
+        binding.menu.btnCuttinghair.isChecked =
+            preferences.getBoolean(Constants.CUTTING_HAIR) ?: false
         binding.menu.btnTravel.isChecked = preferences.getBoolean(Constants.TRAVEL) ?: false
         binding.menu.lunaNotification.isChecked = preferences.getBoolean(Constants.NOTICES) ?: false
 
-        binding.menu.noAniceDayNotification.isChecked = preferences.getBoolean(Constants.DAY_NICE) ?: false
-        binding.menu.abedDayNotification.isChecked = preferences.getBoolean(Constants.DAY_BAD) ?: false
+        binding.menu.noAniceDayNotification.isChecked =
+            preferences.getBoolean(Constants.DAY_NICE) ?: false
+        binding.menu.abedDayNotification.isChecked =
+            preferences.getBoolean(Constants.DAY_BAD) ?: false
 
         viewModel.getTime { binding.menu.timeNoti.text = it }
 
@@ -116,7 +126,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                         txtName.text = personal.name
                         txtDate.text = personal.date
                     }
-                    menu.drawerHeaderProifile.txZoadic.text = "Zodiac :"+ Constants.signs.get(Constants.getPositionZodiac((SimpleDateFormat("dd/MM/yyyy").parse(personal.date))))                }
+                    menu.drawerHeaderProifile.txZoadic.text = "Zodiac :" + Constants.signs.get(
+                        Constants.getPositionZodiac(
+                            (SimpleDateFormat("dd/MM/yyyy").parse(personal.date))
+                        )
+                    )
+                }
                 if (personal.icon != 0) {
                     binding.menu.drawerHeaderProifile.image.setImageResource(personal.icon)
                     binding.profileHeader.image.setImageResource(personal.icon)
@@ -176,19 +191,32 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
         binding.menu.lunaNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.NOTICES, isChecked)
-            if (isChecked) setAlarmManager(200, AlarmBroadcastReceiver::class.java) else cancelAlarm(200, AlarmBroadcastReceiver::class.java)
+            if (isChecked) setAlarmManager(
+                200,
+                AlarmBroadcastReceiver::class.java
+            ) else cancelAlarm(200, AlarmBroadcastReceiver::class.java)
         }
 
         binding.menu.noAniceDayNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.DAY_NICE, isChecked)
-            if (isChecked) setAlarmManager(300, ChangerBroadcast::class.java) else cancelAlarm(300, ChangerBroadcast::class.java)
+            if (isChecked) setAlarmManager(300, ChangerBroadcast::class.java) else cancelAlarm(
+                300,
+                ChangerBroadcast::class.java
+            )
         }
 
         binding.menu.abedDayNotification.setOnCheckedChangeListener { _, isChecked ->
             preferences.setBoolean(Constants.DAY_BAD, isChecked)
-            if (isChecked) setAlarmManager(400, ChangerBroadcast::class.java) else cancelAlarm(400, ChangerBroadcast::class.java)
-
+            if (isChecked) setAlarmManager(400, ChangerBroadcast::class.java) else cancelAlarm(
+                400,
+                ChangerBroadcast::class.java
+            )
         }
+
+        binding.profileHeader.btnStore.click {
+            startActivity(Intent(requireActivity(), PurchaseActivity::class.java))
+        }
+
     }
 
     private fun tabLayout() {
@@ -200,10 +228,57 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         adapter.setData(listFragment)
         binding.tabLayout.setupWithViewPager(binding.viewPager)
         binding.viewPager.measureCurrentView(listFragment[0].view)
+
         binding.viewPager.viewTreeObserver.addOnGlobalLayoutListener {
             binding.viewPager.measureCurrentView(listFragment[binding.viewPager.currentItem].view)
         }
     }
+
+//    private fun openDialogStore() {
+//        val dialog = DialogSaveSelectApplication(
+//            requireContext(),
+//            getString(R.string.anser_grant_permission) + "\n" + getString(R.string.goto_setting_and_grant_permission)
+//        )
+//
+//        //yes
+//        dialog.setPositiveButtonClickListenerApplication {
+//        }
+//
+//        //no
+//        dialog.setNegativeButtonClickListenerApplication {
+//
+//            val alertDialog = AlertDialog.Builder(context)
+//            alertDialog.apply {
+//                setTitle("Purchase confirmation")
+//                setMessage("Would you like to pay 1 gold to use this feature ?")
+//                setPositiveButton(
+//                    "Yes"
+//                ) { dialogInterface, which ->
+//                    if (currentCoin >= 1) {
+//                        currentCoin -= 1
+//                        binding.profileHeader.tvCurrentCoin.text = currentCoin.toString()
+//                        preferences.setValueCoin(currentCoin)
+//
+//                        //lam gi do
+//                    } else {
+//                        toast("You do not have enough gold to perform this feature !")
+//                        startActivity(Intent(context, PurchaseActivity::class.java))
+//                    }
+//                }
+//                setNegativeButton(
+//                    "No"
+//                ) { dialog, which ->
+//                    dialog.dismiss()
+//                }
+//            }
+//
+//            val dialog = alertDialog.create()
+//            dialog.show()
+//
+//        }
+//
+//        dialog.show()
+//    }
 
     override fun invoke(view: View) {
         when (view.id) {
@@ -215,16 +290,17 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 CustomPopup.showPopupMenu(
                     it1,
                     list, view
-                ) {position, isAdd ->
-                    if (isAdd){
-                    val bundle = Bundle()
-                    bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
-                    openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
-                    }else{
+                ) { position, isAdd ->
+                    if (isAdd) {
+                        val bundle = Bundle()
+                        bundle.putString(KeyWord.checkFragmentFriends, KeyWord.addFriends)
+                        openFragment(IntroSevenFriendsFragment::class.java, bundle, true)
+                    } else {
                         viewModel.getListData().forEach {
                             if (it.isSelect) {
                                 it.isSelect = false
-                        viewModel.updateProfile(it)}
+                                viewModel.updateProfile(it)
+                            }
                             viewModel.updateProfile(
                                 viewModel.getListData().get(position + 1).apply { isSelect = true })
                         }
@@ -248,8 +324,12 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             )
 
             R.id.contact -> {
-                viewModel.openEmailApp()
-                binding.drawer.closeDrawers()
+                try {
+                    viewModel.openEmailApp()
+                    binding.drawer.closeDrawers()
+                } catch (e: Throwable) {
+
+                }
             }
 
             R.id.introduce -> openFragmentCloseDrawer(
@@ -272,6 +352,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
                 bundle.putSerializable(KeyWord.profilePersona, personalInformation)
                 openFragmentCloseDrawer(IntroTwoFragment::class.java, bundle, true)
             }
+
         }
     }
 
@@ -298,8 +379,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         binding.menu.btnLanguage.setImageResource(
             if (binding.menu.itemLanguage.isVisible) R.drawable.soo else R.drawable.soo2
         )
-        val v =
-            if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
+        val v = if (binding.menu.itemLanguage.visibility == View.GONE) View.VISIBLE else View.GONE
         TransitionManager.beginDelayedTransition(binding.menu.view1, AutoTransition())
         binding.menu.itemLanguage.visibility = v
     }
@@ -315,7 +395,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val intent = Intent(requireActivity(), clazz)
         val pendingIntent =
-            PendingIntent.getBroadcast(context,
+            PendingIntent.getBroadcast(
+                context,
                 requestCode,
                 intent,
                 PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -347,7 +428,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
-    private fun cancelAlarm(requestCode: Int , clazz: Class<*>) {
+    private fun cancelAlarm(requestCode: Int, clazz: Class<*>) {
         val alarmManager =
             context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
         val intent = Intent(requireActivity(), clazz)
