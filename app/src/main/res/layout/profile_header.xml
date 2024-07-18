@@ -49,37 +49,37 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/btn_store"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            >
+<!--        <LinearLayout-->
+<!--            android:id="@+id/btn_store"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            >-->
 
-            <TextView
-                android:id="@+id/tv_current_coin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_15sdp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:text="0"
-                android:textColor="@color/color_orange"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+<!--            <TextView-->
+<!--                android:id="@+id/tv_current_coin"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginStart="@dimen/_15sdp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:text="0"-->
+<!--                android:textColor="@color/color_orange"-->
+<!--                android:textSize="18sp"-->
+<!--                android:textStyle="bold" />-->
 
-            <ImageView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_22sdp"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:padding="3dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/coin2" />
+<!--            <ImageView-->
+<!--                android:layout_width="@dimen/_25sdp"-->
+<!--                android:layout_height="@dimen/_22sdp"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginStart="@dimen/_5sdp"-->
+<!--                android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                android:padding="3dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                android:src="@drawable/coin2" />-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
         <ImageView
             android:id="@+id/menuProfileHeader"

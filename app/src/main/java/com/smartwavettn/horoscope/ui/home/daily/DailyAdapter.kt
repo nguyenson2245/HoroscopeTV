@@ -1,6 +1,5 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.bumptech.glide.Glide
@@ -38,7 +37,6 @@ class DailyAdapter( private val click: (Daily, Int) -> Unit, val clickOpenLock:(
                 val starList = mutableListOf<Int>()
 
                 repeat(goldStars) { starList.add(R.drawable.sv) }
-
                 repeat(whiteStars) { starList.add(R.drawable.st) }
 
                 binding.rate.setImageResource(starList[0])
@@ -87,6 +85,4 @@ class DailyAdapter( private val click: (Daily, Int) -> Unit, val clickOpenLock:(
         const val TYPE_TITLE = 0
         const val TYPE_TITLE_CONTENT = 1
     }
-
-
 }
