@@ -107,7 +107,10 @@
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="#FABDBDBD"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_bg_item"
+            android:orientation="vertical"
+            android:padding="@dimen/_16dp"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
             app:layout_constraintStart_toStartOf="@+id/linearLayout3"
@@ -118,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Nhấp để mở khoá"
-                android:textColor="@color/black" />
+                android:textColor="@color/blu" />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

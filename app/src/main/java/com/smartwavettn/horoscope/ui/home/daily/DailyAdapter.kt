@@ -1,5 +1,6 @@
 package com.smartwavettn.horoscope.ui.home.daily
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import com.bumptech.glide.Glide
@@ -53,7 +54,6 @@ class DailyAdapter( private val click: (Daily, Int) -> Unit, val clickOpenLock:(
                     clickOpenLock.invoke(adapterPosition)
                 }
             }
-
             onItemClickListener {position
                 itemData?.let { data ->
                     click.invoke(data,position)

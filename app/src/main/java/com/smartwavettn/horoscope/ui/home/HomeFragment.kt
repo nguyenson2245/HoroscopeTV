@@ -12,6 +12,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.transition.AutoTransition
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.GravityCompat
@@ -69,15 +70,19 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapter: HomeAdapter
 
-
     private var currentCoin = 0
-
 
     override fun getViewBinding(inflater: LayoutInflater): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater)
     }
 
     override fun init() {
+        preferences = Preferences.getInstance(requireActivity())!!
+        currentCoin = preferences.getValueCoin()
+
+        Log.d("currentCoin", "onCreate: $currentCoin")
+
+        binding.profileHeader.tvCurrentCoin.text = preferences.getValueCoin().toString()
 
         context?.let { viewModel.init(it) }
         dailyViewModel.initData(
@@ -89,8 +94,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 200)
         }
 
-        preferences = Preferences.getInstance(requireActivity())
-        currentCoin = preferences.getValueCoin()
         binding.day.onDateListener {
             binding.calendarView.setDaySelect(it)
         }
@@ -149,6 +152,7 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
 
             }
         }
+
     }
 
     override fun initAction() {
@@ -217,6 +221,8 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
             startActivity(Intent(requireActivity(), PurchaseActivity::class.java))
         }
 
+
+
     }
 
     private fun tabLayout() {
@@ -234,51 +240,6 @@ class HomeFragment : BaseFragmentWithBinding<FragmentHomeBinding>(), (View) -> U
         }
     }
 
-//    private fun openDialogStore() {
-//        val dialog = DialogSaveSelectApplication(
-//            requireContext(),
-//            getString(R.string.anser_grant_permission) + "\n" + getString(R.string.goto_setting_and_grant_permission)
-//        )
-//
-//        //yes
-//        dialog.setPositiveButtonClickListenerApplication {
-//        }
-//
-//        //no
-//        dialog.setNegativeButtonClickListenerApplication {
-//
-//            val alertDialog = AlertDialog.Builder(context)
-//            alertDialog.apply {
-//                setTitle("Purchase confirmation")
-//                setMessage("Would you like to pay 1 gold to use this feature ?")
-//                setPositiveButton(
-//                    "Yes"
-//                ) { dialogInterface, which ->
-//                    if (currentCoin >= 1) {
-//                        currentCoin -= 1
-//                        binding.profileHeader.tvCurrentCoin.text = currentCoin.toString()
-//                        preferences.setValueCoin(currentCoin)
-//
-//                        //lam gi do
-//                    } else {
-//                        toast("You do not have enough gold to perform this feature !")
-//                        startActivity(Intent(context, PurchaseActivity::class.java))
-//                    }
-//                }
-//                setNegativeButton(
-//                    "No"
-//                ) { dialog, which ->
-//                    dialog.dismiss()
-//                }
-//            }
-//
-//            val dialog = alertDialog.create()
-//            dialog.show()
-//
-//        }
-//
-//        dialog.show()
-//    }
 
     override fun invoke(view: View) {
         when (view.id) {

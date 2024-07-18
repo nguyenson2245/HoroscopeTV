@@ -6,18 +6,18 @@ import com.smartwavettn.horoscope.ui.utils.Constants
 
 class MainApp : Application() {
 
-    private lateinit var preferences: Preferences
+    var preferences: Preferences? = null
 
 
     override fun onCreate() {
         super.onCreate()
         instance = this
         preferences = Preferences.getInstance(this)
-        if (!preferences.firstInstall) {
-            preferences.firstInstall = true
-            preferences.setInt(Constants.MINUTE, 0)
-            preferences.setInt(Constants.HOUR, 10)
-            preferences.setValueCoin(10)
+        if (preferences?.firstInstall==false) {
+            preferences?.firstInstall = true
+            preferences?.setInt(Constants.MINUTE, 0)
+            preferences?.setInt(Constants.HOUR, 10)
+            preferences?.setValueCoin(10)
         }
     }
 
