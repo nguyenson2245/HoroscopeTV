@@ -6,12 +6,15 @@ import com.bumptech.glide.Glide
 import com.smartwavettn.horoscope.R
 import com.smartwavettn.horoscope.base.recyclerview.BaseRecyclerAdapter
 import com.smartwavettn.horoscope.base.recyclerview.BaseViewHolder
+import com.smartwavettn.horoscope.base.utils.click
+import com.smartwavettn.horoscope.base.utils.gone
+import com.smartwavettn.horoscope.base.utils.visible
 import com.smartwavettn.horoscope.databinding.ItemDailyBinding
 import com.smartwavettn.horoscope.databinding.ItemTitleDailyBinding
 import com.smartwavettn.horoscope.model.Daily
 import kotlin.random.Random
 
-class DailyAdapter( private val click: (Daily, Int) -> Unit) : BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
+class DailyAdapter( private val click: (Daily, Int) -> Unit, val clickOpenLock:(Int)-> Unit) : BaseRecyclerAdapter<Daily, DailyAdapter.DailyViewHolder>() {
 
     inner class DailyViewHolder(val binding: ViewDataBinding) : BaseViewHolder<Daily>(binding) {
         override fun bind(itemData: Daily?) {
@@ -42,6 +45,13 @@ class DailyAdapter( private val click: (Daily, Int) -> Unit) : BaseRecyclerAdapt
                 binding.rate2.setImageResource(starList[2])
                 binding.rate3.setImageResource(starList[3])
                 binding.rate4.setImageResource(starList[4])
+
+                if (itemData?.lock == true)
+                    binding.view.visible()
+                else binding.view.gone()
+                binding.view.click {
+                    clickOpenLock.invoke(adapterPosition)
+                }
             }
 
             onItemClickListener {position

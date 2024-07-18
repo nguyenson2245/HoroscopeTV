@@ -64,7 +64,8 @@ class DailyViewModel : ViewModel() {
                     context = context,
                     "Haircut-Day-${(position % 30)+1}"
                 ) ?: "",
-                icon = R.drawable.cuttinghairz
+                icon = R.drawable.cuttinghairz,
+                lock = true
             )
         )
 
@@ -75,7 +76,8 @@ class DailyViewModel : ViewModel() {
                     context = context,
                     "Sources-${(position % 18)+ 1}"
                 ) ?: "",
-                icon = R.drawable.clothing
+                icon = R.drawable.clothing,
+                lock = true
             )
         )
 
@@ -83,9 +85,14 @@ class DailyViewModel : ViewModel() {
             Daily(
                 title = "Location of La energy in the body",
                 content = DataJson.getValueByKey(context = context, "La_position_in_the_body") ?: "",
-                icon = R.drawable.bodyz
+                icon = R.drawable.bodyz,
+                lock =  true
             )
         )
+        listAddSettings.postValue(listSettings)
+    }
+    fun openLock(position: Int){
+        listSettings.get(position).lock = false
         listAddSettings.postValue(listSettings)
     }
 

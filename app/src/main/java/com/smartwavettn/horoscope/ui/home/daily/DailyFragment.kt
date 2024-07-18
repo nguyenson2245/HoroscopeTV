@@ -22,13 +22,13 @@ class DailyFragment : BaseFragmentWithBinding<FragmentDailyBinding>() {
 
     override fun init() {
         val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        adapter = DailyAdapter { click_, position ->
-
+        adapter = DailyAdapter( { click_, position ->
             Log.d("position", "position: ${click_}")
             Log.d("position", "position: ${position}")
 
-            
-        }
+        },{
+            viewModel.openLock(it)
+        })
         binding.rcvDaily.layoutManager = layoutManager
         binding.rcvDaily.adapter = adapter
         binding.rcvDaily.setHasFixedSize(true)
