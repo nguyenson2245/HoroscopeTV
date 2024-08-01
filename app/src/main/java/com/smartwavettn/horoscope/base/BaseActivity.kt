@@ -21,8 +21,13 @@ abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = getViewBinding(layoutInflater)
         setContentView(binding.root)
-        setUpDialogLoading()
-        init()
+
+
+        try {
+            setUpDialogLoading()
+            init()
+        } catch (e: Throwable) {
+        }
     }
 
     abstract fun getViewBinding(inflater: LayoutInflater): VB

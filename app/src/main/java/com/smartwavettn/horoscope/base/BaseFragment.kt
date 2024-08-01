@@ -12,7 +12,8 @@ import com.smartwavettn.horoscope.base.utils.hideKeyboard
 
 
 abstract class BaseFragment : Fragment() {
-    private var activity : BaseActivity<*>? = null
+    private var activity: BaseActivity<*>? = null
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -21,13 +22,17 @@ abstract class BaseFragment : Fragment() {
             v.clearFocus()
             true
         })
-        activity = requireActivity() as BaseActivity<*>
-        init()
-        initData()
-        initAction()
+        try {
+            activity = requireActivity() as BaseActivity<*>
+            init()
+            initData()
+            initAction()
+        } catch (e: Throwable) {
+        }
     }
 
-    fun openFragment(fragmentClazz: Class<*>, args: Bundle?,
+    fun openFragment(
+        fragmentClazz: Class<*>, args: Bundle?,
         addBackStack: Boolean
     ) {
         activity?.openFragment(fragmentClazz, args, addBackStack)
@@ -36,6 +41,7 @@ abstract class BaseFragment : Fragment() {
     fun toast(text: String) {
         Toast.makeText(requireContext(), text, Toast.LENGTH_LONG).show()
     }
+
     fun onBackPressed() {
         activity?.onBackPressed()
     }
