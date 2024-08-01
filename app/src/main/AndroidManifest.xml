@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="com.android.vending.BILLING" />
+
     <application
         android:name=".ui.MainApp"
         android:allowBackup="true"
